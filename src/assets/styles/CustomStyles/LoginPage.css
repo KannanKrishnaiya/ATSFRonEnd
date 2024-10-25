@@ -1,0 +1,148 @@
+/* .login-block{
+    float:left;
+    width:100%;
+    padding : 50px 0;
+}
+
+.container{background:#D3D3D3; border-radius: 10px; width: 40%; height: 40%;}
+.login-sec{padding: 50px 30px; position:relative;}
+.login-sec h2{margin-bottom:30px; font-weight:800; font-size:30px; color: #0069c0;}
+.login-sec h2:after{content:" "; width:100px; height:5px; background:#6ec6ff; display:block; margin-top:20px; border-radius:3px; margin-left:auto;margin-right:auto}
+.btn-login{background: #0069c0; color:#fff; font-weight:600;} */
+.LoginPagebox input[type="text"] {
+  font-size: 12px;
+}
+
+.text-danger {
+  color: orangered;
+  padding: 0px 0px 10px 0px;
+}
+
+.Loginbody {
+  margin: 0;
+  padding: 0;
+  background-image: url(../../../assets/Logo/BackGround.jpg);
+  background-size: cover;
+  /* width: 100px; */
+
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+}
+
+.LoginPagebox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20rem;
+  padding: 2.5rem;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 0.625rem;
+}
+
+/* .RegisterPagebox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  padding: 10px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 0.625rem;
+} */
+
+.LoginPagebox h2,
+.RegisterPagebox h2 {
+  margin: 0 0 1.875rem;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.LoginPagebox h5,
+.RegisterPagebox h5 {
+  color: #fff;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.LoginPagebox .inputBox,
+.RegisterPagebox .inputBox {
+  position: relative;
+}
+
+.LoginPagebox .inputBox input,
+.RegisterPagebox .inputBox input {
+  width: 100%;
+  padding: 0.625rem 0;
+  font-size: 12px;
+  color: #fff;
+  letter-spacing: 0.062rem;
+  margin-bottom: 5px;
+  border: none;
+  border-bottom: 0.065rem solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+.LoginPagebox .inputBox label,
+.RegisterPagebox .inputBox label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.625rem 0;
+  font-size: 1rem;
+  color: #fff;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.LoginPagebox .inputBox input:focus ~ label,
+.LoginPagebox .inputBox input:valid ~ label,
+.LoginPagebox .inputBox input:not([value=""]) ~ label,
+.RegisterPagebox .inputBox input:focus ~ label,
+.RegisterPagebox .inputBox input:valid ~ label,
+.RegisterPagebox .inputBox input:not([value=""]) ~ label {
+  top: -1.125rem;
+  left: 0;
+  color: e3ecf0;
+  font-size: 0.75rem;
+}
+
+.LoginPagebox input[type="submit"],
+.RegisterPagebox input[type="submit"] {
+  border: none;
+  outline: none;
+  color: #fff;
+  background-color: #03a9f4;
+  padding: 0.625rem 1.25rem;
+  cursor: pointer;
+  border-radius: 0.312rem;
+  font-size: 1rem;
+}
+
+.LoginPagebox input[type="submit"]:hover,
+.RegisterPagebox input[type="submit"]:hover {
+  background-color: #1cb1f5;
+}
+
+/* Create two equal columns that floats next to each other */
+.RegisterPageDivColumn {
+  float: left;
+  width: 50%;
+  padding: 15px;
+}
+
+/* Clear floats after the columns */
+.RegisterPageDivRow:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.RegisterPageDivButton {
+  text-align: center;
+}

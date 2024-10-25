@@ -1,0 +1,308 @@
+/* Create four equal columns that floats next to each other */
+.row {
+  margin-top: 0px !important;
+}
+.DashboardColumn {
+  float: left;
+  /* width: 20%; */
+  width: 17%;
+  padding: 15px;
+}
+.DashboardColumn span {
+  font-size: 16px;
+  padding: 3px;
+  margin-left: 5px;
+  font-weight: bold;
+  color: #fafafa;
+}
+
+/* ######################################## */
+.DashBoardBody {
+  margin-top: 20px;
+  background: #fafafa;
+}
+.order-card {
+  color: #fff;
+}
+
+.bg-c-blue {
+  /* background: linear-gradient(45deg, #4099ff, #73b4ff); */
+  background-color: #00073d;
+}
+
+.bg-c-green {
+  /* background: linear-gradient(45deg, #2ed8b6, #59e0c5); */
+  background-color: #00073d;
+}
+
+.bg-c-yellow {
+  /* background: linear-gradient(45deg, #ffb64d, #ffcb80); */
+  background-color: #00073d;
+}
+
+.bg-c-pink {
+  /* background: linear-gradient(45deg, #ff5370, #ff869a); */
+  background-color: #00073d;
+}
+.bg-c-darkgreen {
+  /* background: linear-gradient(45deg, #28c36c, #2ba990); */
+  background-color: #00073d;
+}
+.bg-c-darkgray {
+  /* background: linear-gradient(45deg, #00acf0, #6640b2); */
+  background-color: #00073d;
+}
+.bg-c-darkhash {
+  /* background: linear-gradient(45deg, #ffbf36, #ff6028); */
+  background-color: #00073d;
+}
+.bg-c-darkbrown {
+  /* background: linear-gradient(45deg, #8cb6ca, #532e23); */
+  background-color: #00073d;
+}
+.Dashboardcard {
+  border-radius: 5px;
+  color: #b7b9d0;
+  box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  border: 1px solid #a2a9c2;
+  /* margin-bottom: 30px; */
+  transition: all 0.3s ease-in-out;
+  min-height: 115px;
+  height: auto;
+}
+
+.Dashboardcard .Dashboardcard-block {
+  padding: 15px;
+}
+
+.order-card i {
+  font-size: 26px;
+}
+
+.f-left {
+  float: left;
+}
+
+.f-right {
+  float: right;
+}
+.flex-container {
+  display: flex;
+  flex-wrap: nowrap;
+  font-size: 25px;
+  /* padding: 5px; */
+  justify-content: space-between;
+}
+.flex-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* background-color: DodgerBlue; */
+}
+.flexCenter {
+  flex: 1;
+  text-align: center;
+  color: #e5e6f0;
+}
+.flexCenter > span {
+  font-size: 25px !important;
+  font-weight: bold;
+}
+.flexCenter > span > input {
+  font-size: 25px !important;
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+  width: 100px;
+}
+.flexRight {
+  margin-left: auto;
+}
+.flexRight > span {
+  font-size: 15px !important;
+  font-weight: bold;
+}
+.DashboardCardTitle {
+  font-size: 14px;
+  margin-left: 5px;
+  padding: 3px;
+  height: auto;
+  min-height: 40px;
+}
+
+.DashboardCardContent > span {
+  font-size: 15px !important;
+}
+.DashboardBank_DropDownDiv {
+  /* border-radius: 5px; */
+  height: auto;
+  /* background: linear-gradient(45deg, #563dc0, #c48338); */
+  margin: 15px 5px;
+  background-color: #00073d;
+  border: 1px solid #a2a9c2;
+}
+/* .FormControl_Select {
+  border: 1px solid #ccc;
+  height: 25px;
+} */
+.DashboardPopup {
+  background: linear-gradient(45deg, #563dc0, #c48338);
+}
+#DashboardPopupTable {
+  border-collapse: collapse;
+  /* width: auto; */
+  font-size: 14px;
+  display: block;
+  height: 500px;
+  overflow-y: scroll;
+  font-weight: 500;
+  height: auto;
+  max-height: 500px;
+  /* max-width: 60%; */
+  max-width: 80em;
+}
+
+#DashboardPopupTable td,
+#DashboardPopupTable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#DashboardPopupTable tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#DashboardPopupTable tr:hover {
+  background-color: #ddd;
+}
+
+#DashboardPopupTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #36304a;
+  color: white;
+}
+.popup-content {
+  width: auto !important;
+}
+
+.DashboardModal {
+  font-size: 12px;
+}
+.DashboardModal > .header {
+  width: 100%;
+  border-bottom: 1px solid gray;
+  font-size: 18px;
+  text-align: center;
+  padding: 5px;
+}
+.DashboardModal > .content {
+  width: 100%;
+  padding: 10px 5px;
+}
+.DashboardModal > .actions {
+  width: 100%;
+  padding: 10px 5px;
+  margin: auto;
+  text-align: center;
+}
+.DashboardModal > .Controls {
+  height: 30px;
+  width: 60px;
+  position: absolute;
+  display: block;
+  line-height: 5px;
+  right: -1px;
+  top: -30px;
+  font-size: 25px;
+  background: #ffffff;
+  border-radius: 5px 5px 0 0;
+  border: 1px solid #cfcece;
+}
+.DashboardModal > .close {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  line-height: 20px;
+  right: -2px;
+  top: -30px;
+  font-size: 33px;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #cfcece;
+}
+.DashboardModal > .Export {
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  position: absolute;
+  display: block;
+  padding: 2px 5px;
+  line-height: 20px;
+  right: 30px;
+  top: -30px;
+  font-size: 20px;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #cfcece;
+}
+
+.LabelDashboardDropDown {
+  color: #ffffff;
+  display: block;
+  padding: 0 0 10px;
+}
+.DashboardIcons {
+  cursor: pointer;
+}
+/* ################################# */
+.DashboardPopupAccordian {
+  border: 1px solid #f2f4f8;
+  margin: 1px;
+  font-size: 12px;
+}
+.css-1fx8m19 {
+  color: #ffffff !important;
+}
+.DashboardPopupAccordian
+  .css-1f773le-MuiButtonBase-root-MuiAccordionSummary-root.Mui-expanded {
+  background-color: #36304a;
+  color: white;
+  height: 20px !important;
+  min-height: 30px !important;
+}
+.DashboardPopupAccordian
+  .css-1f773le-MuiButtonBase-root-MuiAccordionSummary-root {
+  height: 30px !important;
+  min-height: 30px !important;
+}
+.DashboardPopupAccordian .css-i4bv87-MuiSvgIcon-root {
+  color: #ffffff;
+}
+
+.DashboardPopupAccordian .css-ahj2mt-MuiTypography-root {
+  margin: 0;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 12px !important;
+  line-height: 1.5;
+  letter-spacing: 0.00938em !important;
+}
+.DashboardPopupAccordian_header {
+  min-height: 20px !important;
+  background-color: #36304a;
+  color: #ffffff;
+  height: auto;
+}
+/* ######################################## */
+
+.DataTableIcons {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  margin: 0 2px;
+}

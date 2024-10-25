@@ -1,0 +1,111 @@
+.text-danger {
+  color: orangered;
+  padding: 0px 0px 10px 0px;
+}
+
+/* .RegisterPagebox {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  padding: 10px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 0.625rem;
+} */
+/* .RegisterPagebox { */
+/* position: absolute;
+  top: 50%;
+  left: 50%;
+  /* transform: translate(-50%, -50%); */
+/* width: 60%; */
+/* padding: 10px; */
+/* box-sizing: border-box; */
+/* background: rgba(0, 0, 0, 0.6); */
+/* border-radius: 0.625rem; */
+/* } */
+
+/* .RegisterPagebox h2 {
+  margin: 0 0 1.875rem;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.RegisterPagebox h5 {
+  color: #fff;
+  text-align: center;
+  margin-top: 20px;
+} */
+
+.UserRegisterPagebox .inputBox {
+  position: relative;
+}
+
+/* .LoginPagebox .inputBox input,
+.RegisterPagebox .inputBox input {
+  width: 100%;
+  padding: 0.625rem 0;
+  font-size: 12px;
+  color: #fff;
+  letter-spacing: 0.062rem;
+  margin-bottom: 5px;
+  border: none;
+  border-bottom: 0.065rem solid #fff;
+  outline: none;
+  background: transparent;
+} */
+
+.UserRegisterPagebox .inputBox label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.625rem 0;
+  font-size: 1rem;
+  color: #fff;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.UserRegisterPagebox .inputBox input:focus ~ label,
+.UserRegisterPagebox .inputBox input:valid ~ label,
+.UserRegisterPagebox .inputBox input:not([value=""]) ~ label {
+  top: -1.125rem;
+  left: 0;
+  color: e3ecf0;
+  font-size: 0.75rem;
+}
+
+.UserRegisterPagebox input[type="submit"] {
+  border: none;
+  outline: none;
+  color: #fff;
+  background-color: #03a9f4;
+  padding: 0.625rem 1.25rem;
+  cursor: pointer;
+  border-radius: 0.312rem;
+  font-size: 1rem;
+}
+
+.UserRegisterPagebox input[type="submit"]:hover {
+  background-color: #1cb1f5;
+}
+
+/* Create two equal columns that floats next to each other */
+.UserRegisterPageDivColumn {
+  float: left;
+  width: 50%;
+  padding: 15px;
+}
+
+/* Clear floats after the columns */
+.UserRegisterPageDivRow:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.UserRegisterPageDivButton {
+  text-align: center;
+}

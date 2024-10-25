@@ -1,0 +1,230 @@
+input[type="text"] {
+  font-size: 14px;
+}
+
+/* Create four equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 25%;
+  padding: 5px;
+  height: auto;
+}
+
+.row {
+  margin-top: 10px;
+  /* padding: 10px; */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the four columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
+}
+
+/* ################################## */
+
+.FormControl_input {
+  display: block;
+  outline: none;
+  border: none;
+  height: 30px;
+  width: 100%;
+  margin-top: 5px;
+  background-color: #252b3b;
+  color: #c8cdda;
+  border: 1px solid #48529d;
+  padding: 5px;
+}
+
+::-webkit-calendar-picker-indicator {
+  width: 15px;
+  padding: 0px;
+  margin: 0px 5px;
+  color: #ffffff;
+  filter: invert(1);
+}
+
+.FormControl_input_New {
+  display: block;
+  outline: none;
+  border: none;
+  height: 30px;
+  width: 100%;
+  margin-top: 5px;
+  border-bottom: 2px solid #333;
+  background-color: #252b3b;
+  color: #c8cdda;
+  border: 1px solid #48529d;
+}
+
+span {
+  font-size: 12px;
+  font-weight: 500;
+}
+.FormControl_input:focus {
+  border-bottom: 1px solid #0572ce;
+  box-shadow: 0 1px 0 0 #0572ce;
+}
+
+.FormControl_TextArea {
+  display: block;
+  outline: none;
+  border: none;
+  height: auto;
+  width: 100%;
+  margin-bottom: 1px;
+  border-bottom: 2px solid #333;
+  padding: 5px;
+  font-size: 14px;
+  min-height: 10em;
+}
+.FormControl_TextArea_New {
+  display: block;
+  outline: none;
+  border: none;
+  height: auto;
+  width: 100%;
+  margin-bottom: 1px;
+  border-bottom: 2px solid #333;
+  padding: 5px;
+  font-size: 14px;
+  min-height: 15em;
+  background-color: #36345c;
+  color: #c8cdda;
+  border: 1px solid #48529d;
+}
+.FormControl_TextArea:focus {
+  border-bottom: 1px solid #0572ce;
+  box-shadow: 0 1px 0 0 #0572ce;
+}
+
+.container {
+  padding-top: 30px;
+}
+.ppDate {
+  height: 38px;
+  font-size: 12px;
+  padding-left: 6px;
+}
+.ppDate::-webkit-inner-spin-button,
+.ppDate::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+.ppDate:focus::-webkit-calendar-picker-indicator,
+.ppDate:hover::-webkit-calendar-picker-indicator {
+  display: block;
+  -webkit-appearance: menulist;
+}
+.ppDate::-webkit-clear-button {
+  display: none;
+  -webkit-appearance: none;
+}
+.constrained {
+  max-width: 160px;
+}
+.FormControl_Select {
+  border: 1px solid #48529d;
+  height: 25px;
+  width: 100%;
+  /* min-width: 100%; */
+  /* font-size: 14px; */
+  margin-top: 5px;
+  background-color: #252b3b;
+  color: #c8cdda;
+  height: 30px;
+}
+
+/* input[type="date"]::-webkit-calendar-picker-indicator {
+  width: 15px;
+  padding: 0px;
+  margin: 0px;
+  margin-top: 10px;
+} */
+
+/* CSS */
+.button-Edit {
+  align-items: center;
+  appearance: button;
+  background-color: #0276ff;
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  /* font-family: "RM Neue", sans-serif; */
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+  padding: 10px 21px;
+  text-align: center;
+  text-transform: none;
+  transition: color 0.13s ease-in-out, background 0.13s ease-in-out,
+    opacity 0.13s ease-in-out, box-shadow 0.13s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-Edit:active {
+  background-color: #006ae8;
+}
+
+.button-Edit:hover {
+  background-color: #1c84ff;
+}
+/* ############################# */
+.DivContainer {
+  box-shadow: 0 4px 8px 0 rgb(57 60 73 / 20%), 0 6px 20px 0 rgb(2 10 39 / 19%);
+  max-width: auto;
+  width: 100%;
+  border-radius: 5px;
+  background-color: #00073d;
+  border: 1px solid #a2a9c2;
+}
+
+.DivContainer-Reports {
+  box-shadow: 0 4px 8px 0 rgb(57 60 73 / 20%), 0 6px 20px 0 rgb(2 10 39 / 19%);
+  max-width: auto;
+  width: 100%;
+  border-radius: 5px;
+  background-color: #00073d;
+  border: 1px solid #a2a9c2;
+}
+
+.DivDataTable {
+  margin-top: 10px;
+}
+/* ##################################### */
+
+.MUI_DataTable {
+  max-width: 100%;
+}
+
+.MuiTableBody-root {
+  font-size: 15px !important;
+}
+
+/* Reports */
+.ReportsColumn {
+  float: left;
+  /* width: 20%; */
+  width: 17%;
+  padding: 0 15px;
+}
+
+.RadioLabel {
+  margin: 5px;
+}

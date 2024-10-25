@@ -1,0 +1,37 @@
+.LoggedInUserDetailsTab {
+  background-color: #00073d;
+  /* #455172; */
+  height: auto;
+  /* max-height: 12vh; */
+}
+
+.wrap {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 10px 5px;
+}
+
+.CompanyLogo {
+  width: 100px;
+  height: 30px;
+}
+.CompanyLogo_Login {
+  width: 60%;
+  height: 10%;
+}
+.UserAvataritem {
+  margin-right: 10px;
+  padding: 5px;
+  /* font-size: 12px;
+  font-weight: 500; */
+}
+.UserAvataritem a {
+  color: #ffffff;
+}
+.user-profile-image {
+  background-color: #ffffff;
+  color: #00073d;
+  /* font-size: 15px; */
+  border-radius: 50%;
+  font-weight: 500;
+}

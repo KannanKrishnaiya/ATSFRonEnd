@@ -1,0 +1,6 @@
+// import CanvasJSReact from '@canvasjs/react-charts'; 
+export default function UserRep(){ 
+  return <> 
+     <h1>Reports page</h1>   
+   </>
+  }  

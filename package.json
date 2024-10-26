@@ -38,6 +38,7 @@
     "react-csv": "^2.2.2",
     "react-data-table-component": "^7.6.2",
     "react-date-picker": "^11.0.0",
+    "react-datetime-picker": "^6.0.1",
     "react-dependent-dropdown": "^1.0.3",
     "react-dom": "^18.2.0",
     "react-icons": "^4.12.0",

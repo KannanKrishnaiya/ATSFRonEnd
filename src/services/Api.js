@@ -1,7 +1,10 @@
 import axios from "axios";
 import qs from "qs";
 
+<<<<<<< HEAD
 //axios.defaults.baseURL = "https://localhost:44340/";
+=======
+>>>>>>> 51b97901e0f6a7db2317554b0c87f7a220dba943
 axios.defaults.baseURL = "http://localhost:5050/";
 const getTokenURL = "/api/validate/token";
 const LoginURL = "/Token";
@@ -46,6 +49,7 @@ export const LoginApi = (inputs) => {
     // Password: inputs.password,
     // Grant_type: "client_credentials",
   };
+<<<<<<< HEAD
   console.log(inputs, LoginURL);
   var UserDetails = axios.post(
     LoginURL,
@@ -62,6 +66,28 @@ export const LoginApi = (inputs) => {
     // })
   );
   console.log(UserDetails);
+=======
+
+  var UserDetails = axios.post(LoginURL, {
+    username: inputs.name,
+    password: inputs.password,
+  });
+
+  // var UserDetails = axios.post(
+  //   LoginURL,
+  //   // config,
+  //   qs.stringify({
+  //     username: inputs.name,
+  //     password: inputs.password,
+  //     grant_type: "password",
+  //   })
+  //   // new URLSearchParams({
+  //   //   UserName: "kannan@kannan.com", //data.UserName, //gave the values directly for testing
+  //   //   Password: data.Password,
+  //   //   grant_type: "password",
+  //   // })
+  // );
+>>>>>>> 51b97901e0f6a7db2317554b0c87f7a220dba943
   return UserDetails;
 };
 

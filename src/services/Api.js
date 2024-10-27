@@ -1,7 +1,8 @@
 import axios from "axios";
 import qs from "qs";
 
-axios.defaults.baseURL = "https://localhost:44340/";
+//axios.defaults.baseURL = "https://localhost:44340/";
+axios.defaults.baseURL = "http://localhost:5050/";
 const getTokenURL = "/api/validate/token";
 const LoginURL = "/Token";
 const GetUserDetailsByUserNameURL = "/api/user/GetUserDetailsByUserName";
@@ -45,7 +46,7 @@ export const LoginApi = (inputs) => {
     // Password: inputs.password,
     // Grant_type: "client_credentials",
   };
-
+  console.log(inputs, LoginURL);
   var UserDetails = axios.post(
     LoginURL,
     // config,
@@ -60,6 +61,7 @@ export const LoginApi = (inputs) => {
     //   grant_type: "password",
     // })
   );
+  console.log(UserDetails);
   return UserDetails;
 };
 

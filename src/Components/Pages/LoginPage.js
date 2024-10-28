@@ -1,7 +1,7 @@
 import "../../assets/styles/CustomStyles/LoginPage.css";
 import { FaBars, FaHome, FaLock, FaMoneyBill, FaUser } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import { LoginApi, LoggedInUser } from "../../services/Api";
+import { LoginApi, LoggedInUser, GetUserDetailsAPI } from "../../services/Api";
 import { StoreUserData } from "../../services/Storage";
 import { Link, Navigate } from "react-router-dom";
 import { isAuthenticated } from "../../services/Auth";
@@ -10,8 +10,11 @@ import { color } from "framer-motion";
 import { Logout } from "../../services/Auth";
 import { SetLoggedInUserRoleDetails } from "../../services/Storage";
 import { GetUserRoleDetailsByNameAPI } from "../../services/User/UserService";
+import { setUser } from "../../redux/userSlice";
+import { useDispatch } from "react-redux";
 
 export default function LoginPage() {
+  const dispatch = useDispatch();
   const initialErrors = {
     password: { password: false },
     name: { name: false },
@@ -39,6 +42,8 @@ export default function LoginPage() {
     if (!hasError) {
       LoginApi(inputs)
         .then((response) => {
+          console.log(response.data);
+
           StoreUserData(response.data);
         })
         .catch((err) => {
@@ -72,12 +77,36 @@ export default function LoginPage() {
   if (isAuthenticated() && IsLoaded == 0) {
     console.log("IsLoaded", IsLoaded);
     IsLoaded++;
-    GetUserRoleDetailsByNameAPI(Userdetails)
+    console.log(Userdetails);
+    // GetUserDetailsAPI(Userdetails)
+      GetUserRoleDetailsByNameAPI(Userdetails)
       .then((response) => {
         if (response.status != "200" || response == null) {
           LogoutUser();
         }
         SetLoggedInUserRoleDetails(response.data[0]);
+        console.log(response.data[0]);
+
+        // const data = response.data[0];
+        // const UserRoleDetails = {
+        //   Id: data.Id,
+        //   BankName: data.BankName,
+        //   Designation: data.Designation,
+        //   Email: data.Email,
+        //   FirstName: data.FirstName,
+        //   LastName: data.LastName,
+        //   MobileNumber: data.MobileNumber,
+        //   RoleId: data.RoleId,
+        //   RoleName: data.RoleName,
+        //   UserName: data.UserName,
+        // };
+
+        // dispatch(
+        //   setUser({
+        //     userDetails: UserRoleDetails,
+        //   })
+        // );
+
         setLoading(false);
         window.location = "Dashboard";
       })

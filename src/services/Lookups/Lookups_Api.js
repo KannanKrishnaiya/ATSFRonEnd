@@ -7,7 +7,7 @@ const GetLookupsAPIURL = "/api/Lookups/Lookups";
 export const GetMachineDetailAPI = (inputs) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
 
   //console.log("idToken", headerToken.idToken);
@@ -27,7 +27,7 @@ export const GetMachineDetailAPI = (inputs) => {
 export const GetLookupsAPI = (inputs) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
   var data = {
     LookupName: "banks",

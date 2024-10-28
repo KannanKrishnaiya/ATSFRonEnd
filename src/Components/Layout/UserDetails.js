@@ -12,8 +12,12 @@ import { GetUserDetailsAPI, LoggedInUser } from "../../services/Api";
 import { Logout } from "../../services/Auth";
 import { isAuthenticated } from "../../services/Auth";
 import { Login } from "../../Components/Pages/LoginPage";
+import { setUser } from "../../redux/userSlice";
+import { useDispatch } from "react-redux";
+import { GetUserRoleDetailsByNameAPI } from "../../services/User/UserService";
 
 export default function LoggedInUserDetails(User) {
+  const dispatch = useDispatch();
   //const [LoggedUser,setUser] =   useState({LoggedInUserName:"",LoggedInUserEmail:""});
   const [LoggedUserAvatar, setLoggedUserAvatar] = useState({
     firstNameInitial: "",
@@ -26,18 +30,43 @@ export default function LoggedInUserDetails(User) {
 
   useEffect(() => {
     if (Userdetails != null) {
-      GetUserDetailsAPI(Userdetails)
+      // GetUserDetailsAPI(Userdetails)
+      GetUserRoleDetailsByNameAPI(Userdetails)
         .then((response) => {
           if (response.status != "200" || response == null) {
             LogoutUser();
           }
-          const userData = JSON.parse(localStorage.getItem("LoggedInUser"));
-          userData.Email = response.data.Email;
-          userData.Designation = response.data.Designation;
-          userData.FirstName = response.data.FirstName;
-          userData.LastName = response.data.LastName;
-          userData.MobileNumber = response.data.MobileNumber;
-          console.log("userData", userData.FirstName, userData.LastName);
+
+          const data = response?.data[0];
+
+          console.log(data);
+
+          const UserRoleDetails = {
+            Id: data?.id,
+            BankName: data?.bankName,
+            Designation: data?.designation,
+            Email: data?.email,
+            FirstName: data?.firstName,
+            LastName: data?.lastName,
+            MobileNumber: data?.mobileNumber,
+            RoleId: data?.roleId,
+            RoleName: data?.roleName,
+            UserName: data?.userName,
+          };
+
+          dispatch(
+            setUser({
+              userDetails: UserRoleDetails,
+            })
+          );
+
+          // const userData = JSON.parse(localStorage.getItem("LoggedInUser"));
+          data.email = response.data.email;
+          data.designation = response.data.designation;
+          data.firstName = response.data.firstName;
+          data.lastName = response.data.lastName;
+          data.mobileNumber = response.data.mobileNumber;
+          console.log("data", data.firstName, data.lastName);
           setLoggedUserAvatar({
             // firstNameInitial: response.data.UserName
             //   ? response.data.UserName.split("@")[0][0]
@@ -46,11 +75,11 @@ export default function LoggedInUserDetails(User) {
             //   ? response.data.UserName.split("@")[0][0]
             //   : "",
 
-            firstNameInitial: userData.FirstName
-              ? userData.FirstName.split("@")[0][0]
+            firstNameInitial: data.firstName
+              ? data.firstName.split("@")[0][0]
               : "",
-            lastNameInitial: userData.LastName
-              ? userData.LastName.split("@")[0][0]
+            lastNameInitial: data.LastName
+              ? data.lastName.split("@")[0][0]
               : "",
           });
         })

@@ -18,7 +18,7 @@ export const GetVVDashboardDataAPI = (
 ) => {
   const userData = JSON.parse(Userdetails);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
   const config = {
     headers: { Authorization: "Bearer " + headerToken.idToken },
@@ -34,7 +34,7 @@ export const GetVVDashboardDataAPI = (
 export const GetVynamicViewAllTicketsAPI = (Userdetails) => {
   const userData = JSON.parse(Userdetails);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
   const config = {
     headers: { Authorization: "Bearer " + headerToken.idToken },
@@ -50,7 +50,7 @@ export const GetVynamicViewAllTicketsAPI = (Userdetails) => {
 export const GetAllMachineDetailsAPI = (Userdetails) => {
   const userData = JSON.parse(Userdetails);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
   const config = {
     headers: { Authorization: "Bearer " + headerToken.idToken },
@@ -66,7 +66,7 @@ export const GetAllMachineDetailsAPI = (Userdetails) => {
 export const GetVV_AllMachinesUpTimePercentageAPI = (inputs, data) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
   // console.log("idToken", headerToken.idToken);
   // console.log("User", User);
@@ -104,7 +104,7 @@ export const GetVV_AllMachinesUpTimePercentageAPI = (inputs, data) => {
 export const GetVV_MachinesUpTimeAPI = (inputs, data) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
   // console.log("idToken", headerToken.idToken);
   // console.log("User", User);

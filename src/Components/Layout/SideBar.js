@@ -39,6 +39,7 @@ import { GoDiscussionClosed } from "react-icons/go";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { PiNotePencilBold, PiVanLight } from "react-icons/pi";
 import "../../assets/styles/CustomStyles/Custom.css";
+import { useSelector } from "react-redux";
 
 const Userdetails = localStorage.getItem("LoggedInUser");
 
@@ -46,9 +47,15 @@ const SideBar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
+  const LoggedInUserRoleDetailsData = useSelector(
+    (state) => state.user.userDetails
+  );
   const LoggedInUserRoleDetails = JSON.parse(
     localStorage.getItem("LoggedInUserRoleDetails")
   );
+
+  console.log("User Data From Redux :", LoggedInUserRoleDetailsData);
+
   //console.log("SideBar LoggedInUserRole", LoggedInUserRoleDetails.RoleName);
 
   const routes = [

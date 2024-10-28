@@ -258,7 +258,7 @@ export default function Dashboard() {
     let List_DistinctBankName = [];
     SearchBank
       ? (List_DistinctBankName = VVDashboardCards._VV_OutOfCash.filter((a) =>
-          a.BankName.includes(SearchBank.BankName)
+          a?.BankName?.includes(SearchBank?.BankName)
         ))
       : (List_DistinctBankName = VVDashboardCards._VV_OutOfCash);
     return List_DistinctBankName.map(
@@ -962,12 +962,12 @@ export default function Dashboard() {
                     >
                       {(close) => (
                         <div className="DashboardModal">
-                          {VVDashboardCards._VV_MachineIdleCalculation.length >
+                          {VVDashboardCards?._VV_MachineIdleCalculation?.length >
                           0 ? (
                             <button className="Export">
                               <CSVLink
                                 data={
-                                  VVDashboardCards._VV_MachineIdleCalculation
+                                  VVDashboardCards?._VV_MachineIdleCalculation
                                 }
                                 filename={"MachineIdleCalculation.csv"}
                                 target="_blank"
@@ -995,7 +995,7 @@ export default function Dashboard() {
                   <div className="">
                     <div className="flexCenter">
                       <span>
-                        {VVDashboardCards.Count_VV_MachineIdleCalculation}
+                        {VVDashboardCards.count_VV_MachineIdleCalculation}
                       </span>
                     </div>
                   </div>
@@ -1061,7 +1061,7 @@ export default function Dashboard() {
                   <div className="">
                     <div className="flexCenter">
                       <span>
-                        {VVDashboardCards.Count_VV_DownTime_OutOfService}
+                        {VVDashboardCards.count_VV_DownTime_OutOfService}
                       </span>
                     </div>
                   </div>
@@ -1120,7 +1120,7 @@ export default function Dashboard() {
                   </div>
                   <div className="">
                     <div className="flexCenter">
-                      <span>{VVDashboardCards.Count_VV_AllTicket}</span>
+                      <span>{VVDashboardCards.count_VV_AllTicket}</span>
                     </div>
                   </div>
                   <div className=" flex-container">
@@ -1302,7 +1302,7 @@ export default function Dashboard() {
                   </div>
                   <div className="">
                     <div className="flexCenter">
-                      <span>{VVDashboardCards.Per_VV_CashAvailability}</span>
+                      <span>{VVDashboardCards.per_VV_CashAvailability}</span>
                     </div>
                   </div>
                   <div className=" flex-container">
@@ -1413,7 +1413,7 @@ export default function Dashboard() {
                   </div>
                   <div className="">
                     <div className="flexCenter">
-                      <span>{VVDashboardCards.Count_VV_OutOfCash}</span>
+                      <span>{VVDashboardCards.count_VV_OutOfCash}</span>
                     </div>
                   </div>
                   <div className=" flex-container">
@@ -1473,7 +1473,7 @@ export default function Dashboard() {
                   </div>
                   <div className="">
                     <div className="flexCenter">
-                      <span>{VVDashboardCards.Count_VV_CardsCaptured}</span>
+                      <span>{VVDashboardCards.count_VV_CardsCaptured}</span>
                     </div>
                   </div>
                   <div className=" flex-container">
@@ -1532,7 +1532,7 @@ export default function Dashboard() {
                   </div>
                   <div className="">
                     <div className="flexCenter">
-                      <span>{VVDashboardCards.Count_VV_RepeatedTickets}</span>
+                      <span>{VVDashboardCards.count_VV_RepeatedTickets}</span>
                     </div>
                   </div>
                   <div className=" flex-container">
@@ -1594,7 +1594,7 @@ export default function Dashboard() {
                   </div>
                   <div className="">
                     <div className="flexCenter">
-                      <span>{VVDashboardCards.Count_VV_RebootedMachines}</span>
+                      <span>{VVDashboardCards.count_VV_RebootedMachines}</span>
                     </div>
                   </div>
                   <div className=" flex-container">
@@ -1621,7 +1621,7 @@ export default function Dashboard() {
                   <div className="">
                     <div className="flexCenter">
                       <span>
-                        {VVDashboardCards.Avg_VV_AverageAssignmentTime} Minutes
+                        {VVDashboardCards.avg_VV_AverageAssignmentTime} Minutes
                       </span>
                     </div>
                   </div>
@@ -1651,10 +1651,10 @@ export default function Dashboard() {
                   <div className="">
                     <div className="flexCenter">
                       <span>
-                        {VVDashboardCards.Avg_VV_AverageResolutionTime > 1
-                          ? VVDashboardCards.Avg_VV_AverageResolutionTime +
+                        {VVDashboardCards.avg_VV_AverageResolutionTime > 1
+                          ? VVDashboardCards.avg_VV_AverageResolutionTime +
                             " Hours"
-                          : VVDashboardCards.Avg_VV_AverageResolutionTime +
+                          : VVDashboardCards.avg_VV_AverageResolutionTime +
                             " Hour"}
                       </span>
                     </div>
@@ -1683,7 +1683,7 @@ export default function Dashboard() {
                     <div className="flexCenter">
                       <span>
                         {" "}
-                        {VVDashboardCards.Count_VV_StatementRequestTransaction}
+                        {VVDashboardCards.count_VV_StatementRequestTransaction}
                       </span>
                     </div>
                   </div>
@@ -1716,7 +1716,7 @@ export default function Dashboard() {
                           className="flexCenter"
                           thousandSeparator
                           value={
-                            VVDashboardCards.Count_VV_CashWithDrawalTransaction
+                            VVDashboardCards.count_VV_CashWithDrawalTransaction
                           }
                         />
                       </span>
@@ -1749,7 +1749,7 @@ export default function Dashboard() {
                           className="flexCenter"
                           thousandSeparator
                           value={
-                            VVDashboardCards.Count_VV_BalanceEnquiryTransaction
+                            VVDashboardCards.count_VV_BalanceEnquiryTransaction
                           }
                         />
                       </span>
@@ -1781,7 +1781,7 @@ export default function Dashboard() {
                         <NumericFormat
                           className="flexCenter"
                           thousandSeparator
-                          value={VVDashboardCards.Count_VV_DepositTransaction}
+                          value={VVDashboardCards.count_VV_DepositTransaction}
                         />
                       </span>
                     </div>
@@ -1812,7 +1812,7 @@ export default function Dashboard() {
                         <NumericFormat
                           className="flexCenter"
                           thousandSeparator
-                          value={VVDashboardCards.Count_VV_PinChangeTransaction}
+                          value={VVDashboardCards.count_VV_PinChangeTransaction}
                         />
                       </span>
                     </div>
@@ -1846,7 +1846,7 @@ export default function Dashboard() {
                           className="flexCenter"
                           thousandSeparator
                           value={
-                            VVDashboardCards.Count_VV_SuccessfulTransaction
+                            VVDashboardCards.count_VV_SuccessfulTransaction
                           }
                         />
                       </span>
@@ -1910,7 +1910,7 @@ export default function Dashboard() {
                   <div className="">
                     <div className="flexCenter">
                       <span>
-                        {VVDashboardCards.Count_VV_CancelledTransaction}
+                        {VVDashboardCards.count_VV_CancelledTransaction}
                       </span>
                     </div>
                   </div>
@@ -1937,7 +1937,7 @@ export default function Dashboard() {
                   <div className="">
                     <div className="flexCenter">
                       <span>
-                        {VVDashboardCards.Count_VV_TimeoutTransaction}
+                        {VVDashboardCards.count_VV_TimeoutTransaction}
                       </span>
                     </div>
                   </div>

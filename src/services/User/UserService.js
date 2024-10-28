@@ -5,7 +5,7 @@ const GetUserRoleDetailsByNameURL = "/api/User/GetUserRoleDetailsByName";
 export const GetUserRoleDetailsByNameAPI = (inputs) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
   let User = {
     UserName: userData.UserName,

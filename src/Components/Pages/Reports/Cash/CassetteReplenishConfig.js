@@ -22,16 +22,16 @@ export default function CassetteReplenishConfig() {
 
   const [CassetteRepConfig, SetCassetteRepConfig] = useState([]);
   const [CassetteRepConfigInput, SetCassetteRepConfigInput] = useState({
-    Id: 0,
-    BankId: 0,
-    BankName: null,
-    DeviceId: null,
-    Cassette1: 0,
-    Cassette2: 0,
-    Cassette3: 0,
-    Cassette4: 0,
-    MaxAmountReplenish: 0,
-    MaxReplenishCycleDays: 0,
+    id: 0,
+    bankId: 0,
+    bankName: null,
+    deviceId: null,
+    cassette1: 0,
+    cassette2: 0,
+    cassette3: 0,
+    cassette4: 0,
+    maxAmountReplenish: 0,
+    maxReplenishCycleDays: 0,
   });
 
   useEffect(() => {
@@ -61,14 +61,14 @@ export default function CassetteReplenishConfig() {
   const Transactioncolumns = [
     {
       name: "BankId",
-      selector: (row) => row.BankId,
+      selector: (row) => row.bankId,
       options: {
         display: false,
       },
     },
     {
       name: "BankName",
-      selector: (row) => row.BankName,
+      selector: (row) => row.bankName,
       options: {
         sort: true,
         filter: true,
@@ -76,52 +76,52 @@ export default function CassetteReplenishConfig() {
     },
     {
       name: "DeviceId",
-      selector: (row) => row.DeviceId,
+      selector: (row) => row.deviceId,
       sortable: true,
       filter: true,
     },
 
     {
       name: "Cassette1",
-      selector: (row) => row.Cassette1,
+      selector: (row) => row.cassette1,
       sortable: true,
       filter: true,
     },
 
     {
       name: "Cassette2",
-      selector: (row) => row.Cassette2,
+      selector: (row) => row.cassette2,
       sortable: true,
       filter: true,
     },
     {
       name: "Cassette3",
-      selector: (row) => row.Cassette3,
+      selector: (row) => row.cassette3,
       sortable: true,
       filter: true,
     },
     {
       name: "Cassette4",
-      selector: (row) => row.Cassette4,
+      selector: (row) => row.cassette4,
       sortable: true,
       filter: true,
     },
     {
       name: "MaxAmountReplenish",
-      selector: (row) => row.MaxAmountReplenish,
+      selector: (row) => row.maxAmountReplenish,
       sortable: true,
       filter: true,
     },
     {
       name: "MaxReplenishCycleDays",
-      selector: (row) => row.MaxReplenishCycleDays,
+      selector: (row) => row.maxReplenishCycleDays,
       sortable: true,
       filter: true,
     },
     {
       name: "Id",
       label: "Edit",
-      selector: (row) => row.Id,
+      selector: (row) => row.id,
       sortable: true,
       filter: true,
       button: true,
@@ -143,23 +143,23 @@ export default function CassetteReplenishConfig() {
                           //   TransactionDetailsInput.TransactionId =
                           //     tableMeta.rowData[8];
                           //   GetTransactionsDetails();
-                          CassetteRepConfigInput.Id = tableMeta.rowData[9];
-                          CassetteRepConfigInput.BankId = tableMeta.rowData[0];
-                          CassetteRepConfigInput.BankName =
+                          CassetteRepConfigInput.id = tableMeta.rowData[9];
+                          CassetteRepConfigInput.bankId = tableMeta.rowData[0];
+                          CassetteRepConfigInput.bankName =
                             tableMeta.rowData[2];
-                          CassetteRepConfigInput.DeviceId =
+                          CassetteRepConfigInput.deviceId =
                             tableMeta.rowData[2];
-                          CassetteRepConfigInput.Cassette1 =
+                          CassetteRepConfigInput.cassette1 =
                             tableMeta.rowData[3];
-                          CassetteRepConfigInput.Cassette2 =
+                          CassetteRepConfigInput.cassette2 =
                             tableMeta.rowData[4];
-                          CassetteRepConfigInput.Cassette3 =
+                          CassetteRepConfigInput.cassette3 =
                             tableMeta.rowData[5];
-                          CassetteRepConfigInput.Cassette4 =
+                          CassetteRepConfigInput.cassette4 =
                             tableMeta.rowData[6];
-                          CassetteRepConfigInput.MaxAmountReplenish =
+                          CassetteRepConfigInput.maxAmountReplenish =
                             tableMeta.rowData[7];
-                          CassetteRepConfigInput.MaxReplenishCycleDays =
+                          CassetteRepConfigInput.maxReplenishCycleDays =
                             tableMeta.rowData[8];
 
                           EditRepConfig(CassetteRepConfigInput);
@@ -202,7 +202,7 @@ export default function CassetteReplenishConfig() {
                 className="FormControl_input"
                 type="text"
                 name="Bank Name"
-                value={CassetteRepConfigInput.BankName}
+                value={CassetteRepConfigInput.bankName}
                 disabled
               />
             </div>
@@ -212,7 +212,7 @@ export default function CassetteReplenishConfig() {
                 className="FormControl_input"
                 type="text"
                 name="Device Id"
-                value={CassetteRepConfigInput.DeviceId}
+                value={CassetteRepConfigInput.deviceId}
                 disabled
               />
             </div>

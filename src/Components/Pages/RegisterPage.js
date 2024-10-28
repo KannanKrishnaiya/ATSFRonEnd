@@ -59,7 +59,7 @@ export default function RegisterPage() {
       RegisterApi(inputs)
         .then((response) => {
           //console.log(response);
-          StoreUserData(response.data.access_token);
+          StoreUserData(response?.data?.token);
         })
         .catch((err) => {
           // console.log(err);

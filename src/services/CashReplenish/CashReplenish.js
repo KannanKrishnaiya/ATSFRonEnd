@@ -9,7 +9,7 @@ const CassetteRepCfgURL = "/api/Transactions/CassetteRepForecast";
 export const GetCassetteRepConfigAPI = (inputs, data) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
   const config = {
     headers: { Authorization: "Bearer " + headerToken.idToken },
@@ -26,7 +26,7 @@ export const GetCassetteRepConfigAPI = (inputs, data) => {
 export const CassetteAvgCalcAPI = (inputs, data) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
   const config = {
     headers: { Authorization: "Bearer " + headerToken.idToken },
@@ -39,7 +39,7 @@ export const CassetteAvgCalcAPI = (inputs, data) => {
 export const CasseteCounterDenomAPI = (inputs, data) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
   const config = {
     headers: { Authorization: "Bearer " + headerToken.idToken },
@@ -56,7 +56,7 @@ export const CasseteCounterDenomAPI = (inputs, data) => {
 export const CassetteRepCfgAPI = (inputs, data) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
   const config = {
     headers: { Authorization: "Bearer " + headerToken.idToken },

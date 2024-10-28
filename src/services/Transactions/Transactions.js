@@ -23,7 +23,7 @@ const GetCashWithdrawalCassetteDetailsURL =
 export const GetCashWithdrawalTxnAPI = (inputs, data) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
 
   // console.log("idToken", headerToken.idToken);
@@ -43,7 +43,7 @@ export const GetCashWithdrawalTxnAPI = (inputs, data) => {
 export const GetCashDepositTxnAPI = (inputs, data) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
 
   // console.log("idToken", headerToken.idToken);
@@ -63,7 +63,7 @@ export const GetCashDepositTxnAPI = (inputs, data) => {
 export const GetAllTxnAPI = (inputs, data) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
   // console.log("idToken", headerToken.idToken);
   // console.log("User", User);
@@ -78,7 +78,7 @@ export const GetAllTxnAPI = (inputs, data) => {
 export const GetTransactionDetailsAPI = (inputs, data) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
   // console.log("idToken", headerToken.idToken);
   // console.log("User", User);
@@ -97,7 +97,7 @@ export const GetTransactionDetailsAPI = (inputs, data) => {
 export const GetOtherTxnAPI = (inputs, data) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
   // console.log("idToken", headerToken.idToken);
   // console.log("User", User);
@@ -116,7 +116,7 @@ export const GetOtherTxnAPI = (inputs, data) => {
 export const GetAllFailedTxnAPI = (inputs, data) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
   // console.log("idToken", headerToken.idToken);
   // console.log("User", User);
@@ -135,7 +135,7 @@ export const GetAllFailedTxnAPI = (inputs, data) => {
 export const GetCashDepositCassetteDetailsAPI = (inputs, data) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
   // console.log("idToken", headerToken.idToken);
   // console.log("User", User);
@@ -154,7 +154,7 @@ export const GetCashDepositCassetteDetailsAPI = (inputs, data) => {
 export const GetChequeDepositDetailsAPI = (inputs, data) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
   // console.log("idToken", headerToken.idToken);
   // console.log("User", User);
@@ -173,7 +173,7 @@ export const GetChequeDepositDetailsAPI = (inputs, data) => {
 export const GetCashWithdrawalCassetteDetailsAPI = (inputs, data) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
-    idToken: userData.access_token,
+    idToken: userData.token,
   };
   // console.log("idToken", headerToken.idToken);
   // console.log("User", User);

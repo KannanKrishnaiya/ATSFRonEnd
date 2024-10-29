@@ -170,7 +170,7 @@ export default function ViewAllTransactions() {
     setTransactionEndDate();
     setBankName([]);
     SetAllTransactions([]);
-    AllTransactionsInput.BankName = "";
+    AllTransactionsInput.bankName = "";
 
     fetchData();
   };

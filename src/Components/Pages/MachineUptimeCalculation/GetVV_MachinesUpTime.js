@@ -488,7 +488,7 @@ export default function GetVV_MachinesUpTime() {
                   className="btn-grad-reports"
                   type="button"
                   value="Reset"
-                  //   onClick={ResetInputs}ResetInputs
+                    // onClick={ResetInputs}ResetInputs
                 />
               </div>
             </div>

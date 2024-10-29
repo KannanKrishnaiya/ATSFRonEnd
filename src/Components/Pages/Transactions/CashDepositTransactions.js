@@ -126,7 +126,7 @@ export default function CashDepositTransactions() {
     setTransactionEndDate();
     setBankName([]);
     SetCashDepositTransactions([]);
-    CashDepositTransactions.BankName = "";
+    CashDepositTransactions.bankName = "";
     fetchData();
   };
 

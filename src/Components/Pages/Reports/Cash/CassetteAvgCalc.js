@@ -45,31 +45,31 @@ export default function CassetteAvgCalc() {
   };
   const Transactioncolumns = [
     {
-      name: "DeviceId",
+      name: "deviceId",
       selector: (row) => row.deviceId,
       sortable: true,
       filter: true,
     },
     {
-      name: "Cassette1",
-      selector: (row) => row.totalHours_MachineUP,
+      name: "cassette1",
+      selector: (row) => row.cassette1,
       sortable: true,
       filter: true,
     },
     {
-      name: "Cassette2",
+      name: "cassette2",
       selector: (row) => row.cassette2,
       sortable: true,
       filter: true,
     },
     {
-      name: "Cassette3",
+      name: "cassette3",
       selector: (row) => row.cassette3,
       sortable: true,
       filter: true,
     },
     {
-      name: "Cassette4",
+      name: "cassette4",
       selector: (row) => row.cassette4,
       sortable: true,
       filter: true,

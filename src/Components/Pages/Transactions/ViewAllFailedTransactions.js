@@ -31,11 +31,11 @@ export default function ViewAllFailedTransactions() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [AllFailedTransactionsInput, setAllFailedTransactionsInput] = useState({
-    BankName: "",
-    Branch: "",
-    Atm_TerminalId: "",
-    TransactionStartDate: "",
-    TransactionEndDate: "",
+    bankName: "",
+    branch: "",
+    atm_TerminalId: "",
+    transactionStartDate: "",
+    transactionEndDate: "",
   });
   var date = new Date();
   const yesterday = new Date(date);
@@ -51,14 +51,14 @@ export default function ViewAllFailedTransactions() {
       [event.target.name]: event.target.value,
     });
 
-    if (event.target.name == "BankName")
-      setBankName.BankName = event.target.value;
+    if (event.target.name == "bankName")
+      setBankName.bankName = event.target.value;
 
-    if (event.target.name == "TransactionStartDate")
-      setTransactionStartDate.TransactionStartDate = event.target.value;
+    if (event.target.name == "transactionStartDate")
+      setTransactionStartDate.transactionStartDate = event.target.value;
 
-    if (event.target.name == "TransactionEndDate")
-      setTransactionEndDate.TransactionEndDate = event.target.value;
+    if (event.target.name == "transactionEndDate")
+      setTransactionEndDate.transactionEndDate = event.target.value;
 
     // console.log(
     //   "AllFailedTransactionsInput",
@@ -112,9 +112,9 @@ export default function ViewAllFailedTransactions() {
     //   TransactionStartDate,
     //   TransactionEndDate
     // );
-    AllFailedTransactionsInput.TransactionStartDate =
+    AllFailedTransactionsInput.transactionStartDate =
       TransactionStartDate.toLocaleDateString();
-    AllFailedTransactionsInput.TransactionEndDate =
+    AllFailedTransactionsInput.transactionEndDate =
       TransactionEndDate.toLocaleDateString();
 
     setIsLoading(true);
@@ -135,17 +135,17 @@ export default function ViewAllFailedTransactions() {
     setTransactionEndDate();
     setBankName([]);
     SetAllFailedTransactions([]);
-    AllFailedTransactionsInput.BankName = "";
+    AllFailedTransactionsInput.bankName = "";
 
     fetchData();
   };
 
   const [TransactionDetailsInput, GetTransactionDetailsInput] = useState({
-    TransactionId: 0,
-    SequenceNumber: 0,
-    AccountNumber: null,
-    TransactionDate: null,
-    CardNumber: null,
+    transactionId: 0,
+    sequenceNumber: 0,
+    accountNumber: null,
+    transactionDate: null,
+    cardNumber: null,
   });
   const [TransactionDetails, setTransactionDetails] = useState();
   const [TransactionId, SetTransactionId] = useState();
@@ -196,8 +196,9 @@ export default function ViewAllFailedTransactions() {
   };
   const Transactioncolumns = [
     {
-      name: "BankName",
-      selector: (row) => row.BankName,
+      label: "BankName",
+      name: "bankName",
+      selector: (row) => row.bankName,
       sortable: true,
     },
 
@@ -208,8 +209,8 @@ export default function ViewAllFailedTransactions() {
     // },
 
     {
-      name: "ATM_TerminalId",
-      selector: (row) => row.ATM_TerminalId,
+      name: "atM_TerminalId",
+      selector: (row) => row.atM_TerminalId,
       sortable: true,
       label: "Name",
       options: {
@@ -223,18 +224,21 @@ export default function ViewAllFailedTransactions() {
     //   sortable: true,
     // },
     {
-      name: "Transaction_DateTime",
-      selector: (row) => row.Transaction_DateTime,
+      label: "Transaction_DateTime",
+      name: "transaction_DateTime",
+      selector: (row) => row.transaction_DateTime,
       sortable: true,
     },
     {
-      name: "TransactionType",
-      selector: (row) => row.TransactionType,
+      label: "TransactionType",
+      name: "transactionType",
+      selector: (row) => row.transactionType,
       sortable: true,
     },
     {
-      name: "TransactionStatus",
-      selector: (row) => row.TransactionStatus,
+      label: "TransactionStatus",
+      name: "transactionStatus",
+      selector: (row) => row.transactionStatus,
       sortable: true,
     },
     // {
@@ -244,15 +248,16 @@ export default function ViewAllFailedTransactions() {
     // },
 
     {
-      name: "MultipleTxnsSeqNumber",
-      selector: (row) => row.MultipleTxnsSeqNumber,
+      label: "MultipleTxnsSeqNumber",
+      name: "multipleTxnsSeqNumber",
+      selector: (row) => row.multipleTxnsSeqNumber,
       sortable: true,
     },
 
     {
-      name: "AllTransactionId",
+      name: "allTransactionId",
       label: "View Details",
-      selector: (row) => row.AllTransactionId,
+      selector: (row) => row.allTransactionId,
       sortable: true,
       filter: true,
       button: true,
@@ -294,8 +299,8 @@ export default function ViewAllFailedTransactions() {
                           //   "updateValue =" + updateValue
                           // );
                           setTransactionDetails(null);
-                          TransactionDetailsInput.TransactionId = 0;
-                          TransactionDetailsInput.TransactionId =
+                          TransactionDetailsInput.transactionId = 0;
+                          TransactionDetailsInput.transactionId =
                             tableMeta.rowData[6];
 
                           // console.log(

@@ -32,27 +32,27 @@ export default function ChequeDepositDetails({ ChequeDeposit_Input }) {
     return Loc_ChequeDepositDetails
       ? Loc_ChequeDepositDetails.map(
           ({
-            BankName,
-            ATM_TerminalId,
-            SequenceNumber,
-            Transaction_DateTime,
-            TransactionTimeStamp,
-            ChequeSerialNo,
-            ChequeStoredFront,
-            ChequeStoredRear,
-            ChequeMICR,
+            bankName,
+            atM_TerminalId,
+            sequenceNumber,
+            transaction_DateTime,
+            transactionTimeStamp,
+            chequeSerialNo,
+            chequeStoredFront,
+            chequeStoredRear,
+            chequeMICR,
           }) => {
             return (
               <tr key={index}>
-                <td>{BankName}</td>
-                <td>{ATM_TerminalId}</td>
-                <td>{SequenceNumber}</td>
-                <td>{Transaction_DateTime}</td>
-                <td>{TransactionTimeStamp}</td>
-                <td>{ChequeSerialNo}</td>
-                <td>{ChequeStoredFront}</td>
-                <td>{ChequeStoredRear}</td>
-                <td>{ChequeMICR}</td>
+                <td>{bankName}</td>
+                <td>{atM_TerminalId}</td>
+                <td>{sequenceNumber}</td>
+                <td>{transaction_DateTime}</td>
+                <td>{transactionTimeStamp}</td>
+                <td>{chequeSerialNo}</td>
+                <td>{chequeStoredFront}</td>
+                <td>{chequeStoredRear}</td>
+                <td>{chequeMICR}</td>
               </tr>
             );
           }

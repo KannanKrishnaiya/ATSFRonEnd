@@ -81,7 +81,7 @@ export default function LoginPage() {
     // GetUserDetailsAPI(Userdetails)
       GetUserRoleDetailsByNameAPI(Userdetails)
       .then((response) => {
-        if (response.status != "200" || response == null) {
+        if (response.status != 200 || response == null) {
           LogoutUser();
         }
         SetLoggedInUserRoleDetails(response.data[0]);

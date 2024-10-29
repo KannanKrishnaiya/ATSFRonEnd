@@ -36,11 +36,11 @@ export default function CashWithdrawTransactions() {
 
   const [CashWithDrawalTransactionsInput, setCashWithDrawalTransactionsInput] =
     useState({
-      BankName: "",
-      Branch: "",
-      Atm_TerminalId: "",
-      TransactionStartDate: "",
-      TransactionEndDate: "",
+      bankName: "",
+      branch: "",
+      atm_TerminalId: "",
+      transactionStartDate: "",
+      transactionEndDate: "",
     });
 
   var date = new Date();
@@ -57,14 +57,14 @@ export default function CashWithdrawTransactions() {
       [event.target.name]: event.target.value,
     });
 
-    if (event.target.name == "BankName")
-      setBankName.BankName = event.target.value;
+    if (event.target.name == "bankName")
+      setBankName.bankName = event.target.value;
 
-    if (event.target.name == "TransactionStartDate")
-      setTransactionStartDate.TransactionStartDate = event.target.value;
+    if (event.target.name == "transactionStartDate")
+      setTransactionStartDate.transactionStartDate = event.target.value;
 
-    if (event.target.name == "TransactionEndDate")
-      setTransactionEndDate.TransactionEndDate = event.target.value;
+    if (event.target.name == "transactionEndDate")
+      setTransactionEndDate.transactionEndDate = event.target.value;
   };
 
   const LogoutUser = () => {
@@ -148,20 +148,20 @@ export default function CashWithdrawTransactions() {
     CashWithdrawalCassetteDetailsInput,
     GetCashWithdrawalCassetteDetailsInput,
   ] = useState({
-    BankId: 0,
-    TransactionId: 0,
-    SequenceNumber: 0,
-    AccountNumber: null,
-    TransactionDate: null,
-    CardNumber: null,
+    bankId: 0,
+    transactionId: 0,
+    sequenceNumber: 0,
+    accountNumber: null,
+    transactionDate: null,
+    cardNumber: null,
   });
 
   const [TransactionDetailsInput, GetTransactionDetailsInput] = useState({
-    TransactionId: 0,
-    SequenceNumber: 0,
-    AccountNumber: null,
-    TransactionDate: null,
-    CardNumber: null,
+    transactionId: 0,
+    sequenceNumber: 0,
+    accountNumber: null,
+    transactionDate: null,
+    cardNumber: null,
   });
   const [TransactionDetails, setTransactionDetails] = useState();
   const [TransactionId, SetTransactionId] = useState();
@@ -211,61 +211,70 @@ export default function CashWithdrawTransactions() {
   };
   const columns = [
     {
-      name: "BankName",
-      selector: (row) => row.BankName,
+      label: "BankName",
+      name: "bankName",
+      selector: (row) => row.bankName,
       sortable: true,
     },
 
     {
-      name: "ATM_TerminalId",
-      selector: (row) => row.ATM_TerminalId,
+      label: "ATM_TerminalId",
+      name: "atM_TerminalId",
+      selector: (row) => row.atM_TerminalId,
       sortable: true,
     },
     {
-      name: "Transaction_DateTime",
-      selector: (row) => row.Transaction_DateTime,
+      label: "Transaction_DateTime",
+      name: "transaction_DateTime",
+      selector: (row) => row.transaction_DateTime,
       sortable: true,
     },
     {
-      name: "Status",
-      selector: (row) => row.Status,
+      label: "Status",
+      name: "status",
+      selector: (row) => row.status,
       sortable: true,
     },
     {
-      name: "Amount",
-      selector: (row) => row.Amount,
+      label: "Amount",
+      name: "amount",
+      selector: (row) => row.amount,
       sortable: true,
     },
     {
-      name: "CassetDetails",
-      selector: (row) => row.CassetDetails,
+      label: "CassetDetails",
+      name: "cassetDetails",
+      selector: (row) => row.cassetDetails,
       sortable: true,
     },
     {
-      name: "SequenceNumber",
-      selector: (row) => row.SequenceNumber,
+      label: "SequenceNumber",
+      name: "sequenceNumber",
+      selector: (row) => row.sequenceNumber,
       sortable: true,
     },
     {
-      name: "BankId",
-      selector: (row) => row.BankId,
+      label: "BankId",
+      name: "bankId",
+      selector: (row) => row.bankId,
       sortable: true,
       options: {
         display: false,
       },
     },
     {
-      name: "TransactionDate",
-      selector: (row) => row.TransactionDate,
+      label: "TransactionDate",
+      name: "transactionDate",
+      selector: (row) => row.transactionDate,
       sortable: true,
       options: {
         display: false,
       },
     },
     {
-      name: "SequenceNumber",
+      name: "sequenceNumber",
       label: "View Details",
-      selector: (row) => row.TransactionId,
+      selector: (row) => row.transactionId,
       sortable: true,
       filter: true,
       button: true,
@@ -286,13 +295,13 @@ export default function CashWithdrawTransactions() {
                           onClick={(row) => {
                             setTransactionDetails(null);
 
-                            TransactionDetailsInput.BankId =
+                            TransactionDetailsInput.bankId =
                               tableMeta.rowData[7];
-                            TransactionDetailsInput.SequenceNumber =
+                            TransactionDetailsInput.sequenceNumber =
                               tableMeta.rowData[9];
-                            TransactionDetailsInput.TransactionDate =
+                            TransactionDetailsInput.transactionDate =
                               tableMeta.rowData[8];
-                            TransactionDetailsInput.Atm_TerminalId =
+                            TransactionDetailsInput.atm_TerminalId =
                               tableMeta.rowData[1];
 
                             GetTransactionsDetails();
@@ -338,13 +347,13 @@ export default function CashWithdrawTransactions() {
                         <MdOutlineAttachMoney
                           className="DataTableIcons"
                           onClick={(row) => {
-                            CashWithdrawalCassetteDetailsInput.BankId =
+                            CashWithdrawalCassetteDetailsInput.bankId =
                               tableMeta.rowData[7];
-                            CashWithdrawalCassetteDetailsInput.SequenceNumber =
+                            CashWithdrawalCassetteDetailsInput.sequenceNumber =
                               tableMeta.rowData[9];
-                            CashWithdrawalCassetteDetailsInput.TransactionDate =
+                            CashWithdrawalCassetteDetailsInput.transactionDate =
                               tableMeta.rowData[8];
-                            CashWithdrawalCassetteDetailsInput.Atm_TerminalId =
+                            CashWithdrawalCassetteDetailsInput.atm_TerminalId =
                               tableMeta.rowData[1];
                           }}
                         />

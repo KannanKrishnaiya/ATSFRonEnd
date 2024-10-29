@@ -1,7 +1,7 @@
 import axios from "axios";
 import qs from "qs";
 
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = "http://localhost:35082";
 const getTokenURL = "/api/validate/token";
 // const LoginURL = "/Token";
 const LoginURL = "/api/Auth/login";

@@ -32,11 +32,11 @@ export default function ViewOtherTransactions() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [AllOtherTransactionsInput, setAllOtherTransactionsInput] = useState({
-    BankName: "",
-    Branch: "",
-    Atm_TerminalId: "",
-    TransactionStartDate: "",
-    TransactionEndDate: "",
+    bankName: "",
+    branch: "",
+    atm_TerminalId: "",
+    transactionStartDate: "",
+    transactionEndDate: "",
   });
   var date = new Date();
   const yesterday = new Date(date);
@@ -47,11 +47,11 @@ export default function ViewOtherTransactions() {
   const [BankName, setBankName] = useState([]);
 
   const [TransactionDetailsInput, GetTransactionDetailsInput] = useState({
-    TransactionId: 0,
-    SequenceNumber: 0,
-    AccountNumber: null,
-    TransactionDate: null,
-    CardNumber: null,
+    transactionId: 0,
+    sequenceNumber: 0,
+    accountNumber: null,
+    transactionDate: null,
+    cardNumber: null,
   });
   const [TransactionDetails, setTransactionDetails] = useState();
   const [TransactionId, SetTransactionId] = useState();
@@ -62,14 +62,14 @@ export default function ViewOtherTransactions() {
       [event.target.name]: event.target.value,
     });
 
-    if (event.target.name == "BankName")
-      setBankName.BankName = event.target.value;
+    if (event.target.name == "bankName")
+      setBankName.bankName = event.target.value;
 
-    if (event.target.name == "TransactionStartDate")
-      setTransactionStartDate.TransactionStartDate = event.target.value;
+    if (event.target.name == "transactionStartDate")
+      setTransactionStartDate.transactionStartDate = event.target.value;
 
-    if (event.target.name == "TransactionEndDate")
-      setTransactionEndDate.TransactionEndDate = event.target.value;
+    if (event.target.name == "transactionEndDate")
+      setTransactionEndDate.transactionEndDate = event.target.value;
 
     // console.log(
     //   "AllOtherTransactionsInput",
@@ -122,9 +122,9 @@ export default function ViewOtherTransactions() {
   }, []);
 
   function GetOtherTransactions() {
-    AllOtherTransactionsInput.TransactionStartDate =
+    AllOtherTransactionsInput.transactionStartDate =
       TransactionStartDate.toLocaleDateString();
-    AllOtherTransactionsInput.TransactionEndDate =
+    AllOtherTransactionsInput.transactionEndDate =
       TransactionEndDate.toLocaleDateString();
 
     setIsLoading(true);
@@ -173,7 +173,7 @@ export default function ViewOtherTransactions() {
     setTransactionEndDate();
     setBankName([]);
     SetAllOtherTransactions([]);
-    AllOtherTransactionsInput.BankName = "";
+    AllOtherTransactionsInput.bankName = "";
 
     fetchData();
   };
@@ -190,16 +190,17 @@ export default function ViewOtherTransactions() {
   };
   const Transactioncolumns = [
     {
-      name: "BankId",
-      selector: (row) => row.BankId,
+      name: "bankId",
+      selector: (row) => row.bankId,
       options: {
         display: false,
       },
     },
 
     {
-      name: "BankName",
-      selector: (row) => row.BankName,
+      label: "BankName",
+      name: "bankName",
+      selector: (row) => row.bankName,
       sort: true,
       sortDirection: true,
     },
@@ -211,44 +212,50 @@ export default function ViewOtherTransactions() {
     // },
 
     {
-      name: "ATM_TerminalId",
-      selector: (row) => row.ATM_TerminalId,
+      label: "ATM_TerminalId",
+      name: "atM_TerminalId",
+      selector: (row) => row.atM_TerminalId,
       sortable: true,
       sort: true,
       sortDirection: true,
     },
     {
-      name: "TransactionDate",
-      selector: (row) => row.TransactionDate,
+      label: "TransactionDate",
+      name: "transactionDate",
+      selector: (row) => row.transactionDate,
       options: {
         display: false,
       },
     },
     {
-      name: "Transaction_DateTime",
-      selector: (row) => row.Transaction_DateTime,
+      label: "Transaction_DateTime",
+      name: "transaction_DateTime",
+      selector: (row) => row.transaction_DateTime,
       sortable: true,
       sort: true,
       sortDirection: true,
     },
     {
-      name: "TransactionType",
-      selector: (row) => row.TransactionType,
+      label: "TransactionType",
+      name: "transactionType",
+      selector: (row) => row.transactionType,
       sortable: true,
     },
     {
-      name: "TransactionStatus",
-      selector: (row) => row.TransactionStatus,
+      label: "TransactionStatus",
+      name: "transactionStatus",
+      selector: (row) => row.transactionStatus,
       sortable: true,
     },
 
     {
-      name: "SequenceNumber",
-      selector: (row) => row.SequenceNumber,
+      label: "SequenceNumber",
+      name: "sequenceNumber",
+      selector: (row) => row.sequenceNumber,
       sortable: true,
     },
     {
-      name: "SequenceNumber",
+      name: "sequenceNumber",
       label: "View Details",
       sortable: true,
       filter: true,
@@ -269,12 +276,12 @@ export default function ViewOtherTransactions() {
                         onClick={(row) => {
                           setTransactionDetails(null);
 
-                          TransactionDetailsInput.BankId = tableMeta.rowData[0];
-                          TransactionDetailsInput.SequenceNumber =
+                          TransactionDetailsInput.bankId = tableMeta.rowData[0];
+                          TransactionDetailsInput.sequenceNumber =
                             tableMeta.rowData[7];
-                          TransactionDetailsInput.TransactionDate =
+                          TransactionDetailsInput.transactionDate =
                             tableMeta.rowData[3];
-                          TransactionDetailsInput.Atm_TerminalId =
+                          TransactionDetailsInput.atm_TerminalId =
                             tableMeta.rowData[2];
                           GetTransactionsDetails();
                         }}

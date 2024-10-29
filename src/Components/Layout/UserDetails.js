@@ -13,11 +13,15 @@ import { Logout } from "../../services/Auth";
 import { isAuthenticated } from "../../services/Auth";
 import { Login } from "../../Components/Pages/LoginPage";
 import { setUser } from "../../redux/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { GetUserRoleDetailsByNameAPI } from "../../services/User/UserService";
 
 export default function LoggedInUserDetails(User) {
   const dispatch = useDispatch();
+
+  const LoggedInUserRoleDetailsData = useSelector(
+    (state) => state.user.userDetails
+  );
   //const [LoggedUser,setUser] =   useState({LoggedInUserName:"",LoggedInUserEmail:""});
   const [LoggedUserAvatar, setLoggedUserAvatar] = useState({
     firstNameInitial: "",
@@ -33,7 +37,9 @@ export default function LoggedInUserDetails(User) {
       // GetUserDetailsAPI(Userdetails)
       GetUserRoleDetailsByNameAPI(Userdetails)
         .then((response) => {
-          if (response.status != "200" || response == null) {
+          console.log(response);
+
+          if (response.status !== 200 || response === null) {
             LogoutUser();
           }
 
@@ -61,25 +67,21 @@ export default function LoggedInUserDetails(User) {
           );
 
           // const userData = JSON.parse(localStorage.getItem("LoggedInUser"));
-          data.email = response.data.email;
-          data.designation = response.data.designation;
-          data.firstName = response.data.firstName;
-          data.lastName = response.data.lastName;
-          data.mobileNumber = response.data.mobileNumber;
-          console.log("data", data.firstName, data.lastName);
+          data.email = response.data.Email;
+          data.designation = response.data.Designation;
+          data.firstName = response.data.FirstName;
+          data.lastName = response.data.LastName;
+          data.mobileNumber = response.data.MobileNumber;
+          console.log(
+            "LoggedInUserRoleDetailsData",
+            LoggedInUserRoleDetailsData
+          );
           setLoggedUserAvatar({
-            // firstNameInitial: response.data.UserName
-            //   ? response.data.UserName.split("@")[0][0]
-            //   : "",
-            // lastNameInitial: response.data.Email
-            //   ? response.data.UserName.split("@")[0][0]
-            //   : "",
-
-            firstNameInitial: data.firstName
-              ? data.firstName.split("@")[0][0]
+            firstNameInitial: LoggedInUserRoleDetailsData.FirstName
+              ? LoggedInUserRoleDetailsData.FirstName[0]
               : "",
-            lastNameInitial: data.LastName
-              ? data.lastName.split("@")[0][0]
+            lastNameInitial: LoggedInUserRoleDetailsData.LastName
+              ? LoggedInUserRoleDetailsData.LastName[0]
               : "",
           });
         })
@@ -88,8 +90,6 @@ export default function LoggedInUserDetails(User) {
             if (err.response.status != 200) {
               LogoutUser();
             }
-          } else {
-            LogoutUser();
           }
         })
         .finally(() => {
@@ -123,8 +123,14 @@ export default function LoggedInUserDetails(User) {
             </Link>
           </span>
           <span className="UserAvataritem user-profile-image">
-            {LoggedUserAvatar.firstNameInitial}
-            {LoggedUserAvatar.lastNameInitial}
+            {/* {LoggedUserAvatar.firstNameInitial}
+            {LoggedUserAvatar.lastNameInitial} */}
+            {LoggedInUserRoleDetailsData?.FirstName
+              ? LoggedInUserRoleDetailsData?.FirstName[0]
+              : ""}
+            {LoggedInUserRoleDetailsData?.LastName
+              ? LoggedInUserRoleDetailsData?.LastName[0]
+              : ""}
           </span>
         </div>
       </div>

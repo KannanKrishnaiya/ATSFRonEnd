@@ -57,11 +57,11 @@ export default function Dashboard() {
       // Atm_TerminalId: "",
       // TransactionStartDate: "",
       // TransactionEndDate: "",
-      BankName: "",
-      City: "",
-      Location: "",
-      Device_Type: "",
-      Device_Model: "",
+      bankName: "",
+      city: "",
+      location: "",
+      device_Type: "",
+      device_Model: "",
     });
   const [DashboardBankNameDropDown, setDashboardBankNameDropDown] = useState(
     []
@@ -138,7 +138,7 @@ export default function Dashboard() {
         setVVDashboardCards(response.data);
         setDashboardDropDownValues(response.data._VV_BankDeviceDetails);
         const DistinctBankName = new Set(
-          response.data._VV_BankDeviceDetails.map((a) => a.BankName)
+          response.data._VV_BankDeviceDetails.map((a) => a.bankName)
         );
         setDashboardBankNameDropDown([...DistinctBankName]);
         setIsLoading(false);
@@ -182,12 +182,12 @@ export default function Dashboard() {
   }
 
   const ResetDropDown = (e) => {
-    SelectedDashboardDropDownValues.BankName = "";
-    SelectedDashboardDropDownValues.City = "";
-    SelectedDashboardDropDownValues.Branch = "";
-    SelectedDashboardDropDownValues.Atm_TerminalId = "";
-    SelectedDashboardDropDownValues.TransactionStartDate = "";
-    SelectedDashboardDropDownValues.TransactionEndDate = "";
+    SelectedDashboardDropDownValues.bankName = "";
+    SelectedDashboardDropDownValues.city = "";
+    SelectedDashboardDropDownValues.branch = "";
+    SelectedDashboardDropDownValues.atm_TerminalId = "";
+    SelectedDashboardDropDownValues.transactionStartDate = "";
+    SelectedDashboardDropDownValues.transactionEndDate = "";
 
     setDashboardBankNameDropDown([]);
     setDashboardCityDropDown([]);
@@ -578,12 +578,12 @@ export default function Dashboard() {
     SelectedDashboardDropDownValues.Device_Model = "";
     SelectedDashboardDropDownValues.Device_Type = "";
 
-    SelectedDashboardDropDownValues.BankName = event.target.value;
+    SelectedDashboardDropDownValues.bankName = event.target.value;
     const FilterCity = DashboardDropDownValues.filter((c) =>
-      c.BankName.includes(event.target.value)
+      c.bankName?.includes(event.target.value)
     );
     // console.log("FilterCity", FilterCity);
-    const DistinctCity = new Set(FilterCity.map((c) => c.City));
+    const DistinctCity = new Set(FilterCity.map((c) => c.city));
     // Update state with unique
     setDashboardCityDropDown([...DistinctCity]);
     // console.log("DistinctCity1", DistinctCity);
@@ -591,19 +591,19 @@ export default function Dashboard() {
 
   const handleInput_CityDropDown = (event) => {
     // console.log("DashboardDropDownValues", DashboardDropDownValues);
-    SelectedDashboardDropDownValues.City = "";
-    SelectedDashboardDropDownValues.Location = "";
-    SelectedDashboardDropDownValues.Device_Model = "";
-    SelectedDashboardDropDownValues.Device_Type = "";
-    SelectedDashboardDropDownValues.City = event.target.value;
+    SelectedDashboardDropDownValues.city = "";
+    SelectedDashboardDropDownValues.location = "";
+    SelectedDashboardDropDownValues.device_Model = "";
+    SelectedDashboardDropDownValues.device_Type = "";
+    SelectedDashboardDropDownValues.city = event.target.value;
 
     const FilterLocation = DashboardDropDownValues.filter(
       (c) =>
-        c.BankName.includes(SelectedDashboardDropDownValues.BankName) &&
-        c.City.includes(event.target.value)
+        c.bankName.includes(SelectedDashboardDropDownValues.bankName) &&
+        c.city.includes(event.target.value)
     );
     // console.log("FilterCity", FilterCity);
-    const DistinctLocation = new Set(FilterLocation.map((c) => c.Location));
+    const DistinctLocation = new Set(FilterLocation.map((c) => c.location));
     // Update state with unique
     setDashboardLocationDropDown([...DistinctLocation]);
     //console.log("DistinctCity1", DistinctLocation);
@@ -611,60 +611,60 @@ export default function Dashboard() {
 
   const handleInput_LocationDropDown = (event) => {
     //console.log("DashboardDropDownValues", DashboardDropDownValues);
-    SelectedDashboardDropDownValues.Location = "";
-    SelectedDashboardDropDownValues.Device_Model = "";
-    SelectedDashboardDropDownValues.Device_Type = "";
-    SelectedDashboardDropDownValues.Location = event.target.value;
+    SelectedDashboardDropDownValues.location = "";
+    SelectedDashboardDropDownValues.device_Model = "";
+    SelectedDashboardDropDownValues.device_Type = "";
+    SelectedDashboardDropDownValues.location = event.target.value;
 
     const FilterDeviceType = DashboardDropDownValues.filter(
       (c) =>
-        c.BankName.includes(SelectedDashboardDropDownValues.BankName) &&
-        c.City.includes(SelectedDashboardDropDownValues.City) &&
-        c.Location.includes(event.target.value)
+        c.bankName.includes(SelectedDashboardDropDownValues.bankName) &&
+        c.city.includes(SelectedDashboardDropDownValues.city) &&
+        c.location.includes(event.target.value)
     );
 
     const DistinctDeviceType = new Set(
-      FilterDeviceType.map((c) => c.Device_Type)
+      FilterDeviceType.map((c) => c.device_Type)
     );
     // Update state with unique
     setDashboardDeviceTypeDropDown([...DistinctDeviceType]);
   };
   const handleInput_DeviceTypeDropDown = (event) => {
     //console.log("DashboardDropDownValues", DashboardDropDownValues);
-    SelectedDashboardDropDownValues.Device_Model = "";
-    SelectedDashboardDropDownValues.Device_Type = "";
-    SelectedDashboardDropDownValues.Device_Type = event.target.value;
+    SelectedDashboardDropDownValues.device_Model = "";
+    SelectedDashboardDropDownValues.device_Type = "";
+    SelectedDashboardDropDownValues.device_Type = event.target.value;
     const FilterModel = DashboardDropDownValues.filter(
       (c) =>
-        c.BankName.includes(SelectedDashboardDropDownValues.BankName) &&
-        c.City.includes(SelectedDashboardDropDownValues.City) &&
-        c.Location.includes(SelectedDashboardDropDownValues.Location) &&
+        c.bankName.includes(SelectedDashboardDropDownValues.bankName) &&
+        c.city.includes(SelectedDashboardDropDownValues.city) &&
+        c.location.includes(SelectedDashboardDropDownValues.location) &&
         //c.Device_Type.includes(event.target.value)
 
-        c.Device_Type.trim().toLowerCase() ==
-          SelectedDashboardDropDownValues.Device_Type.trim().toLowerCase()
+        c.device_Type.trim().toLowerCase() ==
+          SelectedDashboardDropDownValues.device_Type.trim().toLowerCase()
     );
 
-    const DistinctModel = new Set(FilterModel.map((c) => c.Device_Model));
+    const DistinctModel = new Set(FilterModel.map((c) => c.device_Model));
     // Update state with unique
     setDashboardModelDropDown([...DistinctModel]);
   };
 
   const handleInput_DeviceModelDropDown = (event) => {
     //console.log("DashboardDropDownValues", DashboardDropDownValues);
-    SelectedDashboardDropDownValues.Device_Model = "";
-    SelectedDashboardDropDownValues.Device_Model = event.target.value;
+    SelectedDashboardDropDownValues.device_Model = "";
+    SelectedDashboardDropDownValues.device_Model = event.target.value;
 
     const FilterModel = DashboardDropDownValues.filter(
       (c) =>
-        c.BankName.includes(SelectedDashboardDropDownValues.BankName) &&
-        c.City.includes(SelectedDashboardDropDownValues.City) &&
-        c.Location.includes(SelectedDashboardDropDownValues.Location) &&
-        c.Device_Type.includes(SelectedDashboardDropDownValues.Device_Type) &&
-        c.Device_Model.includes(event.target.value)
+        c.bankName.includes(SelectedDashboardDropDownValues.bankName) &&
+        c.city.includes(SelectedDashboardDropDownValues.city) &&
+        c.location.includes(SelectedDashboardDropDownValues.location) &&
+        c.device_Type.includes(SelectedDashboardDropDownValues.device_Type) &&
+        c.device_Model.includes(event.target.value)
     );
 
-    const DistinctDeviceModel = new Set(FilterModel.map((c) => c.Device_Model));
+    const DistinctDeviceModel = new Set(FilterModel.map((c) => c.device_Model));
     // Update state with unique
     setDashboardModelDropDown([...DistinctDeviceModel]);
   };
@@ -769,10 +769,10 @@ export default function Dashboard() {
                     name="Select_BankName"
                     className="FormControl_Select"
                     selected={
-                      (setSelectDashboardDropDownValues.BankName =
-                        SelectedDashboardDropDownValues.BankName)
+                      (setSelectDashboardDropDownValues.bankName =
+                        SelectedDashboardDropDownValues.bankName)
                     }
-                    value={SelectedDashboardDropDownValues.BankName}
+                    value={SelectedDashboardDropDownValues.bankName}
                   >
                     <option value={""}>Select Bank</option>
                     {DashboardBankNameDropDown.length > 0}?
@@ -791,10 +791,10 @@ export default function Dashboard() {
                     name="Select_City"
                     onChange={handleInput_CityDropDown}
                     selected={
-                      (setSelectDashboardDropDownValues.City =
-                        SelectedDashboardDropDownValues.City)
+                      (setSelectDashboardDropDownValues.city =
+                        SelectedDashboardDropDownValues.city)
                     }
-                    value={SelectedDashboardDropDownValues.City}
+                    value={SelectedDashboardDropDownValues.city}
                   >
                     <option value={""}>Select City</option>
                     {DashboardCityDropDown.length > 0}?
@@ -813,10 +813,10 @@ export default function Dashboard() {
                     className="FormControl_Select"
                     onChange={handleInput_LocationDropDown}
                     selected={
-                      (setSelectDashboardDropDownValues.Location =
-                        SelectedDashboardDropDownValues.Location)
+                      (setSelectDashboardDropDownValues.location =
+                        SelectedDashboardDropDownValues.location)
                     }
-                    value={SelectedDashboardDropDownValues.Location}
+                    value={SelectedDashboardDropDownValues.location}
                   >
                     <option value={""}>Select Location</option>
                     {DashboardLocationDropDown.length > 0}?
@@ -835,10 +835,10 @@ export default function Dashboard() {
                     className="FormControl_Select"
                     onChange={handleInput_DeviceTypeDropDown}
                     selected={
-                      (setSelectDashboardDropDownValues.Device_Type =
-                        SelectedDashboardDropDownValues.Device_Type)
+                      (setSelectDashboardDropDownValues.device_Type =
+                        SelectedDashboardDropDownValues.device_Type)
                     }
-                    value={SelectedDashboardDropDownValues.Device_Type}
+                    value={SelectedDashboardDropDownValues.device_Type}
                   >
                     <option value={""}>Select Device Type</option>
                     {DashboardDeviceTypeDropDown.length > 0}?
@@ -857,10 +857,10 @@ export default function Dashboard() {
                     className="FormControl_Select"
                     onChange={handleInput_DeviceModelDropDown}
                     selected={
-                      (setSelectDashboardDropDownValues.Device_Model =
-                        SelectedDashboardDropDownValues.Device_Model)
+                      (setSelectDashboardDropDownValues.device_Model =
+                        SelectedDashboardDropDownValues.device_Model)
                     }
-                    value={SelectedDashboardDropDownValues.Device_Model}
+                    value={SelectedDashboardDropDownValues.device_Model}
                   >
                     <option value={""}>Select Device Model</option>
                     {DashboardModelDropDown.length > 0}?
@@ -962,8 +962,8 @@ export default function Dashboard() {
                     >
                       {(close) => (
                         <div className="DashboardModal">
-                          {VVDashboardCards?._VV_MachineIdleCalculation?.length >
-                          0 ? (
+                          {VVDashboardCards?._VV_MachineIdleCalculation
+                            ?.length > 0 ? (
                             <button className="Export">
                               <CSVLink
                                 data={

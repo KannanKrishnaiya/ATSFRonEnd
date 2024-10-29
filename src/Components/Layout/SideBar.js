@@ -55,6 +55,12 @@ const SideBar = ({ children }) => {
   );
 
   console.log("User Data From Redux :", LoggedInUserRoleDetailsData);
+  console.log("User Data From Redux :", LoggedInUserRoleDetailsData?.RoleId);
+  console.log(
+    "User Data From LoggedInUserRoleDetails :",
+    LoggedInUserRoleDetails?.RoleId
+  );
+  console.log("LoggedInUserRoleDetails :", LoggedInUserRoleDetails);
 
   //console.log("SideBar LoggedInUserRole", LoggedInUserRoleDetails.RoleName);
 
@@ -79,8 +85,8 @@ const SideBar = ({ children }) => {
     //   name: "Chartspage",
     //   icon: <FaChartBar />,
     // },
-    LoggedInUserRoleDetails.RoleId !== null &&
-    LoggedInUserRoleDetails.RoleId == "1"
+    LoggedInUserRoleDetailsData?.RoleId !== null &&
+    LoggedInUserRoleDetailsData?.RoleId == "1"
       ? {
           path: "/",
           name: (
@@ -204,8 +210,8 @@ const SideBar = ({ children }) => {
         },
       ],
     },
-    LoggedInUserRoleDetails.RoleId !== null &&
-    LoggedInUserRoleDetails.RoleId == "1"
+    LoggedInUserRoleDetailsData?.RoleId !== null &&
+    LoggedInUserRoleDetailsData?.RoleId == "1"
       ? {
           path: "/",
           name: "Lookups",
@@ -239,8 +245,8 @@ const SideBar = ({ children }) => {
           ],
         }
       : { path: "/" },
-    LoggedInUserRoleDetails.RoleId !== null &&
-    LoggedInUserRoleDetails.RoleId == "1"
+    LoggedInUserRoleDetailsData?.RoleId !== null &&
+    LoggedInUserRoleDetailsData?.RoleId == "1"
       ? {
           path: "/",
           name: "CMDB",
@@ -308,8 +314,8 @@ const SideBar = ({ children }) => {
     //   icon: <AiFillHeart />,
     // },
 
-    LoggedInUserRoleDetails.RoleId !== null &&
-    LoggedInUserRoleDetails.RoleId == "1"
+    LoggedInUserRoleDetailsData?.RoleId !== null &&
+    LoggedInUserRoleDetailsData?.RoleId == "1"
       ? {
           path: "/",
           name: "Admin",

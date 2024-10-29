@@ -3,6 +3,7 @@ export const StoreUserData = (data) => {
     UserName: data.userName,
     // UserName: "Mohammed.Arash@cns-me.com",
     token: data.token,
+    refreshToken: data.refreshToken,
   };
   localStorage.setItem("LoggedInUser", JSON.stringify(LoggedInUser));
   // sessionStorage.setItem("isLoaded", 0);
@@ -20,7 +21,7 @@ export const removeUserData = () => {
   localStorage.removeItem("LoggedInUser");
   localStorage.removeItem("LoggedInUserRoleDetails");
   // sessionStorage.setItem("isLoaded", 0);
-  // window.location = "login";
+  window.location = "login";
 };
 
 export const GetLoggedInUserRoleDetails = () => {

@@ -131,18 +131,21 @@ export default function CashDepositTransactions() {
   };
 
   const [TransactionDetailsInput, GetTransactionDetailsInput] = useState({
-    BankId: 0,
-    TransactionId: 0,
-    SequenceNumber: 0,
-    AccountNumber: null,
-    TransactionDate: null,
-    CardNumber: null,
+    bankId: 0,
+    transactionId: 0,
+    sequenceNumber: 0,
+    accountNumber: null,
+    transactionDate: null,
+    cardNumber: null,
   });
 
   const [TransactionDetails, setTransactionDetails] = useState();
   const [TransactionId, SetTransactionId] = useState();
 
   function GetTransactionsDetails() {
+
+    console.log(TransactionDetailsInput);
+    
     // setIsLoading(true);
     // alert();
     GetTransactionDetailsAPI(Userdetails, TransactionDetailsInput)
@@ -189,33 +192,38 @@ export default function CashDepositTransactions() {
   };
 
   const [CashDepositCassetteInput, GetCashDepositCassetteInput] = useState({
-    BankId: 0,
-    TransactionId: 0,
-    SequenceNumber: 0,
-    AccountNumber: null,
-    TransactionDate: null,
-    CardNumber: null,
+    bankId: 0,
+    transactionId: 0,
+    sequenceNumber: 0,
+    accountNumber: null,
+    transactionDate: null,
+    cardNumber: null,
   });
 
   const [ChequeDeposit_Input, GetChequeDeposit_Input] = useState({
-    BankId: 0,
-    TransactionId: 0,
-    SequenceNumber: 0,
-    AccountNumber: null,
-    TransactionDate: null,
-    CardNumber: null,
+    bankId: 0,
+    transactionId: 0,
+    sequenceNumber: 0,
+    accountNumber: null,
+    transactionDate: null,
+    cardNumber: null,
   });
+
+
+  
 
   const columns = [
     {
-      name: "BankName",
-      selector: (row) => row.BankName,
+      label: "BankName",
+      name: "bankName",
+      selector: (row) => row.bankName,
       sortable: true,
     },
 
     {
-      name: "ATM_TerminalId",
-      selector: (row) => row.ATM_TerminalId,
+      label: "AtM_TerminalId",
+      name: "atM_TerminalId",
+      selector: (row) => row.atM_TerminalId,
       sortable: true,
       options: {
         filter: true,
@@ -223,24 +231,27 @@ export default function CashDepositTransactions() {
       },
     },
     {
-      name: "Transaction_DateTime",
+      name: "transaction_DateTime",
       label: "TransactionDate",
-      selector: (row) => row.Transaction_DateTime,
+      selector: (row) => row.transaction_DateTime,
       sortable: true,
     },
     {
-      name: "TransactionID",
-      selector: (row) => row.TransactionID,
+      label: "TransactionID",
+      name: "transactionID",
+      selector: (row) => row.transactionID,
       sortable: true,
     },
     {
-      name: "PaymentMethod",
-      selector: (row) => row.PaymentMethod,
+      label: "PaymentMethod",
+      name: "paymentMethod",
+      selector: (row) => row.paymentMethod,
       sortable: true,
     },
     {
-      name: "PaymentType",
-      selector: (row) => row.PaymentType,
+      label: "PaymentType",
+      name: "paymentType",
+      selector: (row) => row.paymentType,
       sortable: true,
     },
     // {
@@ -249,27 +260,29 @@ export default function CashDepositTransactions() {
     //   sortable: true,
     // },
     {
-      name: "AccountNumber",
-      selector: (row) => row.AccountNumber,
+      label: "AccountNumber",
+      name: "accountNumber",
+      selector: (row) => row.accountNumber,
       sortable: true,
     },
     {
-      name: "SequenceNumber",
-      selector: (row) => row.SequenceNumber,
+      label: "SequenceNumber",
+      name: "sequenceNumber",
+      selector: (row) => row.sequenceNumber,
       sortable: true,
     },
     {
-      name: "BankId",
-      selector: (row) => row.BankId,
+      name: "bankId",
+      selector: (row) => row.bankId,
       sortable: true,
       options: {
         display: false,
       },
     },
     {
-      name: "SequenceNumber",
+      name: "sequenceNumber",
       label: "View Details",
-      selector: (row) => row.SequenceNumber,
+      selector: (row) => row.sequenceNumber,
       sortable: true,
       filter: true,
       button: true,
@@ -289,14 +302,14 @@ export default function CashDepositTransactions() {
                           className="DataTableIcons"
                           onClick={(row) => {
                             setTransactionDetails(null);
-                            TransactionDetailsInput.BankId =
+                            TransactionDetailsInput.bankId =
                               tableMeta.rowData[8];
-                            TransactionDetailsInput.SequenceNumber =
+                            TransactionDetailsInput.sequenceNumber =
                               tableMeta.rowData[9];
 
-                            TransactionDetailsInput.TransactionDate =
+                            TransactionDetailsInput.transactionDate =
                               tableMeta.rowData[2];
-                            TransactionDetailsInput.Atm_TerminalId =
+                            TransactionDetailsInput.atm_TerminalId =
                               tableMeta.rowData[1];
                             GetTransactionsDetails();
                           }}
@@ -345,19 +358,19 @@ export default function CashDepositTransactions() {
                   trigger={
                     <div>
                       <div className="tooltip">
-                        {tableMeta.rowData[4].toLowerCase() === "cash" ? (
+                        {tableMeta.rowData[4]?.toLowerCase() === "cash" ? (
                           <div>
                             <MdOutlineAttachMoney
                               className="DataTableIcons"
                               onClick={(row) => {
-                                CashDepositCassetteInput.BankId =
+                                CashDepositCassetteInput.bankId =
                                   tableMeta.rowData[8];
-                                CashDepositCassetteInput.SequenceNumber =
+                                CashDepositCassetteInput.sequenceNumber =
                                   tableMeta.rowData[9];
 
-                                CashDepositCassetteInput.TransactionDate =
+                                CashDepositCassetteInput.transactionDate =
                                   tableMeta.rowData[2];
-                                CashDepositCassetteInput.Atm_TerminalId =
+                                CashDepositCassetteInput.atm_TerminalId =
                                   tableMeta.rowData[1];
                               }}
                             />
@@ -415,14 +428,14 @@ export default function CashDepositTransactions() {
                             <FaMoneyCheckDollar
                               className="DataTableIcons"
                               onClick={(row) => {
-                                ChequeDeposit_Input.BankId =
+                                ChequeDeposit_Input.bankId =
                                   tableMeta.rowData[8];
-                                ChequeDeposit_Input.SequenceNumber =
+                                ChequeDeposit_Input.sequenceNumber =
                                   tableMeta.rowData[9];
 
-                                ChequeDeposit_Input.TransactionDate =
+                                ChequeDeposit_Input.transactionDate =
                                   tableMeta.rowData[2];
-                                ChequeDeposit_Input.Atm_TerminalId =
+                                ChequeDeposit_Input.atm_TerminalId =
                                   tableMeta.rowData[1];
                               }}
                             />

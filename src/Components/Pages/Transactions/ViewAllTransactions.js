@@ -32,19 +32,19 @@ export default function ViewAllTransactions() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [AllTransactionsInput, setAllTransactionsInput] = useState({
-    BankName: "",
-    Branch: "",
-    Atm_TerminalId: "",
-    TransactionStartDate: "",
-    TransactionEndDate: "",
+    bankName: "",
+    branch: "",
+    atm_TerminalId: "",
+    transactionStartDate: "",
+    transactionEndDate: "",
   });
 
   const [TransactionDetailsInput, GetTransactionDetailsInput] = useState({
-    TransactionId: 0,
-    SequenceNumber: 0,
-    AccountNumber: null,
-    TransactionDate: null,
-    CardNumber: null,
+    transactionId: 0,
+    sequenceNumber: 0,
+    accountNumber: null,
+    transactionDate: null,
+    cardNumber: null,
   });
 
   const date = new Date();
@@ -64,13 +64,13 @@ export default function ViewAllTransactions() {
     });
 
     if (event.target.name == "BankName")
-      setBankName.BankName = event.target.value;
+      setBankName.bankName = event.target.value;
 
     if (event.target.name == "TransactionStartDate")
-      setTransactionStartDate.TransactionStartDate = event.target.value;
+      setTransactionStartDate.transactionStartDate = event.target.value;
 
     if (event.target.name == "TransactionEndDate")
-      setTransactionEndDate.TransactionEndDate = event.target.value;
+      setTransactionEndDate.transactionEndDate = event.target.value;
   };
 
   const LogoutUser = () => {
@@ -132,9 +132,9 @@ export default function ViewAllTransactions() {
   function GetAllTransactions() {
     //console.log("AllTransactionsInput", AllTransactionsInput);
     setIsLoading(true);
-    AllTransactionsInput.TransactionStartDate =
+    AllTransactionsInput.transactionStartDate =
       TransactionStartDate.toLocaleDateString();
-    AllTransactionsInput.TransactionEndDate =
+    AllTransactionsInput.transactionEndDate =
       TransactionEndDate.toLocaleDateString();
 
     GetAllTxnAPI(Userdetails, AllTransactionsInput)
@@ -189,60 +189,77 @@ export default function ViewAllTransactions() {
 
   const Transactioncolumns = useMemo(() => [
     {
-      name: "BankName",
-      selector: (row) => row.BankName,
+      label: "BankName",
+      name: "bankName",
+      selector: (row) => row.bankName,
       options: {
         sort: true,
         filter: true,
       },
     },
     {
-      name: "ATM_TerminalId",
-      selector: (row) => row.ATM_TerminalId,
+      label: "ATM_TerminalId",
+      name: "atM_TerminalId",
+      selector: (row) => row.atM_TerminalId,
       sortable: true,
       filter: true,
     },
     {
-      name: "Transaction_DateTime",
-      selector: (row) => row.Transaction_DateTime,
+      label: "Transaction_DateTime",
+      name: "transaction_DateTime",
+      selector: (row) => row.transaction_DateTime,
       sortable: true,
       filter: true,
     },
     {
-      name: "TransactionType",
-      selector: (row) => row.TransactionType,
+      label: "TransactionType",
+      name: "transactionType",
+      selector: (row) => row.transactionType,
       sortable: true,
       filter: true,
     },
     {
-      name: "TransactionStatus",
-      selector: (row) => row.TransactionStatus,
+      label: "TransactionStatus",
+      name: "transactionStatus",
+      selector: (row) => row.transactionStatus,
       sortable: true,
       filter: true,
     },
     {
-      name: "AccountNumber",
-      selector: (row) => row.AccountNumber,
+      label: "AccountNumber",
+      name: "accountNumber",
+      selector: (row) => row.accountNumber,
       sortable: true,
       filter: true,
     },
     {
-      name: "CardNumber",
-      selector: (row) => row.CardNumber,
+      label: "CardNumber",
+      name: "cardNumber",
+      selector: (row) => row.cardNumber,
       sortable: true,
       filter: true,
     },
     {
-      name: "MultipleTxnsSeqNumber",
+      name: "sequenceNumber",
       label: "SequenceNumber",
-      selector: (row) => row.MultipleTxnsSeqNumber,
+      selector: (row) => row.sequenceNumber,
       sortable: true,
       filter: true,
     },
     {
-      name: "AllTransactionId",
+      name: "allTransactionId",
+      label: "TransactionId",
+      selector: (row) => row.allTransactionId,
+      sortable: true,
+      filter: true,
+      options: {
+        display: false,
+      },
+    },
+    {
+      name: "transactionId",
       label: "View Details",
-      selector: (row) => row.TransactionId,
+      selector: (row) => row.transactionId,
       sortable: true,
       filter: true,
       button: true,
@@ -284,7 +301,7 @@ export default function ViewAllTransactions() {
                           //   "updateValue =" + updateValue
                           // );
                           setTransactionDetails(null);
-                          TransactionDetailsInput.TransactionId =
+                          TransactionDetailsInput.transactionId =
                             tableMeta.rowData[8];
 
                           // console.log(

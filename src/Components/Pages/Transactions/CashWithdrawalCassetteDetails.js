@@ -38,32 +38,32 @@ export default function CashWithdrawalCassetteDetails({
     return Loc_CashWithdrawalCassetteDetails
       ? Loc_CashWithdrawalCassetteDetails.map(
           ({
-            BankName,
-            ATM_TerminalId,
-            TransactionDate,
-            Transaction_DateTime,
-            CashWithdrawalTxnTimeStamp,
-            SequenceNumber,
-            Cassette1,
-            Cassette2,
-            Cassette3,
-            Cassette4,
-            TotalAmount,
-            TotalNotes,
+            bankName,
+            atM_TerminalId,
+            transactionDate,
+            transaction_DateTime,
+            cashWithdrawalTxnTimeStamp,
+            sequenceNumber,
+            cassette1,
+            cassette2,
+            cassette3,
+            cassette4,
+            totalAmount,
+            totalNotes,
           }) => {
             return (
               <tr key={index}>
-                <td>{BankName}</td>
-                <td>{ATM_TerminalId}</td>
-                <td>{Transaction_DateTime}</td>
-                <td>{CashWithdrawalTxnTimeStamp}</td>
-                <td>{SequenceNumber}</td>
-                <td>{Cassette1}</td>
-                <td>{Cassette2}</td>
-                <td>{Cassette3}</td>
-                <td>{Cassette4}</td>
-                <td>{TotalAmount}</td>
-                <td>{TotalNotes}</td>
+                <td>{bankName}</td>
+                <td>{atM_TerminalId}</td>
+                <td>{transaction_DateTime}</td>
+                <td>{cashWithdrawalTxnTimeStamp}</td>
+                <td>{sequenceNumber}</td>
+                <td>{cassette1}</td>
+                <td>{cassette2}</td>
+                <td>{cassette3}</td>
+                <td>{cassette4}</td>
+                <td>{totalAmount}</td>
+                <td>{totalNotes}</td>
               </tr>
             );
           }

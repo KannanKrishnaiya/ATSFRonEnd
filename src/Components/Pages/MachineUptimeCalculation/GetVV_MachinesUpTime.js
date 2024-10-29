@@ -53,11 +53,11 @@ export default function GetVV_MachinesUpTime() {
   const [BankNameInput, setBankNameInput] = useState([]);
   const [ATM_TerminalIdInput, setATM_TerminalIdInput] = useState([]);
   const [MachinesUpTimeInput, setMachinesUpTimeInput] = useState({
-    BankName: "",
-    Atm_TerminalId: "",
-    StartTime: "",
-    EndTime: "",
-    RequestDurationType: "day",
+    bankName: "",
+    atm_TerminalId: "",
+    startTime: "",
+    endTime: "",
+    requestDurationType: "day",
   });
 
   const date = new Date();
@@ -70,8 +70,8 @@ export default function GetVV_MachinesUpTime() {
   const [RadioButtonStatus, setRadioButtonStatus] = useState(0); // 0: no show, 1: show yes, 2: show no.
 
   const RadioButtonStatusHandler = (status) => {
-    MachinesUpTimeInput.BankName = null;
-    MachinesUpTimeInput.Atm_TerminalId = null;
+    MachinesUpTimeInput.bankName = null;
+    MachinesUpTimeInput.atm_TerminalId = null;
     setRadioButtonStatus(status);
   };
 
@@ -103,7 +103,7 @@ export default function GetVV_MachinesUpTime() {
         setIsLoading(false);
         SetMachineDetails(response.data);
 
-        const DistinctBankName = new Set(response.data.map((a) => a.BankName));
+        const DistinctBankName = new Set(response.data.map((a) => a.bankName));
 
         setBankNameInput([...DistinctBankName]);
       })
@@ -120,8 +120,8 @@ export default function GetVV_MachinesUpTime() {
 
   function GetVV_MachinesUpTimeData() {
     setIsLoading(true);
-    MachinesUpTimeInput.StartTime = TransactionStartDate.toLocaleDateString();
-    MachinesUpTimeInput.EndTime = TransactionEndDate.toLocaleDateString();
+    MachinesUpTimeInput.startTime = TransactionStartDate.toLocaleDateString();
+    MachinesUpTimeInput.endTime = TransactionEndDate.toLocaleDateString();
     console.log("MachinesUpTimeInput", MachinesUpTimeInput);
     GetVV_MachinesUpTimeAPI(Userdetails, MachinesUpTimeInput)
       .then((response) => {
@@ -147,86 +147,92 @@ export default function GetVV_MachinesUpTime() {
     });
 
     setATM_TerminalIdInput([]);
-    MachinesUpTimeInput.BankName = event.target.value;
+    MachinesUpTimeInput.bankName = event.target.value;
 
     // if (event.target.name == "BankName")
-    setBankNameInput.BankNameInput = event.target.value;
+    setBankNameInput.bankNameInput = event.target.value;
 
     const FilterTerminalId = MachineDetails.filter((c) =>
-      c.BankName.includes(MachinesUpTimeInput.BankName)
+      c.bankName.includes(MachinesUpTimeInput.bankName)
     );
 
     const DistinctTerminalId = new Set(
-      FilterTerminalId.sort().map((c) => c.TerminalId)
+      FilterTerminalId.sort().map((c) => c.terminalId)
     );
 
     setATM_TerminalIdInput([...DistinctTerminalId]);
   };
 
   const handleATM_TerminalIdInput = (event) => {
-    setATM_TerminalIdInput.ATM_TerminalIdInput = event.target.value;
+    setATM_TerminalIdInput.aTM_TerminalIdInput = event.target.value;
 
-    MachinesUpTimeInput.Atm_TerminalId = event.target.value;
+    MachinesUpTimeInput.atm_TerminalId = event.target.value;
   };
 
   const Transactioncolumns = [
     {
-      name: "BankName",
-      selector: (row) => row.BankName,
+      label: "BankName",
+      name: "bankName",
+      selector: (row) => row.bankName,
       options: {
         sort: true,
         filter: true,
       },
     },
     {
-      name: "TerminalId",
-      selector: (row) => row.TerminalId,
+      label: "TerminalId",
+      name: "terminalId",
+      selector: (row) => row.terminalId,
       sortable: true,
       filter: true,
     },
 
     {
-      name: "TotalHoursFromGivenDate",
-      selector: (row) => row.TotalHoursFromGivenDate,
+      label: "TotalHoursFromGivenDate",
+      name: "totalHoursFromGivenDate",
+      selector: (row) => row.totalHoursFromGivenDate,
       sortable: true,
       filter: true,
     },
     {
-      name: "TotalHours_MachineUP",
-      selector: (row) => row.TotalHours_MachineUP,
+      label: "TotalHours_MachineUP",
+      name: "totalHours_MachineUP",
+      selector: (row) => row.totalHours_MachineUP,
       sortable: true,
       filter: true,
     },
     {
-      name: "TotalMachineDownTimeHrs",
-      selector: (row) => row.TotalMachineDownTimeHrs,
+      label: "TotalMachineDownTimeHrs",
+      name: "totalMachineDownTimeHrs",
+      selector: (row) => row.totalMachineDownTimeHrs,
       sortable: true,
       filter: true,
     },
     {
-      name: "TotalMachineDownTimeMins",
-      selector: (row) => row.TotalMachineDownTimeMins,
+      label: "TotalMachineDownTimeMins",
+      name: "totalMachineDownTimeMins",
+      selector: (row) => row.totalMachineDownTimeMins,
       sortable: true,
       filter: true,
     },
     {
-      name: "TotalMachineDownTimeSecs",
+      name: "totalMachineDownTimeSecs",
       label: "TotalMachineDownTimeSecs",
-      selector: (row) => row.TotalMachineDownTimeSecs,
+      selector: (row) => row.totalMachineDownTimeSecs,
       sortable: true,
       filter: true,
     },
     {
-      name: "TotalMachineDownTime_Percentage",
+      name: "totalMachineDownTime_Percentage",
       label: "TotalMachineDownTime_Percentage",
-      selector: (row) => row.TotalMachineDownTime_Percentage,
+      selector: (row) => row.totalMachineDownTime_Percentage,
       sortable: true,
       filter: true,
     },
     {
-      name: "TotalMachineUpTime_Percentage",
+      name: "totalMachineUpTime_Percentage",
       label: "TotalMachineUpTime_Percentage",
-      selector: (row) => row.TotalMachineUpTime_Percentage,
+      selector: (row) => row.totalMachineUpTime_Percentage,
       sortable: true,
       filter: true,
     },

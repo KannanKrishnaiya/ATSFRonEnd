@@ -45,36 +45,42 @@ export default function CassetteCounterDenom() {
   };
   const Transactioncolumns = [
     {
+      label: "BankName",
       name: "bankName",
       selector: (row) => row.bankName,
       sortable: true,
       filter: true,
     },
     {
+      label: "DeviceId",
       name: "deviceId",
       selector: (row) => row.deviceId,
       sortable: true,
       filter: true,
     },
     {
+      label: "ContainerName",
       name: "containerName",
       selector: (row) => row.containerName,
       sortable: true,
       filter: true,
     },
     {
+      label: "Denomination",
       name: "denomination",
       selector: (row) => row.denomination,
       sortable: true,
       filter: true,
     },
     {
+      label: "Quantity",
       name: "quantity",
       selector: (row) => row.quantity,
       sortable: true,
       filter: true,
     },
     {
+      label: "CashOut",
       name: "cashOut",
       selector: (row) => row.cashOut,
       sortable: true,

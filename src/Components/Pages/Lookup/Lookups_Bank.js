@@ -42,20 +42,23 @@ export default function Lookups_Bank() {
 
   const columns = [
     {
-      name: "Id",
-      selector: (row) => row.Id,
+      label: "Id",
+      name: "id",
+      selector: (row) => row.id,
       sortable: true,
     },
 
     {
-      name: "NameEn",
-      selector: (row) => row.NameEn,
+      label: "NameEn",
+      name: "nameEn",
+      selector: (row) => row.nameEn,
       sortable: true,
     },
 
     {
-      name: "Code",
-      selector: (row) => row.Code,
+      label: "Code",
+      name: "code",
+      selector: (row) => row.code,
       sortable: true,
     },
   ];

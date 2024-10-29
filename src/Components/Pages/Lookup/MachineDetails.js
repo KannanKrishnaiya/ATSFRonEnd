@@ -48,61 +48,72 @@ export default function MachineDetails() {
 
   const columns = [
     {
-      name: "BankName",
-      selector: (row) => row.BankName,
+      label: "BankName",
+      name: "bankName",
+      selector: (row) => row.bankName,
       sortable: true,
     },
     {
-      name: "Country",
-      selector: (row) => row.Country,
+      label: "Country",
+      name: "country",
+      selector: (row) => row.country,
       sortable: true,
     },
     {
-      name: "Branch",
-      selector: (row) => row.Branch,
+      label: "Branch",
+      name: "branch",
+      selector: (row) => row.branch,
       sortable: true,
     },
     {
-      name: "DeviceId",
-      selector: (row) => row.DeviceId,
-      sortable: true,
-    },
-
-    {
-      name: "TerminalId",
-      selector: (row) => row.TerminalId,
-      sortable: true,
-    },
-    {
-      name: "City",
-      selector: (row) => row.City,
+      label: "DeviceId",
+      name: "deviceId",
+      selector: (row) => row.deviceId,
       sortable: true,
     },
 
     {
-      name: "Location",
-      selector: (row) => row.Location,
+      label: "TerminalId",
+      name: "terminalId",
+      selector: (row) => row.terminalId,
       sortable: true,
     },
     {
-      name: "SerialNumber",
-      selector: (row) => row.SerialNumber,
-      sortable: true,
-    },
-    {
-      name: "Device_Model",
-      selector: (row) => row.Device_Model,
-      sortable: true,
-    },
-    {
-      name: "Device_Type",
-      selector: (row) => row.Device_Type,
+      label: "City",
+      name: "city",
+      selector: (row) => row.city,
       sortable: true,
     },
 
     {
-      name: "Vendor",
-      selector: (row) => row.Vendor,
+      label: "Location",
+      name: "location",
+      selector: (row) => row.location,
+      sortable: true,
+    },
+    {
+      label: "SerialNumber",
+      name: "serialNumber",
+      selector: (row) => row.serialNumber,
+      sortable: true,
+    },
+    {
+      label: "Device_Model",
+      name: "device_Model",
+      selector: (row) => row.device_Model,
+      sortable: true,
+    },
+    {
+      label: "Device_Type",
+      name: "device_Type",
+      selector: (row) => row.device_Type,
+      sortable: true,
+    },
+
+    {
+      label: "Vendor",
+      name: "vendor",
+      selector: (row) => row.vendor,
       sortable: true,
     },
 

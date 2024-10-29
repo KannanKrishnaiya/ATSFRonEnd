@@ -60,6 +60,7 @@ export default function CassetteReplenishConfig() {
   };
   const Transactioncolumns = [
     {
+      label: "BankId",
       name: "bankId",
       selector: (row) => row.bankId,
       options: {
@@ -67,6 +68,7 @@ export default function CassetteReplenishConfig() {
       },
     },
     {
+      label: "BankName",
       name: "bankName",
       selector: (row) => row.bankName,
       options: {
@@ -75,6 +77,7 @@ export default function CassetteReplenishConfig() {
       },
     },
     {
+      label: "DeviceId",
       name: "deviceId",
       selector: (row) => row.deviceId,
       sortable: true,
@@ -82,6 +85,7 @@ export default function CassetteReplenishConfig() {
     },
 
     {
+      label: "Cassette1",
       name: "cassette1",
       selector: (row) => row.cassette1,
       sortable: true,
@@ -89,30 +93,35 @@ export default function CassetteReplenishConfig() {
     },
 
     {
+      label: "Cassette2",
       name: "cassette2",
       selector: (row) => row.cassette2,
       sortable: true,
       filter: true,
     },
     {
+      label: "Cassette3",
       name: "cassette3",
       selector: (row) => row.cassette3,
       sortable: true,
       filter: true,
     },
     {
+      label: "Cassette4",
       name: "cassette4",
       selector: (row) => row.cassette4,
       sortable: true,
       filter: true,
     },
     {
+      label: "MaxAmountReplenish",
       name: "maxAmountReplenish",
       selector: (row) => row.maxAmountReplenish,
       sortable: true,
       filter: true,
     },
     {
+      label: "MaxReplenishCycleDays",
       name: "maxReplenishCycleDays",
       selector: (row) => row.maxReplenishCycleDays,
       sortable: true,

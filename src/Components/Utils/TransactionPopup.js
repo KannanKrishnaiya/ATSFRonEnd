@@ -30,7 +30,7 @@ export default function TransactionPopup(props) {
     );
   };
   const renderTransactionDetails = () => {
-    console.log("renderTransactionDetails");
+    // console.log("renderTransactionDetails");
     GetTransactionsDetails();
     return TransactionDetails ? (
       <tr key={0}>
@@ -39,7 +39,7 @@ export default function TransactionPopup(props) {
           {TransactionDetails.split("||").map((i, key) => {
             return <div key={key}>{i}</div>;
           })}
-          }
+          
         </td>
       </tr>
     ) : (
@@ -48,11 +48,11 @@ export default function TransactionPopup(props) {
   };
   function GetTransactionsDetails() {
     setIsLoading(true);
-    console.log("props.TransactionDetailsBody;", props.TransactionDetailsBody);
+    // console.log("props.TransactionDetailsBody;", props.TransactionDetailsBody);
     TransactionDetailsInput.TransactionId = props.TransactionDetailsBody;
     GetTransactionDetailsAPI(Userdetails, TransactionDetailsInput)
       .then((response) => {
-        console.log("response.data", response.data);
+        // console.log("response.data", response.data);
         SetTransactionDetails(response.data);
         setIsLoading(false);
       })

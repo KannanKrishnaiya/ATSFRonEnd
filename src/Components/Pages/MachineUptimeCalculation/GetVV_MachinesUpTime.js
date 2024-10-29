@@ -122,7 +122,7 @@ export default function GetVV_MachinesUpTime() {
     setIsLoading(true);
     MachinesUpTimeInput.startTime = TransactionStartDate.toLocaleDateString();
     MachinesUpTimeInput.endTime = TransactionEndDate.toLocaleDateString();
-    console.log("MachinesUpTimeInput", MachinesUpTimeInput);
+ 
     GetVV_MachinesUpTimeAPI(Userdetails, MachinesUpTimeInput)
       .then((response) => {
         // console.log(

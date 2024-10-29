@@ -144,7 +144,7 @@ export default function CashDepositTransactions() {
 
   function GetTransactionsDetails() {
 
-    console.log(TransactionDetailsInput);
+    // console.log(TransactionDetailsInput);
     
     // setIsLoading(true);
     // alert();

@@ -79,17 +79,17 @@ export default function CashWithdrawalCassetteDetails({
       CashWithdrawalCassetteDetails_Input
     )
       .then((response) => {
-        console.log(
-          "CashDepositCassette_Input",
-          CashWithdrawalCassetteDetails_Input
-        );
-        console.log("tt", response.data);
+        // console.log(
+        //   "CashDepositCassette_Input",
+        //   CashWithdrawalCassetteDetails_Input
+        // );
+        // console.log("tt", response.data);
 
         SetCashWithdrawalCassetteDetails(response.data);
-        console.log(
-          "Loc_CashWithdrawalCassetteDetails",
-          Loc_CashWithdrawalCassetteDetails
-        );
+        // console.log(
+        //   "Loc_CashWithdrawalCassetteDetails",
+        //   Loc_CashWithdrawalCassetteDetails
+        // );
 
         setIsLoading(false);
       })

@@ -54,15 +54,7 @@ const SideBar = ({ children }) => {
     localStorage.getItem("LoggedInUserRoleDetails")
   );
 
-  console.log("User Data From Redux :", LoggedInUserRoleDetailsData);
-  console.log("User Data From Redux :", LoggedInUserRoleDetailsData?.RoleId);
-  console.log(
-    "User Data From LoggedInUserRoleDetails :",
-    LoggedInUserRoleDetails?.RoleId
-  );
-  console.log("LoggedInUserRoleDetails :", LoggedInUserRoleDetails);
 
-  //console.log("SideBar LoggedInUserRole", LoggedInUserRoleDetails.RoleName);
 
   const routes = [
     {

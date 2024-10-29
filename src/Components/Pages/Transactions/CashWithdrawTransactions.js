@@ -101,9 +101,9 @@ export default function CashWithdrawTransactions() {
 
   function GetCashWithdrawalTrans() {
     setIsLoading(true);
-    CashWithDrawalTransactionsInput.TransactionStartDate =
+    CashWithDrawalTransactionsInput.transactionStartDate =
       TransactionStartDate.toLocaleDateString();
-    CashWithDrawalTransactionsInput.TransactionEndDate =
+    CashWithDrawalTransactionsInput.transactionEndDate =
       TransactionEndDate.toLocaleDateString();
 
     GetCashWithdrawalTxnAPI(Userdetails, CashWithDrawalTransactionsInput)
@@ -112,10 +112,10 @@ export default function CashWithdrawTransactions() {
           //LogoutUser();
         }
         SetCashWithdrawalTransactions(response.data);
-        console.log(
-          "SetCashWithdrawalTransactions",
-          CashWithdrawalTransactions
-        );
+        // console.log(
+        //   "SetCashWithdrawalTransactions",
+        //   CashWithdrawalTransactions
+        // );
         setIsLoading(false);
       })
       .catch((err) => {
@@ -133,7 +133,7 @@ export default function CashWithdrawTransactions() {
     setTransactionEndDate();
     setBankName([]);
     SetCashWithdrawalTransactions([]);
-    CashWithDrawalTransactionsInput.BankName = "";
+    CashWithDrawalTransactionsInput.bankName = "";
 
     fetchData();
     // console.log(
@@ -151,17 +151,13 @@ export default function CashWithdrawTransactions() {
     bankId: 0,
     transactionId: 0,
     sequenceNumber: 0,
-    accountNumber: null,
     transactionDate: null,
-    cardNumber: null,
   });
 
   const [TransactionDetailsInput, GetTransactionDetailsInput] = useState({
     transactionId: 0,
     sequenceNumber: 0,
-    accountNumber: null,
     transactionDate: null,
-    cardNumber: null,
   });
   const [TransactionDetails, setTransactionDetails] = useState();
   const [TransactionId, SetTransactionId] = useState();
@@ -189,7 +185,7 @@ export default function CashWithdrawTransactions() {
       <tr key={0}>
         <td>
           {/* {TransactionDetails} */}
-          {TransactionDetails.split("||").map((i, key) => {
+          {TransactionDetails?.split("||").map((i, key) => {
             return <div key={key}>{i}</div>;
           })}
         </td>
@@ -200,7 +196,7 @@ export default function CashWithdrawTransactions() {
   };
   const downloadPdf = async (FileName) => {
     let TextString = JSON.stringify({ TransactionDetails });
-    let TextString_Split = TextString.split("||");
+    let TextString_Split = TextString?.split("||");
 
     // Default export is a4 paper, portrait, using millimeters for units
     const doc = new jsPDF();

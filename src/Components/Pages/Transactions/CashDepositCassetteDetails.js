@@ -86,14 +86,14 @@ export default function CashDepositCassetteDetails({
 
     GetCashDepositCassetteDetailsAPI(Userdetails, CashDepositCassette_Input)
       .then((response) => {
-        console.log("CashDepositCassette_Input", CashDepositCassette_Input);
-        console.log("tt", response.data);
+        // console.log("CashDepositCassette_Input", CashDepositCassette_Input);
+        // console.log("tt", response.data);
 
         setCashDepositCassetteDetails(response.data);
-        console.log(
-          "Loc_CashDepositCassetteDetails",
-          Loc_CashDepositCassetteDetails
-        );
+        // console.log(
+        //   "Loc_CashDepositCassetteDetails",
+        //   Loc_CashDepositCassetteDetails
+        // );
 
         setIsLoading(false);
       })

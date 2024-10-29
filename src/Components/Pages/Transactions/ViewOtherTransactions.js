@@ -130,7 +130,7 @@ export default function ViewOtherTransactions() {
     setIsLoading(true);
     GetOtherTxnAPI(Userdetails, AllOtherTransactionsInput)
       .then((response) => {
-        console.log("GetOtherTxnAPI", response.data);
+        // console.log("GetOtherTxnAPI", response.data);
         SetAllOtherTransactions(response.data);
         setIsLoading(false);
       })

@@ -37,15 +37,13 @@ export default function LoggedInUserDetails(User) {
       // GetUserDetailsAPI(Userdetails)
       GetUserRoleDetailsByNameAPI(Userdetails)
         .then((response) => {
-          console.log(response);
+      
 
           if (response.status !== 200 || response === null) {
             LogoutUser();
           }
 
           const data = response?.data[0];
-
-          console.log(data);
 
           const UserRoleDetails = {
             Id: data?.id,
@@ -72,10 +70,7 @@ export default function LoggedInUserDetails(User) {
           data.firstName = response.data.FirstName;
           data.lastName = response.data.LastName;
           data.mobileNumber = response.data.MobileNumber;
-          console.log(
-            "LoggedInUserRoleDetailsData",
-            LoggedInUserRoleDetailsData
-          );
+         
           setLoggedUserAvatar({
             firstNameInitial: LoggedInUserRoleDetailsData.FirstName
               ? LoggedInUserRoleDetailsData.FirstName[0]

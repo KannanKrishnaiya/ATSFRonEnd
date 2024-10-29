@@ -94,7 +94,7 @@ export const GetUserDetailsAPI = (inputs) => {
 
 export const ValidateTransactions = (inputs) => {
   const userData = JSON.parse(inputs);
-  console.log("ValidateTransactions");
+  // console.log("ValidateTransactions");
   let headerToken = {
     idToken: userData.access_token,
   };
@@ -111,6 +111,6 @@ export const ValidateTransactions = (inputs) => {
     config
   );
   //LoggedInUserName = UserDetails.data.userName;
-  console.log(Transactions);
+  // console.log(Transactions);
   return Transactions;
 };

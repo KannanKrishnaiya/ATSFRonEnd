@@ -19,7 +19,7 @@ export default function MachineDetails() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    console.log("MachineDetails");
+   
     setIsLoading(true);
     GetAllMachineDetailsAPI(Userdetails)
       .then((response) => {

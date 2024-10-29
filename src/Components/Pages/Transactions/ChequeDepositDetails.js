@@ -65,11 +65,11 @@ export default function ChequeDepositDetails({ ChequeDeposit_Input }) {
 
     GetChequeDepositDetailsAPI(Userdetails, ChequeDeposit_Input)
       .then((response) => {
-        console.log("CashDepositCassette_Input", ChequeDeposit_Input);
-        console.log("tt", response.data);
+        // console.log("CashDepositCassette_Input", ChequeDeposit_Input);
+        // console.log("tt", response.data);
 
         setChequeDepositDetails(response.data);
-        console.log("Loc_ChequeDepositDetails", Loc_ChequeDepositDetails);
+        // console.log("Loc_ChequeDepositDetails", Loc_ChequeDepositDetails);
 
         setIsLoading(false);
       })

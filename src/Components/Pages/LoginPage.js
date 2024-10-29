@@ -42,8 +42,7 @@ export default function LoginPage() {
     if (!hasError) {
       LoginApi(inputs)
         .then((response) => {
-          console.log(response.data);
-
+       
           StoreUserData(response.data);
         })
         .catch((err) => {
@@ -75,9 +74,9 @@ export default function LoginPage() {
   };
 
   if (isAuthenticated() && IsLoaded == 0) {
-    console.log("IsLoaded", IsLoaded);
+    // console.log("IsLoaded", IsLoaded);
     IsLoaded++;
-    console.log(Userdetails);
+    
     // GetUserDetailsAPI(Userdetails)
       GetUserRoleDetailsByNameAPI(Userdetails)
       .then((response) => {
@@ -85,7 +84,7 @@ export default function LoginPage() {
           LogoutUser();
         }
         SetLoggedInUserRoleDetails(response.data[0]);
-        console.log(response.data[0]);
+       
 
         // const data = response.data[0];
         // const UserRoleDetails = {

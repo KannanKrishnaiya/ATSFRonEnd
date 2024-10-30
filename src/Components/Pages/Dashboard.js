@@ -201,19 +201,19 @@ export default function Dashboard() {
     return VVDashboardCards._VV_MachineIdleCalculation
       ? VVDashboardCards._VV_MachineIdleCalculation.map(
           ({
-            BankName,
-            DeviceId,
-            Timestamp,
+            bankName,
+            deviceId,
+            timestamp,
             // OrgMessage,
             // ServerTimestamp,
             // DeviceState,
             // EventNo,
           }) => {
             return (
-              <tr key={DeviceId}>
-                <td>{BankName}</td>
-                <td>{DeviceId}</td>
-                <td>{Timestamp}</td>
+              <tr key={deviceId}>
+                <td>{bankName}</td>
+                <td>{deviceId}</td>
+                <td>{timestamp}</td>
                 {/* <td>{OrgMessage}</td>
                 <td>{ServerTimestamp}</td>
                 <td>{DeviceState}</td>
@@ -228,22 +228,22 @@ export default function Dashboard() {
     return VVDashboardCards._VV_OutOfCash
       ? VVDashboardCards._VV_OutOfCash.map(
           ({
-            BankName,
-            DeviceId,
-            ContainerName,
-            Denomination,
-            Quantity,
+            bankName,
+            deviceId,
+            containerName,
+            denomination,
+            quantity,
             // CashOut,
             // CashIn,
             // Reject,
           }) => {
             return (
-              <tr key={DeviceId}>
-                <td>{BankName}</td>
-                <td>{DeviceId}</td>
-                <td>{ContainerName}</td>
-                <td>{Denomination}</td>
-                <td>{Quantity}</td>
+              <tr key={deviceId}>
+                <td>{bankName}</td>
+                <td>{deviceId}</td>
+                <td>{containerName}</td>
+                <td>{denomination}</td>
+                <td>{quantity}</td>
                 {/* <td>{CashOut}</td>
                 <td>{CashIn}</td>
                 <td>{Reject}</td> */}
@@ -258,18 +258,18 @@ export default function Dashboard() {
     let List_DistinctBankName = [];
     SearchBank
       ? (List_DistinctBankName = VVDashboardCards._VV_OutOfCash.filter((a) =>
-          a?.BankName?.includes(SearchBank?.BankName)
+          a?.bankName?.includes(SearchBank?.bankName)
         ))
       : (List_DistinctBankName = VVDashboardCards._VV_OutOfCash);
     return List_DistinctBankName.map(
-      ({ BankName, DeviceId, ContainerName, Denomination, Quantity }) => {
+      ({ bankName, deviceId, containerName, denomination, quantity }) => {
         return (
-          <tr key={DeviceId}>
-            <td>{BankName}</td>
-            <td>{DeviceId}</td>
-            <td>{ContainerName}</td>
-            <td>{Denomination}</td>
-            <td>{Quantity}</td>
+          <tr key={deviceId}>
+            <td>{bankName}</td>
+            <td>{deviceId}</td>
+            <td>{containerName}</td>
+            <td>{denomination}</td>
+            <td>{quantity}</td>
           </tr>
         );
       }
@@ -280,20 +280,20 @@ export default function Dashboard() {
     return VVDashboardCards._VV_CardsCaptured
       ? VVDashboardCards._VV_CardsCaptured.map(
           ({
-            BankName,
-            DeviceId,
-            Timestamp,
-            OrgMessage,
+            bankName,
+            deviceId,
+            timestamp,
+            orgMessage,
             // ServerTimestamp,
             // DeviceState,
             // EventNo,
           }) => {
             return (
-              <tr key={DeviceId}>
-                <td>{BankName}</td>
-                <td>{DeviceId}</td>
-                <td>{Timestamp}</td>
-                <td>{OrgMessage}</td>
+              <tr key={deviceId}>
+                <td>{bankName}</td>
+                <td>{deviceId}</td>
+                <td>{timestamp}</td>
+                <td>{orgMessage}</td>
                 {/* <td>{ServerTimestamp}</td>
                 <td>{DeviceState}</td>
                 <td>{EventNo}</td> */}
@@ -308,22 +308,22 @@ export default function Dashboard() {
     return VVDashboardCards._VV_DownTime_OutOfService
       ? VVDashboardCards._VV_DownTime_OutOfService.map(
           ({
-            BankName,
-            DeviceId,
-            MachineDownTime,
-            MachineRecoverTime,
-            StatusMessage,
+            bankName,
+            deviceId,
+            machineDownTime,
+            machineRecoverTime,
+            statusMessage,
             // DeviceIntervalTime,
             // StartEventNumber,
             // EndEventNumber,
           }) => {
             return (
-              <tr key={DeviceId}>
-                <td>{BankName}</td>
-                <td>{DeviceId}</td>
-                <td>{MachineDownTime}</td>
-                <td>{MachineRecoverTime}</td>
-                <td>{StatusMessage}</td>
+              <tr key={deviceId}>
+                <td>{bankName}</td>
+                <td>{deviceId}</td>
+                <td>{machineDownTime}</td>
+                <td>{machineRecoverTime}</td>
+                <td>{statusMessage}</td>
                 {/* <td>{DeviceIntervalTime}</td>
                 <td>{StartEventNumber}</td>
                 <td>{EndEventNumber}</td> */}
@@ -337,34 +337,34 @@ export default function Dashboard() {
     return VVDashboardCards._VV_AllTicket
       ? VVDashboardCards._VV_AllTicket.map(
           ({
-            BankName,
-            DeviceId,
-            TicketNumber,
-            CategoryName,
-            TicketSubject,
+            bankName,
+            deviceId,
+            ticketNumber,
+            categoryName,
+            ticketSubject,
             // TicketStatus,
-            ItemName,
+            itemName,
 
-            AssigneeGroup,
-            CreateTime,
-            ReportTime,
-            DispatchTime,
+            assigneeGroup,
+            createTime,
+            reportTime,
+            dispatchTime,
             // TicketOwner,
           }) => {
             return (
-              <tr key={DeviceId}>
-                <td>{BankName}</td>
-                <td>{DeviceId}</td>
-                <td>{TicketNumber}</td>
-                <td>{CategoryName}</td>
-                <td>{TicketSubject}</td>
+              <tr key={deviceId}>
+                <td>{bankName}</td>
+                <td>{deviceId}</td>
+                <td>{ticketNumber}</td>
+                <td>{categoryName}</td>
+                <td>{ticketSubject}</td>
                 {/* <td>{TicketStatus}</td> */}
 
-                <td>{ItemName}</td>
-                <td>{AssigneeGroup}</td>
-                <td>{CreateTime}</td>
-                <td>{ReportTime}</td>
-                <td>{DispatchTime}</td>
+                <td>{itemName}</td>
+                <td>{assigneeGroup}</td>
+                <td>{createTime}</td>
+                <td>{reportTime}</td>
+                <td>{dispatchTime}</td>
                 {/* <td>{TicketOwner}</td> */}
               </tr>
             );
@@ -417,23 +417,23 @@ export default function Dashboard() {
     return { AllFailedTransactions }
       ? AllFailedTransactions.map(
           ({
-            BankName,
-            Branch,
-            TransactionDate,
-            SequenceNumber,
-            TransactionDetails,
-            TransactionType,
-            PaymentMethod,
+            bankName,
+            branch,
+            transactionDate,
+            sequenceNumber,
+            transactionDetails,
+            transactionType,
+            paymentMethod,
           }) => {
             return (
-              <tr key={SequenceNumber}>
-                <td>{BankName}</td>
-                <td>{Branch}</td>
-                <td>{TransactionDate}</td>
-                <td>{SequenceNumber}</td>
-                <td>{TransactionDetails}</td>
-                <td>{TransactionType}</td>
-                <td>{PaymentMethod}</td>
+              <tr key={sequenceNumber}>
+                <td>{bankName}</td>
+                <td>{branch}</td>
+                <td>{transactionDate}</td>
+                <td>{sequenceNumber}</td>
+                <td>{transactionDetails}</td>
+                <td>{transactionType}</td>
+                <td>{paymentMethod}</td>
               </tr>
             );
           }
@@ -508,25 +508,25 @@ export default function Dashboard() {
     return VVDashboardCards._VV_AllMachinesCashAvailable
       ? VVDashboardCards._VV_AllMachinesCashAvailable.map(
           ({
-            BankName,
-            DeviceId,
-            ContainerName,
-            Denomination,
-            Quantity,
-            CashOut,
-            CashIn,
-            Reject,
+            bankName,
+            deviceId,
+            containerName,
+            denomination,
+            quantity,
+            cashOut,
+            cashIn,
+            reject,
           }) => {
             return (
-              <tr key={DeviceId}>
-                <td>{BankName}</td>
-                <td>{DeviceId}</td>
-                <td>{ContainerName}</td>
-                <td>{Denomination}</td>
-                <td>{Quantity}</td>
-                <td>{CashOut}</td>
-                <td>{CashIn}</td>
-                <td>{Reject}</td>
+              <tr key={deviceId}>
+                <td>{bankName}</td>
+                <td>{deviceId}</td>
+                <td>{containerName}</td>
+                <td>{denomination}</td>
+                <td>{quantity}</td>
+                <td>{cashOut}</td>
+                <td>{cashIn}</td>
+                <td>{reject}</td>
               </tr>
             );
           }
@@ -536,34 +536,34 @@ export default function Dashboard() {
 
   const renderCashAvailabilityWithSearch = () => {
     let List_DistinctBankName = [];
-    const SearchBank = SelectedDashboardDropDownValues.BankName;
+    const SearchBank = SelectedDashboardDropDownValues.bankName;
     SearchBank
       ? (List_DistinctBankName =
           VVDashboardCards._VV_AllMachinesCashAvailable.filter((a) =>
-            a.BankName.includes(SearchBank.BankName)
+            a.bankName.includes(SearchBank.bankName)
           ))
       : (List_DistinctBankName = VVDashboardCards._VV_AllMachinesCashAvailable);
     return List_DistinctBankName.map(
       ({
-        BankName,
-        DeviceId,
-        ContainerName,
-        Denomination,
-        Quantity,
-        CashOut,
-        CashIn,
-        Reject,
+        bankName,
+        deviceId,
+        containerName,
+        denomination,
+        quantity,
+        cashOut,
+        cashIn,
+        reject,
       }) => {
         return (
-          <tr key={DeviceId}>
-            <td>{BankName}</td>
-            <td>{DeviceId}</td>
-            <td>{ContainerName}</td>
-            <td>{Denomination}</td>
-            <td>{Quantity}</td>
-            <td>{CashOut}</td>
-            <td>{CashIn}</td>
-            <td>{Reject}</td>
+          <tr key={deviceId}>
+            <td>{bankName}</td>
+            <td>{deviceId}</td>
+            <td>{containerName}</td>
+            <td>{denomination}</td>
+            <td>{quantity}</td>
+            <td>{cashOut}</td>
+            <td>{cashIn}</td>
+            <td>{reject}</td>
           </tr>
         );
       }
@@ -572,11 +572,11 @@ export default function Dashboard() {
   //renderCashAvailabilityWithSearch("Al-Maryah");
 
   const handleInput_BankNameDropDown = (event) => {
-    SelectedDashboardDropDownValues.BankName = "";
-    SelectedDashboardDropDownValues.City = "";
-    SelectedDashboardDropDownValues.Location = "";
-    SelectedDashboardDropDownValues.Device_Model = "";
-    SelectedDashboardDropDownValues.Device_Type = "";
+    SelectedDashboardDropDownValues.bankName = "";
+    SelectedDashboardDropDownValues.city = "";
+    SelectedDashboardDropDownValues.location = "";
+    SelectedDashboardDropDownValues.device_Model = "";
+    SelectedDashboardDropDownValues.device_Type = "";
 
     SelectedDashboardDropDownValues.bankName = event.target.value;
     const FilterCity = DashboardDropDownValues.filter((c) =>
@@ -689,21 +689,21 @@ export default function Dashboard() {
     return VVDashboardCards._VV_RepeatedTickets
       ? VVDashboardCards._VV_RepeatedTickets.map(
           ({
-            BankName,
-            DeviceId,
-            Item_name,
-            First_Reported,
-            Latest_Reported,
-            Repeated_Count,
+            bankName,
+            deviceId,
+            item_name,
+            first_Reported,
+            latest_Reported,
+            repeated_Count,
           }) => {
             return (
-              <tr key={DeviceId}>
-                <td>{BankName}</td>
-                <td>{DeviceId}</td>
-                <td>{Item_name}</td>
-                <td>{First_Reported}</td>
-                <td>{Latest_Reported}</td>
-                <td>{Repeated_Count}</td>
+              <tr key={deviceId}>
+                <td>{bankName}</td>
+                <td>{deviceId}</td>
+                <td>{item_name}</td>
+                <td>{first_Reported}</td>
+                <td>{latest_Reported}</td>
+                <td>{repeated_Count}</td>
               </tr>
             );
           }
@@ -726,20 +726,20 @@ export default function Dashboard() {
     return VVDashboardCards._VV_RebootedMachines
       ? VVDashboardCards._VV_RebootedMachines.map(
           ({
-            BankName,
-            DeviceId,
-            Timestamp,
-            OrgMessage,
+            bankName,
+            deviceId,
+            timestamp,
+            orgMessage,
             // ServerTimestamp,
             // DeviceState,
             // EventNo,
           }) => {
             return (
-              <tr key={DeviceId}>
-                <td>{BankName}</td>
-                <td>{DeviceId}</td>
-                <td>{Timestamp}</td>
-                <td>{OrgMessage}</td>
+              <tr key={deviceId}>
+                <td>{bankName}</td>
+                <td>{deviceId}</td>
+                <td>{timestamp}</td>
+                <td>{orgMessage}</td>
                 {/*  <td>{ServerTimestamp}</td>
               <td>{DeviceState}</td>
               <td>{EventNo}</td> */}

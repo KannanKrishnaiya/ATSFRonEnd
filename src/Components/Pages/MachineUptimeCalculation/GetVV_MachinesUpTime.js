@@ -84,7 +84,8 @@ export default function GetVV_MachinesUpTime() {
       .catch((err) => {
         setIsLoading(false);
 
-        window.location = "ErrorPage_404";
+        // window.location = "ErrorPage_404";
+        window.location = "login";
       })
       .finally(() => {
         setIsLoading(false);

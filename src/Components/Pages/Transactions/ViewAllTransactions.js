@@ -117,7 +117,8 @@ export default function ViewAllTransactions() {
         setIsLoading(false);
 
         //alert("GetLookupsAPI", err);
-        window.location = "ErrorPage_404";
+        // window.location = "ErrorPage_404";
+        window.location = "login";
       })
       .finally(() => {
         setIsLoading(false);

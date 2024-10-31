@@ -172,8 +172,8 @@ export default function GetVV_MachinesUpTime() {
 
   const ResetInputs = (e) => {
     setRadioButtonStatus(0);
-    setBankNameInput("");
-    setATM_TerminalIdInput("");
+    setBankNameInput([]);
+    setATM_TerminalIdInput([]);
     setTransactionStartDate(yesterday);
     setTransactionEndDate(date);
     fetchData();
@@ -493,14 +493,14 @@ export default function GetVV_MachinesUpTime() {
                   onClick={GetVV_MachinesUpTimeData}
                 />
               </div>
-              <div>
+              {/* <div>
                 <input
                   className="btn-grad-reports"
                   type="button"
                   value="Reset"
                   onClick={ResetInputs}
                 />
-              </div>
+              </div> */}
             </div>
           </div>
           {/* <div className="">

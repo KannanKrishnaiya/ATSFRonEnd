@@ -122,8 +122,10 @@ export default function CashDepositTransactions() {
   }
 
   const ResetInputs = (e) => {
-    setTransactionStartDate();
-    setTransactionEndDate();
+    // setTransactionStartDate();
+    // setTransactionEndDate();
+    setTransactionStartDate(yesterday);
+    setTransactionEndDate(date);
     setBankName([]);
     SetCashDepositTransactions([]);
     CashDepositTransactions.bankName = "";
@@ -143,9 +145,8 @@ export default function CashDepositTransactions() {
   const [TransactionId, SetTransactionId] = useState();
 
   function GetTransactionsDetails() {
-
     // console.log(TransactionDetailsInput);
-    
+
     // setIsLoading(true);
     // alert();
     GetTransactionDetailsAPI(Userdetails, TransactionDetailsInput)
@@ -208,9 +209,6 @@ export default function CashDepositTransactions() {
     transactionDate: null,
     cardNumber: null,
   });
-
-
-  
 
   const columns = [
     {

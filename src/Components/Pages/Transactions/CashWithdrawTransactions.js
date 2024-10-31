@@ -129,8 +129,10 @@ export default function CashWithdrawTransactions() {
       });
   }
   const ResetInputs = (e) => {
-    setTransactionStartDate();
-    setTransactionEndDate();
+    // setTransactionStartDate();
+    // setTransactionEndDate();
+    setTransactionStartDate(yesterday);
+    setTransactionEndDate(date);
     setBankName([]);
     SetCashWithdrawalTransactions([]);
     CashWithDrawalTransactionsInput.bankName = "";

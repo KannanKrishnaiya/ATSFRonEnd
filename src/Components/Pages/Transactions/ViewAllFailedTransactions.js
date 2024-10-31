@@ -131,8 +131,10 @@ export default function ViewAllFailedTransactions() {
   }
 
   const ResetInputs = (e) => {
-    setTransactionStartDate();
-    setTransactionEndDate();
+    // setTransactionStartDate();
+    // setTransactionEndDate();
+    setTransactionStartDate(yesterday);
+    setTransactionEndDate(date);
     setBankName([]);
     SetAllFailedTransactions([]);
     AllFailedTransactionsInput.bankName = "";

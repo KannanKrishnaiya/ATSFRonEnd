@@ -167,8 +167,10 @@ export default function ViewAllTransactions() {
   }
 
   const ResetInputs = (e) => {
-    setTransactionStartDate();
-    setTransactionEndDate();
+    // setTransactionStartDate();
+    // setTransactionEndDate();
+    setTransactionStartDate(yesterday);
+    setTransactionEndDate(date);
     setBankName([]);
     SetAllTransactions([]);
     AllTransactionsInput.bankName = "";

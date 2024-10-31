@@ -5,6 +5,7 @@ const GetCassetteRepConfigURL = "/api/Transactions/GetCassetteRepConfig";
 const CassetteAvgCalcURL = "/api/VynamicView/CassetteAverageCalculation";
 const CasseteCounterDenomURL = "/api/VynamicView/CasseteCounterDenomination";
 const CassetteRepCfgURL = "/api/Transactions/CassetteRepForecast";
+const CassetteRepForecastURL = "/api/Transactions/Calc_CashRepForecast";
 
 export const GetCassetteRepConfigAPI = (inputs, data) => {
   const userData = JSON.parse(inputs);
@@ -64,4 +65,17 @@ export const CassetteRepCfgAPI = (inputs, data) => {
 
   var CassetteRepCfgResponse = axios.post(CassetteRepCfgURL, data, config);
   return CassetteRepCfgResponse;
+};
+
+export const CassetteRepForecastAPI = (inputs, data) => {
+  const userData = JSON.parse(inputs);
+  let headerToken = {
+    idToken: userData.token,
+  };
+  const config = {
+    headers: { Authorization: "Bearer " + headerToken.idToken },
+  };
+
+  var CassetteRepForecastAPI = axios.post(CassetteRepForecastURL, data, config);
+  return CassetteRepForecastAPI;
 };

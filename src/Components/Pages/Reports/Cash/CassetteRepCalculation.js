@@ -9,25 +9,26 @@ import {
 import {
   CasseteCounterDenomAPI,
   CassetteAvgCalcAPI,
+  CassetteRepCfgAPI,
   GetCassetteAverageConfigAPI,
 } from "../../../../services/CashReplenish/CashReplenish";
 import { Logout } from "../../../../services/Auth";
 
-export default function CassetteCounterDenom() {
+export default function CassetteRepCalculation() {
   const [isLoading, setIsLoading] = useState(false);
   const Userdetails = localStorage.getItem("LoggedInUser");
 
-  const [CasseteCounterDenom, SetCasseteCounterDenom] = useState([]);
+  const [CassetteRepCfg, SetCassetteRepCfg] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
-    CasseteCounterDenomAPI(Userdetails)
+    CassetteRepCfgAPI(Userdetails)
       .then((response) => {
         if (response.status != "200") {
           LogoutUser();
         }
         // console.log("MachineDetails response", response.data);
-        SetCasseteCounterDenom(response.data);
+        SetCassetteRepCfg(response.data);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -59,30 +60,187 @@ export default function CassetteCounterDenom() {
       filter: true,
     },
     {
-      label: "ContainerName",
-      name: "containerName",
-      selector: (row) => row.containerName,
+      label: "Cassette1_Denom",
+      name: "cassette1_Denom",
+      selector: (row) => row.cassette1_Denom,
       sortable: true,
       filter: true,
     },
     {
-      label: "Denomination",
-      name: "denomination",
-      selector: (row) => row.denomination,
+      label: "Cassette2_Denom",
+      name: "cassette2_Denom",
+      selector: (row) => row.cassette2_Denom,
       sortable: true,
       filter: true,
     },
     {
-      label: "Quantity",
-      name: "quantity",
-      selector: (row) => row.quantity,
+      label: "Cassette3_Denom",
+      name: "cassette3_Denom",
+      selector: (row) => row.cassette3_Denom,
       sortable: true,
       filter: true,
     },
     {
-      label: "CashOut",
-      name: "cashOut",
-      selector: (row) => row.cashOut,
+      label: "Cassette4_Denom",
+      name: "cassette4_Denom",
+      selector: (row) => row.cassette4_Denom,
+      sortable: true,
+      filter: true,
+    },
+    {
+      label: "Cassette1_Avg",
+      name: "cassette1_Avg",
+      selector: (row) => row.cassette1_Avg,
+      sortable: true,
+      filter: true,
+    },
+    {
+      label: "Cassette2_Avg",
+      name: "cassette2_Avg",
+      selector: (row) => row.cassette2_Avg,
+      sortable: true,
+      filter: true,
+    },
+    {
+      label: "Cassette3_Avg",
+      name: "cassette3_Avg",
+      selector: (row) => row.cassette3_Avg,
+      sortable: true,
+      filter: true,
+    },
+    {
+      label: "Cassette4_Avg",
+      name: "cassette4_Avg",
+      selector: (row) => row.cassette4_Avg,
+      sortable: true,
+      filter: true,
+    },
+
+    {
+      label: "Cassette1_AvgAmt",
+      name: "cassette1_AvgAmt",
+      selector: (row) => row.cassette1_AvgAmt,
+      sortable: true,
+      filter: true,
+    },
+    {
+      label: "Cassette2_AvgAmt",
+      name: "cassette2_AvgAmt",
+      selector: (row) => row.cassette4_Denom,
+      sortable: true,
+      filter: true,
+    },
+    {
+      label: "Cassette3_AvgAmt",
+      name: "cassette3_AvgAmt",
+      selector: (row) => row.cassette3_AvgAmt,
+      sortable: true,
+      filter: true,
+    },
+    {
+      label: "Cassette4_AvgAmt",
+      name: "cassette4_AvgAmt",
+      selector: (row) => row.cassette4_AvgAmt,
+      sortable: true,
+      filter: true,
+    },
+
+    {
+      label: "DeviceCassettes_TotAmt",
+      name: "deviceCassettes_TotAmt",
+      selector: (row) => row.deviceCassettes_TotAmt,
+      sortable: true,
+      filter: true,
+    },
+    {
+      label: "Per_Cassette1_TotAmt",
+      name: "per_Cassette1_TotAmt",
+      selector: (row) => row.per_Cassette1_TotAmt,
+      sortable: true,
+      filter: true,
+    },
+    {
+      label: "Per_Cassette2_TotAmt",
+      name: "per_Cassette2_TotAmt",
+      selector: (row) => row.per_Cassette2_TotAmt,
+      sortable: true,
+      filter: true,
+    },
+    {
+      label: "Per_Cassette3_TotAmt",
+      name: "per_Cassette3_TotAmt",
+      selector: (row) => row.per_Cassette3_TotAmt,
+      sortable: true,
+      filter: true,
+    },
+    {
+      label: "Per_Cassette4_TotAmt",
+      name: "per_Cassette4_TotAmt",
+      selector: (row) => row.per_Cassette4_TotAmt,
+      sortable: true,
+      filter: true,
+    },
+    {
+      label: "Cassette1_ReplenishAmount",
+      name: "cassette1_ReplenishAmount",
+      selector: (row) => row.cassette1_ReplenishAmount,
+      sortable: true,
+      filter: true,
+    },
+    {
+      label: "Cassette2_ReplenishAmount",
+      name: "cassette2_ReplenishAmount",
+      selector: (row) => row.cassette2_ReplenishAmount,
+      sortable: true,
+      filter: true,
+    },
+    {
+      label: "Cassette3_ReplenishAmount",
+      name: "cassette3_ReplenishAmount",
+      selector: (row) => row.cassette3_ReplenishAmount,
+      sortable: true,
+      filter: true,
+    },
+    {
+      label: "Cassette4_ReplenishAmount",
+      name: "cassette4_ReplenishAmount",
+      selector: (row) => row.cassette4_ReplenishAmount,
+      sortable: true,
+      filter: true,
+    },
+
+    {
+      label: "Machine_CapAmount",
+      name: "machine_CapAmount",
+      selector: (row) => row.machine_CapAmount,
+      sortable: true,
+      filter: true,
+    },
+    {
+      label: "Cassette1_ReplenishNotes",
+      name: "cassette1_ReplenishNotes",
+      selector: (row) => row.cassette1_ReplenishNotes,
+      sortable: true,
+      filter: true,
+    },
+    {
+      label: "Cassette2_ReplenishNotes",
+      name: "cassette2_ReplenishNotes",
+      selector: (row) => row.cassette2_ReplenishNotes,
+      sortable: true,
+      filter: true,
+    },
+    {
+      label: "Cassette3_ReplenishNotes",
+      name: "cassette3_ReplenishNotes",
+      selector: (row) => row.cassette3_ReplenishNotes,
+      sortable: true,
+      filter: true,
+    },
+    {
+      label: "Cassette4_ReplenishNotes",
+      name: "cassette4_ReplenishNotes",
+      selector: (row) => row.cassette4_ReplenishNotes,
       sortable: true,
       filter: true,
     },
@@ -217,8 +375,8 @@ export default function CassetteCounterDenom() {
           <div className="DivDataTable">
             <ThemeProvider theme={theme}>
               <MUIDataTable
-                title={"Cassette Live Counter"}
-                data={CasseteCounterDenom}
+                title={"Cash Replenish Calculation"}
+                data={CassetteRepCfg}
                 columns={Transactioncolumns}
                 options={options}
                 selectableRows

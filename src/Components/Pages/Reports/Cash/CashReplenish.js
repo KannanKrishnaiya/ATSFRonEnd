@@ -7,6 +7,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import CassetteReplenishConfig from "./CassetteReplenishConfig";
 import CassetteAvgCalc from "./CassetteAvgCalc";
 import CassetteCounterDenom from "./CassetteCounterDenom";
+import CassetteRepCalculation from "./CassetteRepCalculation";
 import CassetteRepForecast from "./CassetteRepForecast";
 
 export default function CashReplenish() {
@@ -24,8 +25,9 @@ export default function CashReplenish() {
             <TabList onChange={handleChange} aria-label="Cash Replenish">
               <Tab label="Cassette Replenish Config" value="1" />
               <Tab label="Cassette Average Calculation" value="2" />
-              <Tab label="Cassete Counter Denomination" value="3" />
-              <Tab label="Cash Replenish Forecast" value="4" />
+              <Tab label="Cassete Live Counters" value="3" />
+              <Tab label="Cash Replenish Calculation" value="4" />
+              <Tab label="Cash Replenish Forecast" value="5" />
             </TabList>
           </Box>
           <TabPanel value="1">
@@ -38,6 +40,9 @@ export default function CashReplenish() {
             <CassetteCounterDenom />
           </TabPanel>
           <TabPanel value="4">
+            <CassetteRepCalculation />
+          </TabPanel>
+          <TabPanel value="5">
             <CassetteRepForecast />
           </TabPanel>
         </TabContext>

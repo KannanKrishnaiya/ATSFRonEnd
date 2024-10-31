@@ -123,7 +123,7 @@ export default function GetVV_MachinesUpTime() {
     setIsLoading(true);
     MachinesUpTimeInput.startTime = TransactionStartDate.toLocaleDateString();
     MachinesUpTimeInput.endTime = TransactionEndDate.toLocaleDateString();
- 
+
     GetVV_MachinesUpTimeAPI(Userdetails, MachinesUpTimeInput)
       .then((response) => {
         // console.log(
@@ -168,6 +168,15 @@ export default function GetVV_MachinesUpTime() {
     setATM_TerminalIdInput.aTM_TerminalIdInput = event.target.value;
 
     MachinesUpTimeInput.atm_TerminalId = event.target.value;
+  };
+
+  const ResetInputs = (e) => {
+    setRadioButtonStatus(0);
+    setBankNameInput("");
+    setATM_TerminalIdInput("");
+    setTransactionStartDate(yesterday);
+    setTransactionEndDate(date);
+    fetchData();
   };
 
   const Transactioncolumns = [
@@ -489,7 +498,7 @@ export default function GetVV_MachinesUpTime() {
                   className="btn-grad-reports"
                   type="button"
                   value="Reset"
-                    // onClick={ResetInputs}ResetInputs
+                  onClick={ResetInputs}
                 />
               </div>
             </div>

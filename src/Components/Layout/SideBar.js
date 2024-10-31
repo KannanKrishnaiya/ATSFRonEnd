@@ -315,7 +315,17 @@ const SideBar = ({ children }) => {
           subRoutes: [
             {
               path: "/UserRegister",
-              name: "User Register",
+              name: "Create User",
+              icon: <FaAngleDoubleRight />,
+            },
+            {
+              path: "/ChangePassword",
+              name: "Change Password",
+              icon: <FaAngleDoubleRight />,
+            },
+            {
+              path: "/ResetPassword",
+              name: "Reset Password",
               icon: <FaAngleDoubleRight />,
             },
             {

@@ -26,6 +26,8 @@ import ViewAllFailedTransactions from "./Components/Pages/Transactions/ViewAllFa
 import Lookups_Bank from "./Components/Pages/Lookup/Lookups_Bank";
 import VynamicViewDashboard from "./Components/Pages/VynamicView/VynamicViewAllTickets";
 import UserRegister from "./Components/Pages/Admin/User/UserRegister";
+import ChangePassword from "./Components/Pages/Admin/User/ChangePassword";
+import ResetPassword from "./Components/Pages/Admin/User/ResetPassword";
 import SendMail from "./Components/Pages/Admin/Mail/SendMail";
 import RequestSubmission from "./Components/Pages/Discussion/PendingRequests";
 import DiscussionPage from "./Components/Pages/Discussion/DiscussionPage";
@@ -69,6 +71,8 @@ function App() {
                   <Route path="/MachineDetails" element={<MachineDetails />} />
                   <Route path="/Lookups_Bank" element={<Lookups_Bank />} />
                   <Route path="/UserRegister" element={<UserRegister />} />
+                  <Route path="/ChangePassword" element={<ChangePassword />} />
+                  <Route path="/ResetPassword" element={<ResetPassword />} />
 
                   <Route path="/SendMail" element={<SendMail />} />
                   <Route

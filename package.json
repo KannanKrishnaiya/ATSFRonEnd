@@ -2,7 +2,7 @@
   "name": "react_theme",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://20.196.9.136:45080/",
+  "proxy": "http://20.196.9.136:35082",
   "dependencies": {
     "@canvasjs/charts": "^3.7.40",
     "@canvasjs/react-charts": "^1.0.0",

@@ -315,7 +315,7 @@ const SideBar = ({ children }) => {
           subRoutes: [
             {
               path: "/UserRegister",
-              name: "Create User",
+              name: "User Management",
               icon: <FaAngleDoubleRight />,
             },
             {
@@ -323,11 +323,11 @@ const SideBar = ({ children }) => {
               name: "Change Password",
               icon: <FaAngleDoubleRight />,
             },
-            {
-              path: "/ResetPassword",
-              name: "Reset Password",
-              icon: <FaAngleDoubleRight />,
-            },
+            // {
+            //   path: "/ResetPassword",
+            //   name: "Reset Password",
+            //   icon: <FaAngleDoubleRight />,
+            // },
             {
               path: "/Lookups_Bank",
               name: "SLA Configuration",

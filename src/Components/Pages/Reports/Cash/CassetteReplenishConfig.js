@@ -127,78 +127,78 @@ export default function CassetteReplenishConfig() {
       sortable: true,
       filter: true,
     },
-    // {
-    //   name: "Id",
-    //   label: "Edit",
-    //   selector: (row) => row.id,
-    //   sortable: true,
-    //   filter: true,
-    //   button: true,
-    //   options: {
-    //     filter: false,
-    //     sort: false,
-    //     empty: true,
-    //     customBodyRender: (value, tableMeta, updateValue) => {
-    //       return (
-    //         <div>
-    //           <Popup
-    //             trigger={
-    //               <div>
-    //                 <div className="tooltip">
-    //                   <TbUserEdit
-    //                     disabled
-    //                     className="DataTableIcons"
-    //                     onClick={(row) => {
-    //                       //   setTransactionDetails(null);
-    //                       //   TransactionDetailsInput.TransactionId =
-    //                       //     tableMeta.rowData[8];
-    //                       //   GetTransactionsDetails();
-    //                       CassetteRepConfigInput.id = tableMeta.rowData[9];
-    //                       CassetteRepConfigInput.bankId = tableMeta.rowData[0];
-    //                       CassetteRepConfigInput.bankName =
-    //                         tableMeta.rowData[2];
-    //                       CassetteRepConfigInput.deviceId =
-    //                         tableMeta.rowData[2];
-    //                       CassetteRepConfigInput.cassette1 =
-    //                         tableMeta.rowData[3];
-    //                       CassetteRepConfigInput.cassette2 =
-    //                         tableMeta.rowData[4];
-    //                       CassetteRepConfigInput.cassette3 =
-    //                         tableMeta.rowData[5];
-    //                       CassetteRepConfigInput.cassette4 =
-    //                         tableMeta.rowData[6];
-    //                       CassetteRepConfigInput.maxAmountReplenish =
-    //                         tableMeta.rowData[7];
-    //                       CassetteRepConfigInput.maxReplenishCycleDays =
-    //                         tableMeta.rowData[8];
+    {
+      name: "Id",
+      label: "Edit",
+      selector: (row) => row.id,
+      sortable: true,
+      filter: true,
+      button: true,
+      options: {
+        filter: false,
+        sort: false,
+        empty: true,
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <div>
+              <Popup
+                trigger={
+                  <div>
+                    <div className="tooltip">
+                      <TbUserEdit
+                        disabled
+                        className="DataTableIcons"
+                        onClick={(row) => {
+                          //   setTransactionDetails(null);
+                          //   TransactionDetailsInput.TransactionId =
+                          //     tableMeta.rowData[8];
+                          //   GetTransactionsDetails();
+                          CassetteRepConfigInput.id = tableMeta.rowData[9];
+                          CassetteRepConfigInput.bankId = tableMeta.rowData[0];
+                          CassetteRepConfigInput.bankName =
+                            tableMeta.rowData[2];
+                          CassetteRepConfigInput.deviceId =
+                            tableMeta.rowData[2];
+                          CassetteRepConfigInput.cassette1 =
+                            tableMeta.rowData[3];
+                          CassetteRepConfigInput.cassette2 =
+                            tableMeta.rowData[4];
+                          CassetteRepConfigInput.cassette3 =
+                            tableMeta.rowData[5];
+                          CassetteRepConfigInput.cassette4 =
+                            tableMeta.rowData[6];
+                          CassetteRepConfigInput.maxAmountReplenish =
+                            tableMeta.rowData[7];
+                          CassetteRepConfigInput.maxReplenishCycleDays =
+                            tableMeta.rowData[8];
 
-    //                       EditRepConfig(CassetteRepConfigInput);
-    //                     }}
-    //                   />
-    //                   <span className="tooltiptext">Edit</span>
-    //                 </div>
-    //               </div>
-    //             }
-    //             className="DashboardPopup"
-    //             modal
-    //             nested
-    //           >
-    //             {(close) => (
-    //               <div className="DashboardModal">
-    //                 <button className="close" onClick={close}>
-    //                   &times;
-    //                 </button>
-    //                 <div>
-    //                   <EditRepConfig />
-    //                 </div>
-    //               </div>
-    //             )}
-    //           </Popup>
-    //         </div>
-    //       );
-    //     },
-    //   },
-    // },
+                          EditRepConfig(CassetteRepConfigInput);
+                        }}
+                      />
+                      <span className="tooltiptext">Edit</span>
+                    </div>
+                  </div>
+                }
+                className="DashboardPopup"
+                modal
+                nested
+              >
+                {(close) => (
+                  <div className="DashboardModal">
+                    <button className="close" onClick={close}>
+                      &times;
+                    </button>
+                    <div>
+                      <EditRepConfig />
+                    </div>
+                  </div>
+                )}
+              </Popup>
+            </div>
+          );
+        },
+      },
+    },
   ];
 
   const EditRepConfig = (CassetteRepConfigInput) => {

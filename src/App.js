@@ -72,7 +72,7 @@ function App() {
                   <Route path="/Lookups_Bank" element={<Lookups_Bank />} />
                   <Route path="/UserRegister" element={<UserRegister />} />
                   <Route path="/ChangePassword" element={<ChangePassword />} />
-                  <Route path="/ResetPassword" element={<ResetPassword />} />
+                  {/* <Route path="/ResetPassword" element={<ResetPassword />} /> */}
 
                   <Route path="/SendMail" element={<SendMail />} />
                   <Route

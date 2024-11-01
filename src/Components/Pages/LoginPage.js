@@ -42,7 +42,6 @@ export default function LoginPage() {
     if (!hasError) {
       LoginApi(inputs)
         .then((response) => {
-       
           StoreUserData(response.data);
         })
         .catch((err) => {
@@ -76,15 +75,14 @@ export default function LoginPage() {
   if (isAuthenticated() && IsLoaded == 0) {
     // console.log("IsLoaded", IsLoaded);
     IsLoaded++;
-    
+
     // GetUserDetailsAPI(Userdetails)
-      GetUserRoleDetailsByNameAPI(Userdetails)
+    GetUserRoleDetailsByNameAPI(Userdetails)
       .then((response) => {
         if (response.status != 200 || response == null) {
           LogoutUser();
         }
         SetLoggedInUserRoleDetails(response.data[0]);
-       
 
         // const data = response.data[0];
         // const UserRoleDetails = {
@@ -170,8 +168,8 @@ export default function LoginPage() {
             <div className="RegisterPageDivRow RegisterPageDivButton">
               <input type="submit" name="sign-in" value="Sign In" />
             </div>
-            {/* 
-            <div className="">
+
+            {/* <div className="">
               <h5>
                 {" "}
                 Create new account ? Please{" "}
@@ -181,13 +179,13 @@ export default function LoginPage() {
               </h5>
             </div> */}
 
-            <div className="">
+            {/* <div className="">
               <h5>
                 <Link to="/ForgotPassword" style={{ color: "yellow" }}>
                   Forgot Password
                 </Link>
               </h5>
-            </div>
+            </div> */}
           </form>
         </div>
       </div>

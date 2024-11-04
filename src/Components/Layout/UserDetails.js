@@ -133,7 +133,7 @@
 // }
 
 import "../../assets/styles/CustomStyles/LoggedInUserDetails.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -148,6 +148,7 @@ import { setUser } from "../../redux/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function LoggedInUserDetails(User) {
+  const popupRef = useRef(null);
   const dispatch = useDispatch();
   const LoggedInUserRoleDetailsData = useSelector(
     (state) => state.user.userDetails
@@ -216,6 +217,19 @@ export default function LoggedInUserDetails(User) {
     }
     setShowPopup(false);
   };
+
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (popupRef.current && !popupRef.current.contains(event.target)) {
+          setShowPopup(false);
+        }
+      };
+
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, []);
 
   const avatarStyle = {
     width: "30px",
@@ -295,7 +309,11 @@ export default function LoggedInUserDetails(User) {
               : ""}
           </div>
           {showPopup && (
-            <div className="popupMenu" style={popupMenuStyle}>
+            <div
+              ref={popupRef} // Assign ref to popup menu
+              className="popupMenu"
+              style={popupMenuStyle}
+            >
               <button
                 style={buttonStyle}
                 onClick={() => handleOptionSelect("changePassword")}

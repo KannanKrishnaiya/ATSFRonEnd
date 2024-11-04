@@ -7,17 +7,19 @@ const getTokenURL = "/api/validate/token";
 // const LoginURL = "/Token";
 const LoginURL = "/api/Auth/login";
 const GetUserDetailsByUserNameURL = "/api/user/GetUserDetailsByUserName";
-// const LoggedInUserName = "";
+
 const ValidateTransactionsURL = "/api/MS_AlMasraf/ValidateTransactions";
+
+const RegisterUserAPIRURL = "/api/Auth/Register";
 
 export const LoggedInUser = {};
 
 export const RegisterApi = (inputs) => {
-  let data = {
-    UserName: inputs.name,
-    Password: inputs.password,
-    grant_type: "password",
-  };
+  // let data = {
+  //   UserName: inputs.name,
+  //   Password: inputs.password,
+  //   grant_type: "password",
+  // };
 
   var tt = axios.post(
     getTokenURL,
@@ -31,22 +33,16 @@ export const RegisterApi = (inputs) => {
 };
 
 export const LoginApi = (inputs) => {
-  const config = {
-    //crossOriginIsolated: true,
-    headers: {
-      // "Access-Control-Allow-Headers": "Content-Type",
-      "Access-Control-Allow-Origin": "*",
-      "Cache-Control": "no-cache",
-      "Content-Type": "application/x-www-form-urlencoded",
-      // "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH",
-    },
-  };
-
-  let data = {
-    // UserName: inputs.name,
-    // Password: inputs.password,
-    // Grant_type: "client_credentials",
-  };
+  // const config = {
+  //   //crossOriginIsolated: true,
+  //   headers: {
+  //     // "Access-Control-Allow-Headers": "Content-Type",
+  //     "Access-Control-Allow-Origin": "*",
+  //     "Cache-Control": "no-cache",
+  //     "Content-Type": "application/x-www-form-urlencoded",
+  //     // "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH",
+  //   },
+  // };
 
   var UserDetails = axios.post(LoginURL, {
     email: inputs.name,
@@ -78,8 +74,7 @@ export const GetUserDetailsAPI = (inputs) => {
   let User = {
     UserName: userData.UserName,
   };
-  // console.log("idToken", headerToken.idToken);
-  // console.log("User", User);
+
   const config = {
     headers: { Authorization: "Bearer " + headerToken.idToken },
   };
@@ -95,7 +90,6 @@ export const GetUserDetailsAPI = (inputs) => {
 
 export const ValidateTransactions = (inputs) => {
   const userData = JSON.parse(inputs);
-  // console.log("ValidateTransactions");
   let headerToken = {
     idToken: userData.access_token,
   };
@@ -105,13 +99,30 @@ export const ValidateTransactions = (inputs) => {
   const config = {
     headers: { Authorization: "Bearer " + headerToken.idToken },
   };
-  //console.log("ValidateTransactionsURL",ValidateFileTransactions,config);
   var Transactions = axios.post(
     ValidateTransactionsURL,
     ValidateFileTransactions,
     config
   );
-  //LoggedInUserName = UserDetails.data.userName;
-  // console.log(Transactions);
   return Transactions;
+};
+
+// Register API
+
+export const RegisterUserAPI = (inputs, dataObj) => {
+  const userData = JSON.parse(inputs);
+  let headerToken = {
+    idToken: userData.token,
+  };
+
+  const config = {
+    headers: { Authorization: "Bearer " + headerToken.idToken },
+  };
+
+  var RegisterUserAPIResponse = axios.post(
+    RegisterUserAPIRURL,
+    dataObj,
+    config
+  );
+  return RegisterUserAPIResponse;
 };

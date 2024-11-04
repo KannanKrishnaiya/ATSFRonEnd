@@ -1,538 +1,25 @@
-// import { useState, useEffect } from "react";
-// import "../../../../assets/styles/CustomStyles/RegistrationPage.css";
-// import { RegisterApi } from "../../../../services/Api";
-// import { StoreUserData } from "../../../../services/Storage";
-// import Container from "react-bootstrap/Container";
-// import "../../../../assets/styles/CustomStyles/FormControls.css";
-// import { GetLookupsAPI } from "../../../../services/Lookups/Lookups_Api";
-
-// export default function UserRegister() {
-//   const Userdetails = localStorage.getItem("LoggedInUser");
-//   const initialErrors = {
-//     Email: { required: false },
-//     FirstName: { required: false },
-//     LastName: { required: false },
-//     MobileNumber: { required: false },
-//     Bank: { required: false },
-//     custom_error: null,
-//   };
-//   const [errors, setErrors] = useState(initialErrors);
-//   const [inputs, setInputs] = useState({
-//     Email: "",
-//     FirstName: "",
-//     LastName: "",
-//     MobileNumber: "",
-//     Bank: "",
-//   });
-//   const [banks, setBanks] = useState([]);
-
-//   // Fetch banks for dropdown
-//   useEffect(() => {
-//     GetLookupsAPI(Userdetails, "banks").then((response) => {
-//       setBanks(response.data);
-//     });
-//   }, []);
-
-//   const isEmail = (email) =>
-//     /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
-//   const isMobileNumber = new RegExp(
-//     /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/i
-//   );
-
-//   const handleInput = (event) => {
-//     setInputs({ ...inputs, [event.target.name]: event.target.value });
-//     let errors = initialErrors;
-//     let hasError = false;
-
-//     if (event.target.name === "MobileNumber") {
-//       errors.MobileNumber.required = false;
-//       if (!isMobileNumber.test(event.target.value)) {
-//         errors.MobileNumber.required = true;
-//         hasError = true;
-//       }
-//     }
-
-//     if (event.target.name === "Email") {
-//       errors.Email.required = false;
-//       if (!isEmail(event.target.value)) {
-//         errors.Email.required = true;
-//         hasError = true;
-//       }
-//     }
-//     setErrors({ ...errors });
-//   };
-
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     let errors = initialErrors;
-//     let hasError = false;
-//     if (inputs.FirstName === "") {
-//       errors.FirstName.required = true;
-//       hasError = true;
-//     }
-//     if (inputs.LastName === "") {
-//       errors.LastName.required = true;
-//       hasError = true;
-//     }
-//     if (inputs.MobileNumber === "") {
-//       errors.MobileNumber.required = true;
-//       hasError = true;
-//     }
-//     if (inputs.Email === "") {
-//       errors.Email.required = true;
-//       hasError = true;
-//     }
-//     if (inputs.Bank === "") {
-//       errors.Bank.required = true;
-//       hasError = true;
-//     }
-
-//     if (!hasError) {
-//       RegisterApi({ ...inputs, Bank: inputs.Bank })
-//         .then((response) => {
-//           StoreUserData(response.data.access_token);
-//         })
-//         .catch((err) => {
-//           if (err.response.status === "400") {
-//             setErrors({ ...errors, custom_error: "Error" });
-//           }
-//         });
-//     }
-//     setErrors({ ...errors });
-//   };
-
-//   return (
-//     <div
-//       style={{
-//         backgroundColor: "#00073d",
-//         color: "#f0f0f0",
-//         padding: "30px",
-//         maxWidth: "100%",
-//         height: "80vh",
-//         margin: "auto",
-//         borderRadius: "10px",
-//         boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
-//       }}
-//     >
-//       <Container>
-//         <h2
-//           style={{ textAlign: "center", color: "#fff", marginBottom: "40px" }}
-//         >
-//           Create User
-//         </h2>
-//         <form onSubmit={handleSubmit}>
-//           <div
-//             style={{
-//               display: "flex",
-//               flexWrap: "wrap",
-//               gap: "15px",
-//               justifyContent: "space-between",
-//             }}
-//           >
-//             <div style={{ flex: "1 1 45%", lineHeight: "30px" }}>
-//               <label
-//                 style={{
-//                   marginBottom: "40px",
-//                 }}
-//               >
-//                 First Name
-//               </label>
-//               <input
-//                 style={{
-//                   width: "100%",
-//                   padding: "10px",
-//                   borderRadius: "5px",
-//                   border: "1px solid #333",
-//                   backgroundColor: "#2e2e2e",
-//                   color: "#fff",
-//                 }}
-//                 type="text"
-//                 name="FirstName"
-//                 placeholder="First Name"
-//                 onChange={handleInput}
-//               />
-//               {errors.FirstName.required && (
-//                 <span style={{ color: "#ff4d4d" }}>
-//                   First Name is required.
-//                 </span>
-//               )}
-//             </div>
-
-//             <div style={{ flex: "1 1 45%", lineHeight: "30px" }}>
-//               <label>Last Name</label>
-//               <input
-//                 style={{
-//                   width: "100%",
-//                   padding: "10px",
-//                   borderRadius: "5px",
-//                   border: "1px solid #333",
-//                   backgroundColor: "#2e2e2e",
-//                   color: "#fff",
-//                 }}
-//                 type="text"
-//                 name="LastName"
-//                 placeholder="Last Name"
-//                 onChange={handleInput}
-//               />
-//               {errors.LastName.required && (
-//                 <span style={{ color: "#ff4d4d" }}>Last Name is required.</span>
-//               )}
-//             </div>
-
-//             <div style={{ flex: "1 1 45%", lineHeight: "30px" }}>
-//               <label>Mobile Number</label>
-//               <input
-//                 style={{
-//                   width: "100%",
-//                   padding: "10px",
-//                   borderRadius: "5px",
-//                   border: "1px solid #333",
-//                   backgroundColor: "#2e2e2e",
-//                   color: "#fff",
-//                 }}
-//                 type="text"
-//                 name="MobileNumber"
-//                 placeholder="Mobile Number"
-//                 onChange={handleInput}
-//               />
-//               {errors.MobileNumber.required && (
-//                 <span style={{ color: "#ff4d4d" }}>
-//                   Please enter a valid mobile number.
-//                 </span>
-//               )}
-//             </div>
-
-//             <div style={{ flex: "1 1 45%", lineHeight: "30px" }}>
-//               <label>Email Id</label>
-//               <input
-//                 style={{
-//                   width: "100%",
-//                   padding: "10px",
-//                   borderRadius: "5px",
-//                   border: "1px solid #333",
-//                   backgroundColor: "#2e2e2e",
-//                   color: "#fff",
-//                 }}
-//                 type="text"
-//                 name="Email"
-//                 placeholder="Email Id"
-//                 onChange={handleInput}
-//               />
-//               {errors.Email.required && (
-//                 <span style={{ color: "#ff4d4d" }}>Invalid Email Id.</span>
-//               )}
-//             </div>
-
-//             <div style={{ flex: "1 1 100%", lineHeight: "30px" }}>
-//               <label>Bank</label>
-//               <select
-//                 style={{
-//                   width: "100%",
-//                   padding: "10px",
-//                   borderRadius: "5px",
-//                   border: "1px solid #333",
-//                   backgroundColor: "#2e2e2e",
-//                   color: "#fff",
-//                 }}
-//                 name="Bank"
-//                 onChange={handleInput}
-//                 value={inputs.Bank}
-//               >
-//                 <option value="">Select Bank</option>
-//                 {banks.map((bank) => (
-//                   <option key={bank.id} value={bank.id}>
-//                     {bank.nameEn}
-//                   </option>
-//                 ))}
-//               </select>
-//               {errors.Bank.required && (
-//                 <span style={{ color: "#ff4d4d" }}>Please select a bank.</span>
-//               )}
-//             </div>
-
-//             <div style={{ textAlign: "center", width: "100%" }}>
-//               <input
-//                 type="submit"
-//                 value="Register"
-//                 style={{
-//                   padding: "10px 20px",
-//                   borderRadius: "5px",
-//                   border: "none",
-//                   backgroundColor: "#4CAF50",
-//                   color: "#fff",
-//                   cursor: "pointer",
-//                   fontWeight: "bold",
-//                 }}
-//               />
-//             </div>
-//           </div>
-//         </form>
-//       </Container>
-//     </div>
-//   );
-// }
-
-// import { useEffect, useState } from "react";
-// import LoaderComp from "../../../Layout/Loader";
-// import MUIDataTable from "mui-datatables";
-// import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-// import Popup from "reactjs-popup";
-// import "reactjs-popup/dist/index.css";
-// import { TbUserEdit } from "react-icons/tb";
-// import { RiLockPasswordLine } from "react-icons/ri";
-// import { GetUserListAPI, ResetPasswordAPI } from "../../../../services/User/UserService";
-// import { color } from "framer-motion";
-
-// export default function UserRegister() {
-//   const [isLoading, setIsLoading] = useState(false);
-//   const Userdetails = localStorage.getItem("LoggedInUser");
-//   const [userList, setUserList] = useState([]);
-//   const [userEditInput, setUserEditInput] = useState({
-//     firstName: "",
-//     lastName: "",
-//     userName: "",
-//     email: "",
-//     phoneNumber: null,
-//     companyId: 0,
-//     isActive: false,
-//   });
-
-//   // Fetch user list on component mount
-//   useEffect(() => {
-//     setIsLoading(true);
-//     GetUserListAPI(Userdetails)
-//       .then((response) => {
-//         setUserList(response.data);
-//         setIsLoading(false);
-//       })
-//       .catch((err) => {
-//         setIsLoading(false);
-//         console.error("Error fetching user data", err);
-//       });
-//   }, []);
-
-//   // Columns configuration for MUIDataTable
-//   const userColumns = [
-//     { label: "FirstName", name: "firstName", options: { filter: true } },
-//     { label: "LastName", name: "lastName", options: { filter: true } },
-//     { label: "UserName", name: "userName", options: { filter: true } },
-//     { label: "Email", name: "email", options: { filter: true } },
-//     { label: "PhoneNumber", name: "phoneNumber", options: { filter: true } },
-//     // { label: "Company ID", name: "companyId", options: { filter: true } },
-//     {
-//       name: "Edit",
-//       options: {
-//         filter: false,
-//         sort: false,
-//         empty: true,
-//         customBodyRender: (value, tableMeta) => (
-//           <Popup
-//             trigger={
-//               <TbUserEdit
-//                 className="DataTableIcons"
-//                 onClick={() => handleEdit(tableMeta.rowData)}
-//               />
-//             }
-//             modal
-//             nested
-//           >
-//             {(close) => (
-//               <div className="DashboardModal">
-//                 <button className="close" onClick={close}>
-//                   &times;
-//                 </button>
-//                 <EditUserForm userEditInput={userEditInput} />
-//               </div>
-//             )}
-//           </Popup>
-//         ),
-//       },
-//     },
-//     {
-//       name: "ResetPassword",
-//       options: {
-//         filter: false,
-//         sort: false,
-//         empty: true,
-//         customBodyRender: (value, tableMeta) => (
-//           <RiLockPasswordLine
-//             className="DataTableIcons"
-//             onClick={() => handleResetPassword(tableMeta.rowData[3])}
-//           />
-//         ),
-//       },
-//     },
-//   ];
-
-//   const handleEdit = (rowData) => {
-
-//   setUserEditInput({
-//     firstName: rowData[0],
-//     lastName: rowData[1],
-//     userName: rowData[2],
-//     email: rowData[3],
-//     phoneNumber: rowData[4],
-//     companyId: rowData[5],
-//     isActive: rowData[6],
-//   });
-// };
-//   const handleResetPassword = (email) => {
-//     ResetPasswordAPI(email)
-//       .then(() => alert("Password reset email sent successfully"))
-//       .catch((err) => console.error("Failed to reset password:", err));
-//   };
-
-//   const theme = createTheme({
-//     components: {
-//       MUIDataTableBodyCell: {
-//         styleOverrides: {
-//           root: {
-//             backgroundColor: "#2e3885",
-//             padding: "0px",
-//             fontSize: 12,
-//             color:`#fff`
-//           },
-//         },
-//       },
-//       MUIDataTableHeadCell: {
-//         styleOverrides: {
-//           root: {
-//             backgroundColor: "#9DA0B1",
-//             padding: "0px",
-//             fontSize: 12,
-//             color: "white",
-//           },
-//         },
-//       },
-//     },
-//   });
-
-//   return (
-//     <div>
-//       {isLoading ? (
-//         <LoaderComp />
-//       ) : (
-//         <ThemeProvider theme={theme}>
-//           <MUIDataTable
-//             title={"User Management"}
-//             data={userList}
-//             columns={userColumns}
-//             options={{
-//               filter: true,
-//               responsive: "vertical",
-//               rowsPerPageOptions: [5, 10, 25],
-//               selectableRows: "none",
-//             }}
-//           />
-//         </ThemeProvider>
-//       )}
-//     </div>
-//   );
-// }
-
-// function EditUserForm({ userEditInput, handleStatusChange, onUpdate }) {
-//   return (
-//     <div className="EditPopup">
-//       <div className="row">
-//         <div className="Column">
-//           <label className="EditPopupLabel">First Name</label>
-//           <input
-//             className="FormControl_input"
-//             type="text"
-//             value={userEditInput.firstName || ""}
-//             readOnly
-//           />
-//         </div>
-//         <div className="Column">
-//           <label className="EditPopupLabel">Last Name</label>
-//           <input
-//             className="FormControl_input"
-//             type="text"
-//             value={userEditInput.lastName || ""}
-//             readOnly
-//           />
-//         </div>
-//       </div>
-//       <div className="row">
-//         <div className="Column">
-//           <label className="EditPopupLabel">Username</label>
-//           <input
-//             className="FormControl_input"
-//             type="text"
-//             value={userEditInput.userName || ""}
-//             readOnly
-//           />
-//         </div>
-//         <div className="Column">
-//           <label className="EditPopupLabel">Email</label>
-//           <input
-//             className="FormControl_input"
-//             type="email"
-//             value={userEditInput.email || ""}
-//             readOnly
-//           />
-//         </div>
-//       </div>
-//       <div className="row">
-//         <div className="Column">
-//           <label className="EditPopupLabel">Phone Number</label>
-//           <input
-//             className="FormControl_input"
-//             type="tel"
-//             value={userEditInput.phoneNumber || ""}
-//             readOnly
-//           />
-//         </div>
-//         {/* <div className="Column">
-//           <label className="EditPopupLabel">Company ID</label>
-//           <input
-//             className="FormControl_input"
-//             type="text"
-//             value={userEditInput.companyId || ""}
-//             readOnly
-//           />
-//         </div> */}
-//       </div>
-//       <div className="row">
-//         <div className="Column">
-//           <label className="EditPopupLabel">Active Status</label>
-//           <select
-//             className="FormControl_input"
-//             value={userEditInput.isActive ? "Active" : "Inactive"}
-//             onChange={(e) => handleStatusChange(e.target.value)}
-//           >
-//             <option value="Active">Active</option>
-//             <option value="Inactive">Inactive</option>
-//           </select>
-//         </div>
-//         <div className="Column">
-//           <input
-//             type="button"
-//             name="Update"
-//             value="Update"
-//             className="FormControl_button"
-//             onClick={onUpdate}
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 import { useEffect, useState } from "react";
 import LoaderComp from "../../../Layout/Loader";
 import MUIDataTable from "mui-datatables";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { TbUserEdit } from "react-icons/tb";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { BiPlusCircle } from "react-icons/bi";
 import {
+  CheckUserExistsAPI,
   GetUserListAPI,
   ResetPasswordAPI,
 } from "../../../../services/User/UserService";
+import { useSelector } from "react-redux";
+import {
+  GetLookupsAPI,
+  GetLookupsUserRoleAPI,
+} from "../../../../services/Lookups/Lookups_Api";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { RegisterUserAPI } from "../../../../services/Api";
 
 export default function UserRegister() {
   const [isLoading, setIsLoading] = useState(false);
@@ -545,12 +32,18 @@ export default function UserRegister() {
     email: "",
     phoneNumber: null,
     companyId: 0,
-    isActive: false,
+    roleId: 0,
+    isDisabled: false,
+    isCNSEmployee: true,
   });
 
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const LoggedInUserRoleDetailsData = useSelector(
+    (state) => state.user.userDetails
+  );
 
-  // Fetch user list on component mount
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
   useEffect(() => {
     setIsLoading(true);
     GetUserListAPI(Userdetails)
@@ -564,38 +57,67 @@ export default function UserRegister() {
       });
   }, []);
 
-  // Columns configuration for MUIDataTable
   const userColumns = [
     { label: "FirstName", name: "firstName", options: { filter: true } },
     { label: "LastName", name: "lastName", options: { filter: true } },
     { label: "UserName", name: "userName", options: { filter: true } },
-    { label: "Email", name: "email", options: { filter: true } },
-    { label: "PhoneNumber", name: "phoneNumber", options: { filter: true } },
     {
-      name: "Edit",
+      label: "Email",
+      name: "email",
       options: {
-        filter: false,
-        sort: false,
-        empty: true,
-        customBodyRender: (value, tableMeta) => (
-          <TbUserEdit
-            className="DataTableIcons"
-            onClick={() => handleEdit(tableMeta.rowData)}
-          />
-        ),
+        filter: true,
+        setCellProps: () => ({
+          className: "custom_table_cell_width",
+        }),
+      },
+    },
+    { label: "PhoneNumber", name: "phoneNumber", options: { filter: true } },
+    { label: "CompanyName", name: "companyName", options: { filter: true } },
+    { label: "RoleName", name: "roleName", options: { filter: true } },
+    {
+      label: "Status",
+      name: "isDisabled",
+      options: {
+        filter: true,
+        customBodyRender: (value) => (value ? "In Active" : "Active"),
       },
     },
     {
-      name: "ResetPassword",
+      label: "CNSEmployee",
+      name: "isCNSEmployee",
+      options: {
+        filter: true,
+        customBodyRender: (value) => (value ? "Yes" : "No"),
+      },
+    },
+    {
+      name: "Actions",
       options: {
         filter: false,
         sort: false,
         empty: true,
         customBodyRender: (value, tableMeta) => (
-          <RiLockPasswordLine
-            className="DataTableIcons"
-            onClick={() => handleResetPassword(tableMeta.rowData[3])}
-          />
+          <div className="DT_Div_ViewDetails_flex-container">
+            <div className="tooltip">
+              <TbUserEdit
+                className="DataTableIcons"
+                onClick={() => handleEdit(tableMeta.rowData)}
+              />
+              <span className="tooltiptext">Edit User</span>
+            </div>
+
+            {LoggedInUserRoleDetailsData?.RoleId === 1 ? (
+              <div className="tooltip">
+                <RiLockPasswordLine
+                  className="DataTableIcons"
+                  onClick={() => handleResetPassword(tableMeta.rowData[3])}
+                />
+                <span className="tooltiptext">Reset Password</span>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
         ),
       },
     },
@@ -609,7 +131,9 @@ export default function UserRegister() {
       email: rowData[3],
       phoneNumber: rowData[4],
       companyId: rowData[5],
-      isActive: rowData[6],
+      roleIdId: rowData[6],
+      isDisabled: rowData[7],
+      isCNSEmployee: rowData[8],
     });
     setIsEditModalOpen(true);
   };
@@ -645,56 +169,151 @@ export default function UserRegister() {
     },
   });
 
+  const handleCreateUser = (newUser) => {
+    setUserList((prev) => [...prev, newUser]);
+    setIsCreateModalOpen(false);
+  };
+
   return (
     <div>
       {isLoading ? (
         <LoaderComp />
       ) : (
-        <ThemeProvider theme={theme}>
-          <MUIDataTable
-            title={"User Management"}
-            data={userList}
-            columns={userColumns}
-            options={{
-              filter: true,
-              responsive: "vertical",
-              rowsPerPageOptions: [5, 10, 25],
-              selectableRows: "none",
-            }}
-          />
-          <Popup
-            open={isEditModalOpen}
-            onClose={() => setIsEditModalOpen(false)}
-            modal
-            nested
-          >
-            <div className="DashboardModal">
+        <>
+          <ToastContainer />
+          <ThemeProvider theme={theme}>
+            <div className="UserRegisterHeader">
+              <button
+                className="CreateUserButton"
+                onClick={() => setIsCreateModalOpen(true)}
+              >
+                <BiPlusCircle /> Add User
+              </button>
+            </div>
+
+            <MUIDataTable
+              title={"User Management"}
+              data={userList}
+              columns={userColumns}
+              options={{
+                filter: true,
+                responsive: "vertical",
+                rowsPerPageOptions: [5, 10, 25],
+                selectableRows: "none",
+              }}
+            />
+            <Popup
+              open={isEditModalOpen}
+              onClose={() => setIsEditModalOpen(false)}
+              modal
+              nested
+            >
+              {(close) => (
+                <div className="DashboardModal">
+                  <button className="close" onClick={close}>
+                    &times;
+                  </button>
+                  <div>
+                    <EditUserForm
+                      userEditInput={userEditInput}
+                      onUpdate={() =>
+                        console.log("Updated data:", userEditInput)
+                      }
+                    />
+                  </div>
+                </div>
+              )}
+              {/* <div className="DashboardModal">
               <EditUserForm
                 userEditInput={userEditInput}
                 onUpdate={() => console.log("Updated data:", userEditInput)}
               />
-            </div>
-          </Popup>
-        </ThemeProvider>
+            </div> */}
+            </Popup>
+            <Popup
+              open={isCreateModalOpen}
+              onClose={() => setIsCreateModalOpen(false)}
+              modal
+              nested
+            >
+              {/* <div className="DashboardModal">
+              <CreateUserForm onCreate={handleCreateUser} />
+            </div> */}
+              {(close) => (
+                <div className="DashboardModal">
+                  <button className="close" onClick={close}>
+                    &times;
+                  </button>
+                  <div>
+                    <CreateUserForm onCreate={handleCreateUser} />
+                  </div>
+                </div>
+              )}
+            </Popup>
+          </ThemeProvider>
+        </>
       )}
     </div>
   );
 }
 
 function EditUserForm({ userEditInput, onUpdate }) {
-  const [formData, setFormData] = useState(userEditInput);
+  const Userdetails = localStorage.getItem("LoggedInUser");
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    userName: "",
+    email: "",
+    phoneNumber: "",
+    companyId: "",
+    roleId: "",
+    isDisabled: false,
+    isCNSEmployee: false,
+    ...userEditInput,
+  });
+
+  const [companyOptions, setCompanyOptions] = useState([]);
+  const [roleOptions, setRoleOptions] = useState([]);
 
   useEffect(() => {
-    setFormData(userEditInput);
+    const fetchLookups = async () => {
+      try {
+        const roleData = await GetLookupsUserRoleAPI(Userdetails);
+        setRoleOptions(roleData?.data || []);
+        const companyData = await GetLookupsAPI(Userdetails);
+        setCompanyOptions(companyData?.data || []);
+      } catch (error) {
+        console.error("Error fetching lookups:", error);
+      }
+    };
+    fetchLookups();
+  }, [Userdetails]);
+
+  useEffect(() => {
+    if (userEditInput) {
+      setFormData((prev) => ({
+        ...prev,
+        companyId: userEditInput.companyId,
+        roleId: userEditInput.roleIdId,
+        isCNSEmployee: userEditInput.isCNSEmployee,
+      }));
+    }
   }, [userEditInput]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({
+      ...prev,
+      [name]: name === "isCNSEmployee" ? value === "Yes" : value,
+    }));
   };
 
   const handleStatusChange = (status) => {
-    setFormData({ ...formData, isActive: status === "Active" });
+    setFormData((prev) => ({ ...prev, isDisabled: status === "Active" }));
+  };
+
+  const handleUpdateClick = () => {
+    onUpdate(formData);
   };
 
   return (
@@ -740,7 +359,6 @@ function EditUserForm({ userEditInput, onUpdate }) {
             type="email"
             name="email"
             value={formData.email || ""}
-            onChange={handleChange}
           />
         </div>
       </div>
@@ -756,28 +374,576 @@ function EditUserForm({ userEditInput, onUpdate }) {
           />
         </div>
         <div className="Column">
+          <label className="EditPopupLabel">Company</label>
+          <select
+            className="FormControl_input"
+            name="companyId"
+            value={formData.companyId || ""}
+            onChange={handleChange}
+          >
+            <option value="">Select Company</option>
+            {companyOptions.map((company) => (
+              <option key={company.id} value={company.id}>
+                {company.nameEn}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+      <div className="row">
+        <div className="Column">
           <label className="EditPopupLabel">Active Status</label>
           <select
             className="FormControl_input"
-            value={formData.isActive ? "Active" : "Inactive"}
+            value={formData.isDisabled ? "Inactive" : "Active"}
             onChange={(e) => handleStatusChange(e.target.value)}
           >
             <option value="Active">Active</option>
             <option value="Inactive">Inactive</option>
           </select>
         </div>
+        <div className="Column">
+          <label className="EditPopupLabel">Role</label>
+          <select
+            className="FormControl_input"
+            name="roleId"
+            value={formData.roleId || ""}
+            onChange={handleChange}
+          >
+            <option value="">Select Role</option>
+            {roleOptions.map((role) => (
+              <option key={role.id} value={role.id}>
+                {role.roleName}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <div className="row">
+        <div className="Column">
+          <label className="EditPopupLabel">Is CNS Employee</label>
+          <select
+            className="FormControl_input"
+            name="isCNSEmployee"
+            value={formData.isCNSEmployee ? "Yes" : "No"}
+            onChange={handleChange}
+          >
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
         <div className="Column">
           <input
             type="button"
             name="Update"
             value="Update"
             className="FormControl_button"
-            onClick={() => onUpdate(formData)}
+            onClick={handleUpdateClick}
           />
         </div>
       </div>
+    </div>
+  );
+}
+
+
+
+// function CreateUserForm({ onCreate }) {
+//   const Userdetails = localStorage.getItem("LoggedInUser");
+//   const [newUser, setNewUser] = useState({
+//     userName: "",
+//     firstName: "",
+//     lastName: "",
+//     email: "",
+//     phoneNumber: "",
+//     companyId: "",
+//     roleId: "",
+//     isDisabled: true,
+//     isCNSEmployee: false,
+//   });
+//   const [companyOptions, setCompanyOptions] = useState([]);
+//   const [roleOptions, setRoleOptions] = useState([]);
+//   const [emailError, setEmailError] = useState("");
+//   const [formError, setFormError] = useState("");
+
+//   useEffect(() => {
+//     const fetchLookups = async () => {
+//       try {
+//         const roleData = await GetLookupsUserRoleAPI(Userdetails);
+//         setRoleOptions(roleData?.data || []);
+
+//         const companyData = await GetLookupsAPI(Userdetails);
+//         setCompanyOptions(companyData?.data || []);
+//       } catch (error) {
+//         console.error("Error fetching lookups:", error);
+//       }
+//     };
+
+//     fetchLookups();
+//   }, [Userdetails]);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setNewUser((prev) => {
+//       if (name === "isCNSEmployee") {
+//         return {
+//           ...prev,
+//           isCNSEmployee: value === "true",
+//           // isDisabled: value === "false",
+//           roleId: value === "true" ? prev.roleId : "",
+//         };
+//       }
+//       return { ...prev, [name]: value };
+//     });
+//   };
+
+//   const handleEmailBlur = async () => {
+//     const email = newUser.email;
+//     const exists = await CheckUserExistsAPI(Userdetails, email);
+//     setEmailError(exists?.data?.isUSerExists ? "User already exists" : "");
+//   };
+
+//   const handleCreate = async () => {
+//     if (emailError) return;
+//     if (
+//       !newUser.firstName ||
+//       !newUser.lastName ||
+//       !newUser.email ||
+//       !newUser.userName ||
+//       !newUser.phoneNumber ||
+//       !newUser.companyId ||
+//       !newUser.roleId
+//     ) {
+//       setFormError("Please fill in all required fields");
+//       return;
+//     }
+//     try {
+//       await RegisterUserAPI(Userdetails, newUser);
+//       onCreate(newUser);
+//       setNewUser({
+//         userName: "",
+//         firstName: "",
+//         lastName: "",
+//         email: "",
+//         phoneNumber: "",
+//         companyId: "",
+//         roleId: "",
+//         isDisabled: true,
+//         isCNSEmployee: false,
+//       });
+//       setFormError("");
+//       toast.success("User successfully registered", {
+//         position: "top-center",
+//         autoClose: 3000,
+//         theme: "light",
+//       });
+//     } catch (error) {
+//       toast.error("Registration failed. Please try again.", {
+//         position: "top-center",
+//         autoClose: 3000,
+//         theme: "light",
+//       });
+//     }
+//   };
+
+//   const filteredRoles = newUser.isCNSEmployee
+//     ? roleOptions
+//     : roleOptions.filter((role) => [4, 5, 6].includes(role.id));
+
+//   return (
+//     <div className="EditPopup">
+//       <center>
+//         {" "}
+//         {formError && (
+//           <span style={{ color: "#FF0000" }} className="error">
+//             {formError}
+//           </span>
+//         )}
+//       </center>
+//       <div className="row">
+//         <div className="Column">
+//           <label className="AddPopupLabel">First Name *</label>
+//           <input
+//             className="FormControl_input"
+//             type="text"
+//             name="firstName"
+//             value={newUser.firstName}
+//             onChange={handleChange}
+//           />
+//         </div>
+//         <div className="Column">
+//           <label className="AddPopupLabel">Last Name *</label>
+//           <input
+//             className="FormControl_input"
+//             type="text"
+//             name="lastName"
+//             value={newUser.lastName}
+//             onChange={handleChange}
+//           />
+//         </div>
+//       </div>
+//       <div className="row">
+//         <div className="Column">
+//           <label className="AddPopupLabel">Username *</label>
+//           <input
+//             className="FormControl_input"
+//             type="text"
+//             name="userName"
+//             value={newUser.userName}
+//             onChange={handleChange}
+//           />
+//         </div>
+//         <div className="Column">
+//           <label className="AddPopupLabel">Email *</label>
+//           <input
+//             className="FormControl_input"
+//             type="email"
+//             name="email"
+//             value={newUser.email}
+//             onChange={handleChange}
+//             onBlur={handleEmailBlur}
+//           />
+//           {emailError && (
+//             <span style={{ color: "#FF0000" }} className="error">
+//               {emailError}
+//             </span>
+//           )}
+//         </div>
+//       </div>
+//       <div className="row">
+//         <div className="Column">
+//           <label className="AddPopupLabel">Phone Number *</label>
+//           <input
+//             className="FormControl_input"
+//             type="tel"
+//             name="phoneNumber"
+//             value={newUser.phoneNumber}
+//             onChange={handleChange}
+//           />
+//         </div>
+//         <div className="Column">
+//           <label className="AddPopupLabel">Company *</label>
+//           <select
+//             className="FormControl_input"
+//             name="companyId"
+//             value={newUser.companyId}
+//             onChange={handleChange}
+//           >
+//             <option value="">Select Company</option>
+//             {companyOptions.map((company) => (
+//               <option key={company.id} value={company.id}>
+//                 {company.nameEn}
+//               </option>
+//             ))}
+//           </select>
+//         </div>
+//       </div>
+//       <div className="row">
+//         <div className="Column">
+//           <label className="AddPopupLabel">CNS Employee *</label>
+//           <select
+//             className="FormControl_input"
+//             name="isCNSEmployee"
+//             value={newUser.isCNSEmployee}
+//             onChange={handleChange}
+//           >
+//             <option value="false">No</option>
+//             <option value="true">Yes</option>
+//           </select>
+//         </div>
+//         <div className="Column">
+//           <label className="AddPopupLabel">Role *</label>
+//           <select
+//             className="FormControl_input"
+//             name="roleId"
+//             value={newUser.roleId}
+//             onChange={handleChange}
+//           >
+//             <option value="">Select Role</option>
+//             {filteredRoles.map((role) => (
+//               <option key={role.id} value={role.id}>
+//                 {role.roleName}
+//               </option>
+//             ))}
+//           </select>
+//         </div>
+//       </div>
+//       <div className="row">
+//         <input
+//           size="small"
+//           type="button"
+//           name="Create"
+//           value="Create"
+//           className="FormControl_button"
+//           onClick={handleCreate}
+//         />
+//       </div>
+//     </div>
+//   );
+// }
+
+function CreateUserForm({ onCreate }) {
+  const Userdetails = localStorage.getItem("LoggedInUser");
+  const [newUser, setNewUser] = useState({
+    userName: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    companyId: "",
+    roleId: "",
+    isDisabled: true,
+    isCNSEmployee: false,
+  });
+  const [companyOptions, setCompanyOptions] = useState([]);
+  const [roleOptions, setRoleOptions] = useState([]);
+  const [emailError, setEmailError] = useState("");
+  const [formError, setFormError] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    const fetchLookups = async () => {
+      try {
+        const roleData = await GetLookupsUserRoleAPI(Userdetails);
+        setRoleOptions(roleData?.data || []);
+        const companyData = await GetLookupsAPI(Userdetails);
+        setCompanyOptions(companyData?.data || []);
+      } catch (error) {
+        console.error("Error fetching lookups:", error);
+      }
+    };
+    fetchLookups();
+  }, [Userdetails]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewUser((prev) => {
+      if (name === "isCNSEmployee") {
+        return {
+          ...prev,
+          isCNSEmployee: value === "true",
+          roleId: value === "true" ? prev.roleId : "",
+        };
+      }
+      return { ...prev, [name]: value };
+    });
+  };
+
+  const handleEmailBlur = async () => {
+    const email = newUser.email;
+    const exists = await CheckUserExistsAPI(Userdetails, email);
+    setEmailError(exists?.data?.isUSerExists ? "User already exists" : "");
+  };
+
+  const handleCreate = async () => {
+    if (emailError) return;
+    if (
+      !newUser.firstName ||
+      !newUser.lastName ||
+      !newUser.email ||
+      !newUser.userName ||
+      !newUser.phoneNumber ||
+      !newUser.companyId ||
+      !newUser.roleId
+    ) {
+      setFormError("Please fill in all required fields");
+      return;
+    }
+    try {
+      await RegisterUserAPI(Userdetails, newUser);
+      onCreate(newUser);
+      setNewUser({
+        userName: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        phoneNumber: "",
+        companyId: "",
+        roleId: "",
+        isDisabled: true,
+        isCNSEmployee: false,
+      });
+      setFormError("");
+      setShowModal(true);
+    } catch (error) {
+      setFormError("Registration failed. Please try again.");
+    }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    GetUserListAPI(Userdetails);
+  };
+
+  const filteredRoles = newUser.isCNSEmployee
+    ? roleOptions
+    : roleOptions.filter((role) => [4, 5, 6].includes(role.id));
+
+  const modalStyles = {
+    display: showModal ? "flex" : "none",
+    position: "fixed",
+    zIndex: 1000,
+    left: 0,
+    top: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  };
+
+  const modalContentStyles = {
+    backgroundColor: "white",
+    padding: "20px",
+    borderRadius: "5px",
+    textAlign: "center",
+    position: "relative",
+  };
+
+  const closeButtonStyles = {
+    position: "absolute",
+    top: "10px",
+    right: "10px",
+    cursor: "pointer",
+    fontSize: "20px",
+  };
+
+  return (
+    <div className="EditPopup">
+      {formError && (
+        <span style={{ color: "#FF0000" }} className="error">
+          {formError}
+        </span>
+      )}
+      <div className="row">
+        <div className="Column">
+          <label className="AddPopupLabel">First Name *</label>
+          <input
+            className="FormControl_input"
+            type="text"
+            name="firstName"
+            value={newUser.firstName}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="Column">
+          <label className="AddPopupLabel">Last Name *</label>
+          <input
+            className="FormControl_input"
+            type="text"
+            name="lastName"
+            value={newUser.lastName}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+      <div className="row">
+        <div className="Column">
+          <label className="AddPopupLabel">Username *</label>
+          <input
+            className="FormControl_input"
+            type="text"
+            name="userName"
+            value={newUser.userName}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="Column">
+          <label className="AddPopupLabel">Email *</label>
+          <input
+            className="FormControl_input"
+            type="email"
+            name="email"
+            value={newUser.email}
+            onChange={handleChange}
+            onBlur={handleEmailBlur}
+          />
+          {emailError && (
+            <span style={{ color: "#FF0000" }} className="error">
+              {emailError}
+            </span>
+          )}
+        </div>
+      </div>
+      <div className="row">
+        <div className="Column">
+          <label className="AddPopupLabel">Phone Number *</label>
+          <input
+            className="FormControl_input"
+            type="tel"
+            name="phoneNumber"
+            value={newUser.phoneNumber}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="Column">
+          <label className="AddPopupLabel">Company *</label>
+          <select
+            className="FormControl_input"
+            name="companyId"
+            value={newUser.companyId}
+            onChange={handleChange}
+          >
+            <option value="">Select Company</option>
+            {companyOptions.map((company) => (
+              <option key={company.id} value={company.id}>
+                {company.nameEn}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+      <div className="row">
+        <div className="Column">
+          <label className="AddPopupLabel">CNS Employee *</label>
+          <select
+            className="FormControl_input"
+            name="isCNSEmployee"
+            value={newUser.isCNSEmployee}
+            onChange={handleChange}
+          >
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </select>
+        </div>
+        <div className="Column">
+          <label className="AddPopupLabel">Role *</label>
+          <select
+            className="FormControl_input"
+            name="roleId"
+            value={newUser.roleId}
+            onChange={handleChange}
+          >
+            <option value="">Select Role</option>
+            {filteredRoles.map((role) => (
+              <option key={role.id} value={role.id}>
+                {role.roleName}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+      <div className="row">
+        <input
+          size="small"
+          type="button"
+          name="Create"
+          value="Create"
+          className="FormControl_button_test"
+          onClick={handleCreate}
+        />
+      </div>
+      {showModal && (
+        <div style={modalStyles}>
+          <div style={modalContentStyles}>
+            <span style={closeButtonStyles} onClick={handleCloseModal}>
+              &times;
+            </span>
+            <p>User successfully registered</p>
+            <button onClick={handleCloseModal}>OK</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

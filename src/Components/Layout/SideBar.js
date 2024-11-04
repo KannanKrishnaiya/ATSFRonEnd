@@ -318,11 +318,11 @@ const SideBar = ({ children }) => {
               name: "User Management",
               icon: <FaAngleDoubleRight />,
             },
-            {
-              path: "/ChangePassword",
-              name: "Change Password",
-              icon: <FaAngleDoubleRight />,
-            },
+            // {
+            //   path: "/ChangePassword",
+            //   name: "Change Password",
+            //   icon: <FaAngleDoubleRight />,
+            // },
             // {
             //   path: "/ResetPassword",
             //   name: "Reset Password",

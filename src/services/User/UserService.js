@@ -1,9 +1,10 @@
 import axios from "axios";
 
 const GetUserRoleDetailsByNameURL = "/api/User/GetUserRoleDetailsByName";
-const GetUserListURL = "/api/Auth/GetAllUsers";
-const ResetPasswordAPIURL = "/api/Auth/ResetPassword ";
-const UpdatePasswordURL = "/api/Auth/UpdatePassword ";
+const GetUserListURL = "/api/User/GetAllUsers";
+const ResetPasswordAPIURL = "/api/Auth/ResetPassword";
+const UpdatePasswordURL = "/api/Auth/UpdatePassword";
+const CheckUserExistsURL = "/api/Auth/CheckUserExists";
 
 export const GetUserRoleDetailsByNameAPI = (inputs) => {
   const userData = JSON.parse(inputs);
@@ -38,7 +39,7 @@ export const GetUserListAPI = (inputs) => {
   return GetUserRoleDetailsByNameAPIResponse;
 };
 
-export const ResetPasswordAPI = (inputs , email) => {
+export const ResetPasswordAPI = (inputs, email) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
     idToken: userData.token,
@@ -50,11 +51,13 @@ export const ResetPasswordAPI = (inputs , email) => {
     headers: { Authorization: "Bearer " + headerToken.idToken },
   };
 
-  var ResetPasswordAPIResponse = axios.post(ResetPasswordAPIURL, UserCred, config);
+  var ResetPasswordAPIResponse = axios.post(
+    ResetPasswordAPIURL,
+    UserCred,
+    config
+  );
   return ResetPasswordAPIResponse;
 };
-
-
 
 export const UpdatePasswordAPI = (userDetails, body) => {
   const headerToken = {
@@ -66,4 +69,24 @@ export const UpdatePasswordAPI = (userDetails, body) => {
   };
 
   return axios.post(UpdatePasswordURL, body, config);
+};
+
+export const CheckUserExistsAPI = (inputs, email) => {
+  const userData = JSON.parse(inputs);
+  let headerToken = {
+    idToken: userData.token,
+  };
+  let UserCred = {
+    email: email,
+  };
+  const config = {
+    headers: { Authorization: "Bearer " + headerToken.idToken },
+  };
+
+  var CheckUserExistsAPIResponse = axios.post(
+    CheckUserExistsURL,
+    UserCred,
+    config
+  );
+  return CheckUserExistsAPIResponse;
 };

@@ -3,15 +3,13 @@ import axios from "axios";
 //axios.defaults.baseURL = "https://localhost:44340/";
 const GetMachineDetailsURL = "/api/Lookups/GetMachineDetails";
 const GetLookupsAPIURL = "/api/Lookups/Lookups";
+const GetLookupsUserRolesAPIURL = "/api/Lookups/GetLookupUserRoles";
 
 export const GetMachineDetailAPI = (inputs) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
     idToken: userData.token,
   };
-
-  //console.log("idToken", headerToken.idToken);
-  // console.log("User", User);
   const config = {
     headers: { Authorization: "Bearer " + headerToken.idToken },
   };
@@ -32,12 +30,34 @@ export const GetLookupsAPI = (inputs) => {
   var data = {
     LookupName: "banks",
   };
-  //console.log("GetLookupsAPI", data.LookupName);
-  // console.log("User", User);
+
   const config = {
     headers: { Authorization: "Bearer " + headerToken.idToken },
   };
 
   var GetLookupsAPIResponse = axios.post(GetLookupsAPIURL, data, config);
   return GetLookupsAPIResponse;
+};
+
+export const GetLookupsUserRoleAPI = (inputs) => {
+  const userData = JSON.parse(inputs);
+  let headerToken = {
+    idToken: userData.token,
+  };
+  var data = {
+    email: userData?.UserName,
+  };
+
+  const config = {
+    headers: { Authorization: "Bearer " + headerToken.idToken },
+  };
+
+ 
+
+  var GetLookupsUserRoleAPIResponse = axios.post(
+    GetLookupsUserRolesAPIURL,
+    data,
+    config
+  );
+  return GetLookupsUserRoleAPIResponse;
 };

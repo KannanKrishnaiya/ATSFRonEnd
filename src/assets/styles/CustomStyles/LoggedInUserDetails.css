@@ -4,6 +4,10 @@
   height: auto;
   /* max-height: 12vh; */
 }
+.LoggedInUserDetailsTabName {
+  height: auto;
+  color: #ffffff;
+}
 
 .wrap {
   display: flex;

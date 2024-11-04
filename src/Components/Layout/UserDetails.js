@@ -37,7 +37,6 @@
 //       // GetUserDetailsAPI(Userdetails)
 //       GetUserRoleDetailsByNameAPI(Userdetails)
 //         .then((response) => {
-      
 
 //           if (response.status !== 200 || response === null) {
 //             LogoutUser();
@@ -70,7 +69,7 @@
 //           data.firstName = response.data.FirstName;
 //           data.lastName = response.data.LastName;
 //           data.mobileNumber = response.data.MobileNumber;
-         
+
 //           setLoggedUserAvatar({
 //             firstNameInitial: LoggedInUserRoleDetailsData.FirstName
 //               ? LoggedInUserRoleDetailsData.FirstName[0]
@@ -118,7 +117,7 @@
 //             </Link>
 //           </span>
 //           <span className="UserAvataritem user-profile-image">
-           
+
 //             {LoggedInUserRoleDetailsData?.FirstName
 //               ? LoggedInUserRoleDetailsData?.FirstName[0]
 //               : ""}
@@ -128,11 +127,10 @@
 //           </span>
 //         </div>
 //       </div>
-  
+
 //     </div>
 //   );
 // }
-
 
 import "../../assets/styles/CustomStyles/LoggedInUserDetails.css";
 import { useEffect, useState } from "react";
@@ -285,6 +283,9 @@ export default function LoggedInUserDetails(User) {
             cursor: "pointer",
           }}
         >
+          <div className="LoggedInUserDetailsTabName">
+            Welcome {LoggedInUserRoleDetailsData.UserName}
+          </div>
           <div className="user-avatar" style={avatarStyle}>
             {LoggedInUserRoleDetailsData?.FirstName
               ? LoggedInUserRoleDetailsData?.FirstName[0]

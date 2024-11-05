@@ -187,7 +187,7 @@ export default function UserRegister() {
                 className="CreateUserButton"
                 onClick={() => setIsCreateModalOpen(true)}
               >
-                <BiPlusCircle /> Add User
+                <BiPlusCircle />&nbsp;Add User
               </button>
             </div>
 

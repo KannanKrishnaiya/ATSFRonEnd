@@ -4,9 +4,11 @@
   height: auto;
   /* max-height: 12vh; */
 }
+
 .LoggedInUserDetailsTabName {
   height: auto;
   color: #ffffff;
+  margin-right: 10px;
 }
 
 .wrap {
@@ -19,23 +21,95 @@
   width: 100px;
   height: 30px;
 }
+
 .CompanyLogo_Login {
   width: 60%;
   height: 10%;
 }
+
 .UserAvataritem {
   margin-right: 10px;
   padding: 5px;
   /* font-size: 12px;
   font-weight: 500; */
 }
+
 .UserAvataritem a {
   color: #ffffff;
 }
+
 .user-profile-image {
   background-color: #ffffff;
   color: #00073d;
   /* font-size: 15px; */
   border-radius: 50%;
   font-weight: 500;
+}
+
+
+.avatarStyle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #fff;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.popupMenuStyle {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  width: 150px;
+}
+
+.buttonStyle {
+  font-size: 12px;
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background: none;
+  text-align: left;
+  color: #333;
+  cursor: pointer;
+}
+
+.buttonStyle:hover {
+  background-color: #e7e7e7;
+  border-radius: 4px;
+}
+
+.user-avatar-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.iconStyle {
+  width: 16px;
+  height: 16px;
+  margin-bottom: -3px;
+  margin-right: 5px;
+}
+
+.marginLeft {
+  margin-left: 1px;
+}
+
+.welcomeText{
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  border-radius: 4px;
+  padding: 4px;
+  /* background: #000;
+  color: #b0282d; */
+  font-size: 16px;
 }

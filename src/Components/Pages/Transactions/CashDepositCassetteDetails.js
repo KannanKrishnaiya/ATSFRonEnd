@@ -100,7 +100,7 @@ export default function CashDepositCassetteDetails({
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
-          // LogoutUser();
+          LogoutUser();
         }
       })
       .finally(() => {

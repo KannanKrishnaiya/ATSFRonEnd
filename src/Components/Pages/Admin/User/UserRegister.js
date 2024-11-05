@@ -21,6 +21,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RegisterUserAPI } from "../../../../services/Api";
 import { Typography } from "@mui/material";
+import { Logout } from "../../../../services/Auth";
 
 export default function UserRegister() {
   const [isLoading, setIsLoading] = useState(false);
@@ -286,6 +287,9 @@ function ResetUser({ email, onClose }) {
       setFormError("");
       onClose();
     } catch (error) {
+      if (error.response.status != 200) {
+        Logout();
+      }
       setFormError("Reset password failed. Please try again.");
     }
   };
@@ -357,6 +361,10 @@ function EditUserForm({ userEditInput, onUpdate }) {
         setCompanyOptions(companyData?.data || []);
       } catch (error) {
         console.error("Error fetching lookups:", error);
+        if (error.response.status != 200) {
+          Logout();
+        }
+
       }
     };
     fetchLookups();
@@ -781,6 +789,10 @@ function CreateUserForm({ onCreate }) {
         setCompanyOptions(companyData?.data || []);
       } catch (error) {
         console.error("Error fetching lookups:", error);
+        if (error.response.status != 200) {
+          Logout();
+        }
+
       }
     };
     fetchLookups();
@@ -838,6 +850,9 @@ function CreateUserForm({ onCreate }) {
       setShowModal(true);
     } catch (error) {
       setFormError("Registration failed. Please try again.");
+       if (error.response.status != 200) {
+         Logout();
+       }
     }
   };
 

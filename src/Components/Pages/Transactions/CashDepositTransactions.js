@@ -86,6 +86,9 @@ export default function CashDepositTransactions() {
       })
       .catch((err) => {
         setIsLoading(false);
+        if (err.response.status != 200) {
+          Logout();
+        }
         //console.log("GetLookupsAPI", err);
       })
       .finally(() => {
@@ -113,7 +116,7 @@ export default function CashDepositTransactions() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
-          // LogoutUser();
+          LogoutUser();
         }
       })
       .finally(() => {
@@ -155,6 +158,10 @@ export default function CashDepositTransactions() {
         setTransactionDetails(response.data);
       })
       .catch((err) => {
+        if (err.response.status != 200) {
+          Logout();
+        }
+
         //setIsLoading(false);
         // LogoutUser();
       });

@@ -35,8 +35,8 @@ export const GetUserListAPI = (inputs) => {
     headers: { Authorization: "Bearer " + headerToken.idToken },
   };
 
-  var GetUserRoleDetailsByNameAPIResponse = axios.get(GetUserListURL, config);
-  return GetUserRoleDetailsByNameAPIResponse;
+  var GetUserListAPIResponse = axios.get(GetUserListURL, config);
+  return GetUserListAPIResponse;
 };
 
 export const ResetPasswordAPI = (inputs, email) => {

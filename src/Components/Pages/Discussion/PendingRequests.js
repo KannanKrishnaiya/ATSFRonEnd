@@ -31,7 +31,11 @@ export default function PendingRequests() {
       })
       .catch((err) => {
         setIsLoading(false);
-        Logout();
+        if (ErrorEvent.response.status != 200) {
+          Logout();
+        }
+
+        // Logout();
       })
       .finally(() => {
         setIsLoading(false);

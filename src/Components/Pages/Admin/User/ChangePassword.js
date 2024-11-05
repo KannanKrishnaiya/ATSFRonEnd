@@ -97,6 +97,10 @@ export default function ChangePassword() {
           }
         })
         .catch((err) => {
+          if (err.response.status != 200) {
+            Logout();
+          }
+
           setErrors({ ...updatedErrors, custom_error: "Error" });
         });
     }

@@ -110,6 +110,9 @@ export default function ViewOtherTransactions() {
       })
       .catch((err) => {
         setIsLoading(false);
+        if (err.response.status != 200) {
+          Logout();
+        }
         //console.log("GetLookupsAPI", err);
       })
       .finally(() => {
@@ -136,6 +139,10 @@ export default function ViewOtherTransactions() {
       })
       .catch((err) => {
         setIsLoading(false);
+        if (err.response.status != 200) {
+          Logout();
+        }
+
         LogoutUser();
       });
   }
@@ -149,6 +156,10 @@ export default function ViewOtherTransactions() {
         setTransactionDetails(response.data);
       })
       .catch((err) => {
+        if (err.response.status != 200) {
+          Logout();
+        }
+
         //setIsLoading(false);
         // LogoutUser();
       });

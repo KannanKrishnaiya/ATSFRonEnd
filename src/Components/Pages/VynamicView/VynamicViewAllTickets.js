@@ -31,7 +31,11 @@ export default function VynamicViewAllTickets() {
       })
       .catch((err) => {
         setIsLoading(false);
-        Logout();
+        if (err.response.status != 200) {
+          Logout();
+        }
+
+        // Logout();
       })
       .finally(() => {
         setIsLoading(false);

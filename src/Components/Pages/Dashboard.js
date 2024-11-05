@@ -146,7 +146,11 @@ export default function Dashboard() {
       .catch((err) => {
         console.log(err);
         setIsLoading(false);
-        LogoutUser();
+        if (err.response.status != 200) {
+          Logout();
+        }
+
+        // LogoutUser();
       });
     //setIsLoading(false);
   }
@@ -162,6 +166,9 @@ export default function Dashboard() {
       })
       .catch((err) => {
         console.log(err);
+         if (err.response.status != 200) {
+           Logout();
+         }
         setIsLoading(false);
       });
   }
@@ -176,6 +183,10 @@ export default function Dashboard() {
         //setIsLoading(false);
       })
       .catch((err) => {
+      if (err.response.status != 200) {
+        Logout();
+      }
+
         console.log(err);
         setIsLoading(false);
       });

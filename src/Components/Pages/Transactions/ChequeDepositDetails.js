@@ -76,7 +76,7 @@ export default function ChequeDepositDetails({ ChequeDeposit_Input }) {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
-          // LogoutUser();
+          LogoutUser();
         }
       })
       .finally(() => {

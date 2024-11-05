@@ -87,6 +87,9 @@ export default function CashWithdrawTransactions() {
       })
       .catch((err) => {
         setIsLoading(false);
+        if (err.response.status != 200) {
+          Logout();
+        }
         //console.log("GetLookupsAPI", err);
       })
       .finally(() => {
@@ -172,6 +175,10 @@ export default function CashWithdrawTransactions() {
       })
       .catch((err) => {
         setIsLoading(false);
+        if (err.response.status != 200) {
+          Logout();
+        }
+
         LogoutUser();
       });
   }

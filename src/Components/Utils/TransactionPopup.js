@@ -5,6 +5,7 @@ import "reactjs-popup/dist/index.css";
 import { CSVLink, CSVDownload } from "react-csv";
 import { BiExport, BiSolidDetail } from "react-icons/bi";
 import { GetTransactionDetailsAPI } from "../../services/Transactions/Transactions";
+import { Logout } from "../../services/Auth";
 
 export default function TransactionPopup(props) {
   const Userdetails = localStorage.getItem("LoggedInUser");
@@ -58,7 +59,10 @@ export default function TransactionPopup(props) {
       })
       .catch((err) => {
         setIsLoading(false);
-        // LogoutUser();
+        if (err.response.status != 200) {
+          Logout();
+        }
+
       });
   }
 

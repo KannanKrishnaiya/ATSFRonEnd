@@ -96,7 +96,7 @@ export default function CashWithdrawalCassetteDetails({
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
-          // LogoutUser();
+          LogoutUser();
         }
       })
       .finally(() => {

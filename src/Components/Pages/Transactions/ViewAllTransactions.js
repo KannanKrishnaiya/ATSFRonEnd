@@ -115,6 +115,9 @@ export default function ViewAllTransactions() {
       })
       .catch((err) => {
         setIsLoading(false);
+        if (err.response.status != 200) {
+          Logout();
+        }
 
         //alert("GetLookupsAPI", err);
         // window.location = "ErrorPage_404";
@@ -146,6 +149,11 @@ export default function ViewAllTransactions() {
       })
       .catch((err) => {
         setIsLoading(false);
+        if (err.response.status != 200) {
+          Logout();
+        }
+
+
         // LogoutUser();
       });
   }
@@ -161,6 +169,10 @@ export default function ViewAllTransactions() {
         //setIsLoading(false);
       })
       .catch((err) => {
+        if (err.response.status != 200) {
+          Logout();
+        }
+
         //setIsLoading(false);
         // LogoutUser();
       });

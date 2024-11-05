@@ -92,6 +92,9 @@ export default function ViewAllFailedTransactions() {
       })
       .catch((err) => {
         setIsLoading(false);
+        if (err.response.status != 200) {
+          Logout();
+        }
         //console.log("GetLookupsAPI", err);
       })
       .finally(() => {
@@ -125,6 +128,9 @@ export default function ViewAllFailedTransactions() {
         setIsLoading(false);
       })
       .catch((err) => {
+         if (err.response.status != 200) {
+           Logout();
+         }
         setIsLoading(false);
         LogoutUser();
       });
@@ -160,6 +166,10 @@ export default function ViewAllFailedTransactions() {
         setTransactionDetails(response.data);
       })
       .catch((err) => {
+        if (err.response.status != 200) {
+          Logout();
+        }
+
         //setIsLoading(false);
         // LogoutUser();
       });

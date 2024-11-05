@@ -81,8 +81,11 @@ export default function GetVV_MachinesUpTime() {
       .then((response) => {
         setIsLoading(false);
       })
-      .catch((err) => {
+      .catch((error) => {
         setIsLoading(false);
+        if (error.response.status != 200) {
+          Logout();
+        }
 
         // window.location = "ErrorPage_404";
         window.location = "login";
@@ -97,9 +100,7 @@ export default function GetVV_MachinesUpTime() {
 
     GetAllMachineDetailsAPI(Userdetails)
       .then((response) => {
-        if (response.status != "200") {
-          //LogoutUser();
-        }
+        
         // console.log("MachineDetails response", response.data);
         setIsLoading(false);
         SetMachineDetails(response.data);
@@ -111,7 +112,7 @@ export default function GetVV_MachinesUpTime() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
-          //LogoutUser();
+          Logout();
         }
       })
       .finally(() => {
@@ -136,6 +137,10 @@ export default function GetVV_MachinesUpTime() {
         setIsLoading(false);
       })
       .catch((err) => {
+        if (err.response.status != 200) {
+          Logout();
+        }
+
         // console.log(err);
         setIsLoading(false);
       });

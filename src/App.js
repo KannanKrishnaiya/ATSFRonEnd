@@ -4,6 +4,7 @@ import {
   Route,
   Routes,
   useNavigate,
+  Navigate,
 } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { isAuthenticated } from "./services/Auth";
@@ -51,6 +52,8 @@ function App() {
   useEffect(() => {
     setIsAuthenticated(isAuthenticated);
   });
+
+
   return (
     <div>
       {isLoading ? (
@@ -63,7 +66,11 @@ function App() {
             {_isAuthenticated ? (
               <SideBar>
                 <Routes>
-                  <Route path="*" element={<> not found </>} />
+                  <Route
+                    path="*"
+                    element={<Navigate to="/Dashboard" replace />}
+                  />
+                  {/* <Route path="*" element={<> not found </>} /> */}
                   <Route path="/Dashboard" element={<Dashboard />} />
                   <Route path="/Chartspage" element={<Chartspage />} />
                   <Route path="/MsPage" element={<MsPage />} />

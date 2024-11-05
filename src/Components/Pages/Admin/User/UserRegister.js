@@ -20,6 +20,7 @@ import {
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RegisterUserAPI } from "../../../../services/Api";
+import { Typography } from "@mui/material";
 
 export default function UserRegister() {
   const [isLoading, setIsLoading] = useState(false);
@@ -42,6 +43,7 @@ export default function UserRegister() {
   );
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isResetPassModalOpen, setIsResetPassModalOpen] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   useEffect(() => {
@@ -106,16 +108,14 @@ export default function UserRegister() {
               <span className="tooltiptext">Edit User</span>
             </div>
 
-            {LoggedInUserRoleDetailsData?.RoleId === 1 ? (
+            {LoggedInUserRoleDetailsData?.RoleId === 1 && (
               <div className="tooltip">
                 <RiLockPasswordLine
                   className="DataTableIcons"
-                  onClick={() => handleResetPassword(tableMeta.rowData[3])}
+                  onClick={() => handleResetPasswordModal(tableMeta.rowData[3])}
                 />
                 <span className="tooltiptext">Reset Password</span>
               </div>
-            ) : (
-              ""
             )}
           </div>
         ),
@@ -138,10 +138,11 @@ export default function UserRegister() {
     setIsEditModalOpen(true);
   };
 
-  const handleResetPassword = (email) => {
-    ResetPasswordAPI(Userdetails, email)
-      .then(() => alert("Password reset email sent successfully"))
-      .catch((err) => console.error("Failed to reset password:", err));
+  const [email, setEmail] = useState();
+
+  const handleResetPasswordModal = (email) => {
+    setIsResetPassModalOpen(true);
+    setEmail(email);
   };
 
   const theme = createTheme({
@@ -187,7 +188,8 @@ export default function UserRegister() {
                 className="CreateUserButton"
                 onClick={() => setIsCreateModalOpen(true)}
               >
-                <BiPlusCircle />&nbsp;Add User
+                <BiPlusCircle />
+                &nbsp;Add User
               </button>
             </div>
 
@@ -223,12 +225,6 @@ export default function UserRegister() {
                   </div>
                 </div>
               )}
-              {/* <div className="DashboardModal">
-              <EditUserForm
-                userEditInput={userEditInput}
-                onUpdate={() => console.log("Updated data:", userEditInput)}
-              />
-            </div> */}
             </Popup>
             <Popup
               open={isCreateModalOpen}
@@ -250,9 +246,86 @@ export default function UserRegister() {
                 </div>
               )}
             </Popup>
+            <Popup
+              open={isResetPassModalOpen}
+              onClose={() => setIsResetPassModalOpen(false)}
+              modal
+              nested
+            >
+              {(close) => (
+                <div className="DashboardModal">
+                  <button className="close" onClick={close}>
+                    &times;
+                  </button>
+                  <div>
+                    <ResetUser email={email} onClose={close} />
+                  </div>
+                </div>
+              )}
+            </Popup>
           </ThemeProvider>
         </>
       )}
+    </div>
+  );
+}
+
+function ResetUser({ email, onClose }) {
+  const [formError, setFormError] = useState("");
+  const Userdetails = localStorage.getItem("LoggedInUser");
+
+  const handleResetPassword = async () => {
+    try {
+      await ResetPasswordAPI(Userdetails, email);
+      GetUserListAPI(Userdetails);
+      toast.success("Password reset successfully.", {
+        position: "top-center",
+        autoClose: 3000,
+        theme: "light",
+      });
+      setFormError("");
+      onClose();
+    } catch (error) {
+      setFormError("Reset password failed. Please try again.");
+    }
+  };
+
+  const handleResetPasswordClose = () => {
+    onClose();
+  };
+
+  return (
+    <div className="EditPopup">
+      {formError && (
+        <span style={{ color: "#FF0000" }} className="error">
+          {formError}
+        </span>
+      )}
+      <div className="row">
+        <Typography>
+          Do you want to reset the password for{" "}
+          <b>
+            <u>{email}</u>
+          </b>
+        </Typography>
+      </div>
+      <div className="row">
+        <center>
+          {" "}
+          <input
+            type="button"
+            value="Yes"
+            className="FormControl_button"
+            onClick={handleResetPassword}
+          />
+          <input
+            type="button"
+            value="No"
+            className="FormControl_button"
+            onClick={handleResetPasswordClose}
+          />
+        </center>
+      </div>
     </div>
   );
 }
@@ -445,8 +518,6 @@ function EditUserForm({ userEditInput, onUpdate }) {
     </div>
   );
 }
-
-
 
 // function CreateUserForm({ onCreate }) {
 //   const Userdetails = localStorage.getItem("LoggedInUser");

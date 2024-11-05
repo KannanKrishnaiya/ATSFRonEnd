@@ -12,6 +12,7 @@ import { SetLoggedInUserRoleDetails } from "../../services/Storage";
 import { GetUserRoleDetailsByNameAPI } from "../../services/User/UserService";
 import { setUser } from "../../redux/userSlice";
 import { useDispatch } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function LoginPage() {
   const dispatch = useDispatch();
@@ -48,10 +49,10 @@ export default function LoginPage() {
           console.log("err", err);
           if (err.response != null) {
             if (err.response.status != "200") {
-              console.log(err.response.data.error_description);
+              console.log(err?.response?.data?.error?.title);
               setErrors({
                 ...errors,
-                custom_error: err.response.data.error_description,
+                custom_error: "Email or Password is incorrect.",
               });
             }
           }
@@ -110,6 +111,7 @@ export default function LoginPage() {
       .catch((err) => {
         setLoading(false);
         if (err.response.status != 200) {
+          LogoutUser();
         }
       })
       .finally(() => {
@@ -123,6 +125,7 @@ export default function LoginPage() {
 
   return (
     <div>
+      <ToastContainer />
       <div className="Loginbody">
         <div className="LoginPagebox">
           <div style={{ textAlign: "center" }}>
@@ -160,11 +163,15 @@ export default function LoginPage() {
               {/* <label>Password</label> */}
             </div>
 
-            <div className="text-danger">
-              <span>
-                {errors.custom_error ? <p>{errors.custom_error}</p> : null}
-              </span>
-            </div>
+            <center>
+              {" "}
+              <div className="text-danger">
+                <span>
+                  {errors.custom_error ? <p>{errors.custom_error}</p> : null}
+                </span>
+              </div>
+            </center>
+
             <div className="RegisterPageDivRow RegisterPageDivButton">
               <input type="submit" name="sign-in" value="Sign In" />
             </div>

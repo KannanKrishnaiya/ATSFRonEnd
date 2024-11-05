@@ -9,6 +9,7 @@ export const isAuthenticated = () => {
 };
 
 export const Logout = () => {
+  
   removeUserData();
 };
 

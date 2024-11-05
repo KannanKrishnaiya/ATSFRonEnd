@@ -147,6 +147,7 @@ import { GetUserRoleDetailsByNameAPI } from "../../services/User/UserService";
 import { Logout } from "../../services/Auth";
 import { setUser } from "../../redux/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { LogoutAPI } from "../../services/Api";
 
 export default function LoggedInUserDetails(User) {
   const popupRef = useRef(null);
@@ -206,13 +207,22 @@ export default function LoggedInUserDetails(User) {
     Logout();
   };
 
+  const handleLogout = async () => {
+    try {
+      await LogoutAPI(Userdetails);
+      LogoutUser();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleAvatarClick = () => {
     setShowPopup(!showPopup);
   };
 
   const handleOptionSelect = (option) => {
     if (option === "logout") {
-      LogoutUser();
+      handleLogout();
     } else if (option === "changePassword") {
       navigate("/ChangePassword");
     }

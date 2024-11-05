@@ -19,7 +19,7 @@ import {
 } from "../../../../services/Lookups/Lookups_Api";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { RegisterUserAPI } from "../../../../services/Api";
+import { RegisterUserAPI, UpdateUserAPI } from "../../../../services/Api";
 import { Typography } from "@mui/material";
 import { Logout } from "../../../../services/Auth";
 
@@ -334,6 +334,200 @@ function ResetUser({ email, onClose }) {
   );
 }
 
+// for update api UpdateUserAPI(Userdetails,data(update obj))
+
+// function EditUserForm({ userEditInput, onUpdate }) {
+//   const Userdetails = localStorage.getItem("LoggedInUser");
+//   const [formData, setFormData] = useState({
+//     firstName: "",
+//     lastName: "",
+//     userName: "",
+//     email: "",
+//     phoneNumber: "",
+//     companyId: "",
+//     roleId: "",
+//     isDisabled: false,
+//     isCNSEmployee: false,
+//     ...userEditInput,
+//   });
+
+//   const [companyOptions, setCompanyOptions] = useState([]);
+//   const [roleOptions, setRoleOptions] = useState([]);
+
+//   useEffect(() => {
+//     const fetchLookups = async () => {
+//       try {
+//         const roleData = await GetLookupsUserRoleAPI(Userdetails);
+//         setRoleOptions(roleData?.data || []);
+//         const companyData = await GetLookupsAPI(Userdetails);
+//         setCompanyOptions(companyData?.data || []);
+//       } catch (error) {
+//         console.error("Error fetching lookups:", error);
+//         if (error.response.status != 200) {
+//           Logout();
+//         }
+//       }
+//     };
+//     fetchLookups();
+//   }, [Userdetails]);
+
+//   useEffect(() => {
+//     if (userEditInput) {
+//       setFormData((prev) => ({
+//         ...prev,
+//         companyId: userEditInput.companyId,
+//         roleId: userEditInput.roleIdId,
+//         isCNSEmployee: userEditInput.isCNSEmployee,
+//       }));
+//     }
+//   }, [userEditInput]);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData((prev) => ({
+//       ...prev,
+//       [name]: name === "isCNSEmployee" ? value === "Yes" : value,
+//     }));
+//   };
+
+//   const handleStatusChange = (status) => {
+//     setFormData((prev) => ({ ...prev, isDisabled: status === "Active" }));
+//   };
+
+//   const handleUpdateClick = () => {
+//     onUpdate(formData);
+//   };
+
+//   return (
+//     <div className="EditPopup">
+//       <div className="row">
+//         <div className="Column">
+//           <label className="EditPopupLabel">First Name</label>
+//           <input
+//             className="FormControl_input"
+//             type="text"
+//             name="firstName"
+//             value={formData.firstName || ""}
+//             onChange={handleChange}
+//           />
+//         </div>
+//         <div className="Column">
+//           <label className="EditPopupLabel">Last Name</label>
+//           <input
+//             className="FormControl_input"
+//             type="text"
+//             name="lastName"
+//             value={formData.lastName || ""}
+//             onChange={handleChange}
+//           />
+//         </div>
+//       </div>
+//       <div className="row">
+//         <div className="Column">
+//           <label className="EditPopupLabel">Username</label>
+//           <input
+//             className="FormControl_input"
+//             type="text"
+//             name="userName"
+//             value={formData.userName || ""}
+//             onChange={handleChange}
+//           />
+//         </div>
+//         <div className="Column">
+//           <label className="EditPopupLabel">Email</label>
+//           <input
+//             disabled
+//             className="FormControl_input"
+//             type="email"
+//             name="email"
+//             value={formData.email || ""}
+//           />
+//         </div>
+//       </div>
+//       <div className="row">
+//         <div className="Column">
+//           <label className="EditPopupLabel">Phone Number</label>
+//           <input
+//             className="FormControl_input"
+//             type="tel"
+//             name="phoneNumber"
+//             value={formData.phoneNumber || ""}
+//             onChange={handleChange}
+//           />
+//         </div>
+//         <div className="Column">
+//           <label className="EditPopupLabel">Company</label>
+//           <select
+//             className="FormControl_input"
+//             name="companyId"
+//             value={formData.companyId || ""}
+//             onChange={handleChange}
+//           >
+//             <option value="">Select Company</option>
+//             {companyOptions.map((company) => (
+//               <option key={company.id} value={company.id}>
+//                 {company.nameEn}
+//               </option>
+//             ))}
+//           </select>
+//         </div>
+//       </div>
+//       <div className="row">
+//         <div className="Column">
+//           <label className="EditPopupLabel">Active Status</label>
+//           <select
+//             className="FormControl_input"
+//             value={formData.isDisabled ? "Inactive" : "Active"}
+//             onChange={(e) => handleStatusChange(e.target.value)}
+//           >
+//             <option value="Active">Active</option>
+//             <option value="Inactive">Inactive</option>
+//           </select>
+//         </div>
+//         <div className="Column">
+//           <label className="EditPopupLabel">Role</label>
+//           <select
+//             className="FormControl_input"
+//             name="roleId"
+//             value={formData.roleId || ""}
+//             onChange={handleChange}
+//           >
+//             <option value="">Select Role</option>
+//             {roleOptions.map((role) => (
+//               <option key={role.id} value={role.id}>
+//                 {role.roleName}
+//               </option>
+//             ))}
+//           </select>
+//         </div>
+//       </div>
+//       <div className="row">
+//         <div className="Column">
+//           <label className="EditPopupLabel">Is CNS Employee</label>
+//           <select
+//             className="FormControl_input"
+//             name="isCNSEmployee"
+//             value={formData.isCNSEmployee ? "Yes" : "No"}
+//             onChange={handleChange}
+//           >
+//             <option value="Yes">Yes</option>
+//             <option value="No">No</option>
+//           </select>
+//         </div>
+//         <div className="Column">
+//           <input
+//             type="button"
+//             name="Update"
+//             value="Update"
+//             className="FormControl_button"
+//             onClick={handleUpdateClick}
+//           />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
 function EditUserForm({ userEditInput, onUpdate }) {
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [formData, setFormData] = useState({
@@ -342,7 +536,7 @@ function EditUserForm({ userEditInput, onUpdate }) {
     userName: "",
     email: "",
     phoneNumber: "",
-    companyId: "",
+    companyId: "0",
     roleId: "",
     isDisabled: false,
     isCNSEmployee: false,
@@ -351,6 +545,7 @@ function EditUserForm({ userEditInput, onUpdate }) {
 
   const [companyOptions, setCompanyOptions] = useState([]);
   const [roleOptions, setRoleOptions] = useState([]);
+  const [filteredRoleOptions, setFilteredRoleOptions] = useState([]);
 
   useEffect(() => {
     const fetchLookups = async () => {
@@ -361,10 +556,9 @@ function EditUserForm({ userEditInput, onUpdate }) {
         setCompanyOptions(companyData?.data || []);
       } catch (error) {
         console.error("Error fetching lookups:", error);
-        if (error.response.status != 200) {
+        if (error.response?.status !== 200) {
           Logout();
         }
-
       }
     };
     fetchLookups();
@@ -374,12 +568,43 @@ function EditUserForm({ userEditInput, onUpdate }) {
     if (userEditInput) {
       setFormData((prev) => ({
         ...prev,
-        companyId: userEditInput.companyId,
-        roleId: userEditInput.roleIdId,
-        isCNSEmployee: userEditInput.isCNSEmployee,
+        firstName: userEditInput.firstName || "",
+        lastName: userEditInput.lastName || "",
+        userName: userEditInput.userName || "",
+        email: userEditInput.email || "",
+        phoneNumber: userEditInput.phoneNumber || "",
+        companyId: userEditInput.companyId || "0",
+        roleId: userEditInput.roleId || "",
+        isDisabled: userEditInput.isDisabled || false,
+        isCNSEmployee: userEditInput.isCNSEmployee || false,
       }));
     }
   }, [userEditInput]);
+
+  useEffect(() => {
+    const updatedRoleOptions = formData.isCNSEmployee
+      ? roleOptions.filter((role) => role.id === 2 || role.id === 3)
+      : roleOptions;
+    setFilteredRoleOptions(updatedRoleOptions);
+  }, [formData.isCNSEmployee, roleOptions]);
+
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //    setFormData((prev) => {
+  //      if (name === "isCNSEmployee") {
+  //        return {
+  //          ...prev,
+  //          isCNSEmployee: value === "true",
+  //          companyId: value === "true" ? "0" : prev.companyId,
+  //          roleId:
+  //            value === "true" && prev.roleId !== "2" && prev.roleId !== "3"
+  //              ? ""
+  //              : prev.roleId,
+  //        };
+  //      }
+  //      return { ...prev, [name]: value };
+  //    });
+  // };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -390,12 +615,26 @@ function EditUserForm({ userEditInput, onUpdate }) {
   };
 
   const handleStatusChange = (status) => {
-    setFormData((prev) => ({ ...prev, isDisabled: status === "Active" }));
+    setFormData((prev) => ({ ...prev, isDisabled: status === "Inactive" }));
   };
 
-  const handleUpdateClick = () => {
-    onUpdate(formData);
+  const handleUpdateClick = async () => {
+    const updatedData = {
+      ...formData,
+      companyId: formData.companyId || "0",
+    };
+
+    try {
+      await UpdateUserAPI(Userdetails, updatedData);
+      onUpdate(updatedData);
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
   };
+
+  const filteredRoles = formData.isCNSEmployee
+    ? roleOptions.filter((role) => [2, 3].includes(role.id))
+    : roleOptions.filter((role) => [4, 5, 6].includes(role.id));
 
   return (
     <div className="EditPopup">
@@ -421,6 +660,7 @@ function EditUserForm({ userEditInput, onUpdate }) {
           />
         </div>
       </div>
+
       <div className="row">
         <div className="Column">
           <label className="EditPopupLabel">Username</label>
@@ -443,6 +683,7 @@ function EditUserForm({ userEditInput, onUpdate }) {
           />
         </div>
       </div>
+
       <div className="row">
         <div className="Column">
           <label className="EditPopupLabel">Phone Number</label>
@@ -459,10 +700,11 @@ function EditUserForm({ userEditInput, onUpdate }) {
           <select
             className="FormControl_input"
             name="companyId"
-            value={formData.companyId || ""}
+            value={formData.companyId || "0"}
             onChange={handleChange}
+            disabled={formData.isCNSEmployee}
           >
-            <option value="">Select Company</option>
+            <option value="0">Select Company</option>
             {companyOptions.map((company) => (
               <option key={company.id} value={company.id}>
                 {company.nameEn}
@@ -471,6 +713,7 @@ function EditUserForm({ userEditInput, onUpdate }) {
           </select>
         </div>
       </div>
+
       <div className="row">
         <div className="Column">
           <label className="EditPopupLabel">Active Status</label>
@@ -491,8 +734,14 @@ function EditUserForm({ userEditInput, onUpdate }) {
             value={formData.roleId || ""}
             onChange={handleChange}
           >
+            {/* <option value="">Select Role</option>
+            {filteredRoleOptions.map((role) => (
+              <option key={role.id} value={role.id}>
+                {role.roleName}
+              </option>
+            ))} */}
             <option value="">Select Role</option>
-            {roleOptions.map((role) => (
+            {filteredRoles.map((role) => (
               <option key={role.id} value={role.id}>
                 {role.roleName}
               </option>
@@ -500,6 +749,7 @@ function EditUserForm({ userEditInput, onUpdate }) {
           </select>
         </div>
       </div>
+
       <div className="row">
         <div className="Column">
           <label className="EditPopupLabel">Is CNS Employee</label>
@@ -513,15 +763,14 @@ function EditUserForm({ userEditInput, onUpdate }) {
             <option value="No">No</option>
           </select>
         </div>
-        <div className="Column">
-          <input
-            type="button"
-            name="Update"
-            value="Update"
-            className="FormControl_button"
-            onClick={handleUpdateClick}
-          />
-        </div>
+      </div>
+      <div className="row">
+        <input
+          type="button"
+          value="Update"
+          className="FormControl_button"
+          onClick={handleUpdateClick}
+        />
       </div>
     </div>
   );
@@ -544,20 +793,23 @@ function EditUserForm({ userEditInput, onUpdate }) {
 //   const [roleOptions, setRoleOptions] = useState([]);
 //   const [emailError, setEmailError] = useState("");
 //   const [formError, setFormError] = useState("");
+//   const [showModal, setShowModal] = useState(false);
 
 //   useEffect(() => {
 //     const fetchLookups = async () => {
 //       try {
 //         const roleData = await GetLookupsUserRoleAPI(Userdetails);
 //         setRoleOptions(roleData?.data || []);
-
 //         const companyData = await GetLookupsAPI(Userdetails);
 //         setCompanyOptions(companyData?.data || []);
 //       } catch (error) {
 //         console.error("Error fetching lookups:", error);
+//         if (error.response.status != 200) {
+//           Logout();
+//         }
+
 //       }
 //     };
-
 //     fetchLookups();
 //   }, [Userdetails]);
 
@@ -568,7 +820,6 @@ function EditUserForm({ userEditInput, onUpdate }) {
 //         return {
 //           ...prev,
 //           isCNSEmployee: value === "true",
-//           // isDisabled: value === "false",
 //           roleId: value === "true" ? prev.roleId : "",
 //         };
 //       }
@@ -611,34 +862,60 @@ function EditUserForm({ userEditInput, onUpdate }) {
 //         isCNSEmployee: false,
 //       });
 //       setFormError("");
-//       toast.success("User successfully registered", {
-//         position: "top-center",
-//         autoClose: 3000,
-//         theme: "light",
-//       });
+//       setShowModal(true);
 //     } catch (error) {
-//       toast.error("Registration failed. Please try again.", {
-//         position: "top-center",
-//         autoClose: 3000,
-//         theme: "light",
-//       });
+//       setFormError("Registration failed. Please try again.");
+//        if (error.response.status != 200) {
+//          Logout();
+//        }
 //     }
+//   };
+
+//   const handleCloseModal = () => {
+//     setShowModal(false);
+//     GetUserListAPI(Userdetails);
 //   };
 
 //   const filteredRoles = newUser.isCNSEmployee
 //     ? roleOptions
 //     : roleOptions.filter((role) => [4, 5, 6].includes(role.id));
 
+//   const modalStyles = {
+//     display: showModal ? "flex" : "none",
+//     position: "fixed",
+//     zIndex: 1000,
+//     left: 0,
+//     top: 0,
+//     width: "100%",
+//     height: "100%",
+//     backgroundColor: "rgba(0, 0, 0, 0.5)",
+//     justifyContent: "center",
+//     alignItems: "center",
+//   };
+
+//   const modalContentStyles = {
+//     backgroundColor: "white",
+//     padding: "20px",
+//     borderRadius: "5px",
+//     textAlign: "center",
+//     position: "relative",
+//   };
+
+//   const closeButtonStyles = {
+//     position: "absolute",
+//     top: "10px",
+//     right: "10px",
+//     cursor: "pointer",
+//     fontSize: "20px",
+//   };
+
 //   return (
 //     <div className="EditPopup">
-//       <center>
-//         {" "}
-//         {formError && (
-//           <span style={{ color: "#FF0000" }} className="error">
-//             {formError}
-//           </span>
-//         )}
-//       </center>
+//       {formError && (
+//         <span style={{ color: "#FF0000" }} className="error">
+//           {formError}
+//         </span>
+//       )}
 //       <div className="row">
 //         <div className="Column">
 //           <label className="AddPopupLabel">First Name *</label>
@@ -753,10 +1030,21 @@ function EditUserForm({ userEditInput, onUpdate }) {
 //           type="button"
 //           name="Create"
 //           value="Create"
-//           className="FormControl_button"
+//           className="FormControl_button_test"
 //           onClick={handleCreate}
 //         />
 //       </div>
+//       {showModal && (
+//         <div style={modalStyles}>
+//           <div style={modalContentStyles}>
+//             <span style={closeButtonStyles} onClick={handleCloseModal}>
+//               &times;
+//             </span>
+//             <p>User successfully registered</p>
+//             <button onClick={handleCloseModal}>OK</button>
+//           </div>
+//         </div>
+//       )}
 //     </div>
 //   );
 // }
@@ -769,7 +1057,7 @@ function CreateUserForm({ onCreate }) {
     lastName: "",
     email: "",
     phoneNumber: "",
-    companyId: "",
+    companyId: "0",
     roleId: "",
     isDisabled: true,
     isCNSEmployee: false,
@@ -789,10 +1077,9 @@ function CreateUserForm({ onCreate }) {
         setCompanyOptions(companyData?.data || []);
       } catch (error) {
         console.error("Error fetching lookups:", error);
-        if (error.response.status != 200) {
+        if (error.response.status !== 200) {
           Logout();
         }
-
       }
     };
     fetchLookups();
@@ -805,7 +1092,11 @@ function CreateUserForm({ onCreate }) {
         return {
           ...prev,
           isCNSEmployee: value === "true",
-          roleId: value === "true" ? prev.roleId : "",
+          companyId: value === "true" ? "0" : prev.companyId,
+          roleId:
+            value === "true" && prev.roleId !== "2" && prev.roleId !== "3"
+              ? ""
+              : prev.roleId,
         };
       }
       return { ...prev, [name]: value };
@@ -815,7 +1106,7 @@ function CreateUserForm({ onCreate }) {
   const handleEmailBlur = async () => {
     const email = newUser.email;
     const exists = await CheckUserExistsAPI(Userdetails, email);
-    setEmailError(exists?.data?.isUSerExists ? "User already exists" : "");
+    setEmailError(exists?.data?.isUserExists ? "User already exists" : "");
   };
 
   const handleCreate = async () => {
@@ -826,7 +1117,7 @@ function CreateUserForm({ onCreate }) {
       !newUser.email ||
       !newUser.userName ||
       !newUser.phoneNumber ||
-      !newUser.companyId ||
+      (!newUser.isCNSEmployee && !newUser.companyId) ||
       !newUser.roleId
     ) {
       setFormError("Please fill in all required fields");
@@ -841,7 +1132,7 @@ function CreateUserForm({ onCreate }) {
         lastName: "",
         email: "",
         phoneNumber: "",
-        companyId: "",
+        companyId: "0",
         roleId: "",
         isDisabled: true,
         isCNSEmployee: false,
@@ -850,9 +1141,9 @@ function CreateUserForm({ onCreate }) {
       setShowModal(true);
     } catch (error) {
       setFormError("Registration failed. Please try again.");
-       if (error.response.status != 200) {
-         Logout();
-       }
+      if (error.response.status !== 200) {
+        Logout();
+      }
     }
   };
 
@@ -862,7 +1153,7 @@ function CreateUserForm({ onCreate }) {
   };
 
   const filteredRoles = newUser.isCNSEmployee
-    ? roleOptions
+    ? roleOptions.filter((role) => [2, 3].includes(role.id))
     : roleOptions.filter((role) => [4, 5, 6].includes(role.id));
 
   const modalStyles = {
@@ -963,24 +1254,6 @@ function CreateUserForm({ onCreate }) {
           />
         </div>
         <div className="Column">
-          <label className="AddPopupLabel">Company *</label>
-          <select
-            className="FormControl_input"
-            name="companyId"
-            value={newUser.companyId}
-            onChange={handleChange}
-          >
-            <option value="">Select Company</option>
-            {companyOptions.map((company) => (
-              <option key={company.id} value={company.id}>
-                {company.nameEn}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-      <div className="row">
-        <div className="Column">
           <label className="AddPopupLabel">CNS Employee *</label>
           <select
             className="FormControl_input"
@@ -992,6 +1265,26 @@ function CreateUserForm({ onCreate }) {
             <option value="true">Yes</option>
           </select>
         </div>
+      </div>
+      <div className="row">
+        <div className="Column">
+          <label className="AddPopupLabel">Company *</label>
+          <select
+            className="FormControl_input"
+            name="companyId"
+            value={newUser.companyId}
+            onChange={handleChange}
+            disabled={newUser.isCNSEmployee}
+          >
+            <option value="0">Select Company</option>
+            {companyOptions.map((company) => (
+              <option key={company.id} value={company.id}>
+                {company.nameEn}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className="Column">
           <label className="AddPopupLabel">Role *</label>
           <select

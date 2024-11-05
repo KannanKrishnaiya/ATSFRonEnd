@@ -6,11 +6,15 @@ axios.defaults.baseURL = "http://20.196.9.136:35082";
 const getTokenURL = "/api/validate/token";
 // const LoginURL = "/Token";
 const LoginURL = "/api/Auth/login";
+const LogoutURL = "/api/Auth/logout";
+
 const GetUserDetailsByUserNameURL = "/api/user/GetUserDetailsByUserName";
 
 const ValidateTransactionsURL = "/api/MS_AlMasraf/ValidateTransactions";
 
 const RegisterUserAPIRURL = "/api/Auth/Register";
+
+const UpdateUserApiURL = "/api/Auth/UpdateUser";
 
 export const LoggedInUser = {};
 
@@ -33,37 +37,29 @@ export const RegisterApi = (inputs) => {
 };
 
 export const LoginApi = (inputs) => {
-  // const config = {
-  //   //crossOriginIsolated: true,
-  //   headers: {
-  //     // "Access-Control-Allow-Headers": "Content-Type",
-  //     "Access-Control-Allow-Origin": "*",
-  //     "Cache-Control": "no-cache",
-  //     "Content-Type": "application/x-www-form-urlencoded",
-  //     // "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PATCH",
-  //   },
-  // };
-
   var UserDetails = axios.post(LoginURL, {
     email: inputs.name,
     passwordHash: inputs.password,
   });
-
-  // var UserDetails = axios.post(
-  //   LoginURL,
-  //   // config,
-  //   qs.stringify({
-  //     username: inputs.name,
-  //     password: inputs.password,
-  //     grant_type: "password",
-  //   })
-  //   // new URLSearchParams({
-  //   //   UserName: "kannan@kannan.com", //data.UserName, //gave the values directly for testing
-  //   //   Password: data.Password,
-  //   //   grant_type: "password",
-  //   // })
-  // );
   return UserDetails;
+};
+
+export const LogoutAPI = (inputs) => {
+  const userData = JSON.parse(inputs);
+  let headerToken = {
+    idToken: userData?.token,
+  };
+  let User = {
+    email: userData.UserName,
+  };
+
+  const config = {
+    headers: { Authorization: "Bearer " + headerToken.idToken },
+  };
+
+  var LogoutAPIResponse = axios.post(LogoutURL, User, config);
+
+  return LogoutAPIResponse;
 };
 
 export const GetUserDetailsAPI = (inputs) => {
@@ -125,4 +121,19 @@ export const RegisterUserAPI = (inputs, dataObj) => {
     config
   );
   return RegisterUserAPIResponse;
+};
+
+export const UpdateUserAPI = (inputs, data) => {
+  const userData = JSON.parse(inputs);
+  let headerToken = {
+    idToken: userData?.token,
+  };
+
+  const config = {
+    headers: { Authorization: "Bearer " + headerToken.idToken },
+  };
+
+  var UpdateUserAPIResponse = axios.post(UpdateUserApiURL, data, config);
+
+  return UpdateUserAPIResponse;
 };

@@ -54,7 +54,7 @@ const SideBar = ({ children }) => {
     localStorage.getItem("LoggedInUserRoleDetails")
   );
 
-
+  console.log(LoggedInUserRoleDetailsData?.RoleId);
 
   const routes = [
     {
@@ -78,7 +78,7 @@ const SideBar = ({ children }) => {
     //   icon: <FaChartBar />,
     // },
     LoggedInUserRoleDetailsData?.RoleId !== null &&
-    LoggedInUserRoleDetailsData?.RoleId == "1"
+    LoggedInUserRoleDetailsData?.RoleId === "1"
       ? {
           path: "/",
           name: (
@@ -203,7 +203,8 @@ const SideBar = ({ children }) => {
       ],
     },
     LoggedInUserRoleDetailsData?.RoleId !== null &&
-    LoggedInUserRoleDetailsData?.RoleId == "1"
+    (LoggedInUserRoleDetailsData?.RoleId == "1" ||
+      LoggedInUserRoleDetailsData?.RoleId == "2")
       ? {
           path: "/",
           name: "Lookups",
@@ -307,7 +308,8 @@ const SideBar = ({ children }) => {
     // },
 
     LoggedInUserRoleDetailsData?.RoleId !== null &&
-    LoggedInUserRoleDetailsData?.RoleId == "1"
+    (LoggedInUserRoleDetailsData?.RoleId == "1" ||
+      LoggedInUserRoleDetailsData?.RoleId == "2")
       ? {
           path: "/",
           name: "Admin",

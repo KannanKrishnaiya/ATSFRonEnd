@@ -104,7 +104,7 @@ export default function UserRegister() {
             <div className="tooltip">
               <TbUserEdit
                 className="DataTableIcons"
-                onClick={() => handleEdit(tableMeta.rowData)}
+                onClick={() => handleEdit(tableMeta.rowData, value)}
               />
               <span className="tooltiptext">Edit User</span>
             </div>
@@ -125,6 +125,8 @@ export default function UserRegister() {
   ];
 
   const handleEdit = (rowData) => {
+    console.log(rowData);
+
     setUserEditInput({
       firstName: rowData[0],
       lastName: rowData[1],
@@ -173,7 +175,7 @@ export default function UserRegister() {
 
   const handleCreateUser = (newUser) => {
     setUserList((prev) => [...prev, newUser]);
-    setIsCreateModalOpen(false);
+    // setIsCreateModalOpen(false);
   };
 
   return (
@@ -218,10 +220,9 @@ export default function UserRegister() {
                   </button>
                   <div>
                     <EditUserForm
+                      close={close}
                       userEditInput={userEditInput}
-                      onUpdate={() =>
-                        console.log("Updated data:", userEditInput)
-                      }
+                      onUpdate={handleCreateUser}
                     />
                   </div>
                 </div>
@@ -242,7 +243,7 @@ export default function UserRegister() {
                     &times;
                   </button>
                   <div>
-                    <CreateUserForm onCreate={handleCreateUser} />
+                    <CreateUserForm close={close} onCreate={handleCreateUser} />
                   </div>
                 </div>
               )}
@@ -259,7 +260,7 @@ export default function UserRegister() {
                     &times;
                   </button>
                   <div>
-                    <ResetUser email={email} onClose={close} />
+                    <ResetUser email={email} close={close} />
                   </div>
                 </div>
               )}
@@ -528,7 +529,7 @@ function ResetUser({ email, onClose }) {
 //   );
 // }
 
-function EditUserForm({ userEditInput, onUpdate }) {
+function EditUserForm({ userEditInput, onUpdate, close }) {
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [formData, setFormData] = useState({
     firstName: "",
@@ -546,6 +547,7 @@ function EditUserForm({ userEditInput, onUpdate }) {
   const [companyOptions, setCompanyOptions] = useState([]);
   const [roleOptions, setRoleOptions] = useState([]);
   const [filteredRoleOptions, setFilteredRoleOptions] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const fetchLookups = async () => {
@@ -564,8 +566,22 @@ function EditUserForm({ userEditInput, onUpdate }) {
     fetchLookups();
   }, [Userdetails]);
 
+  console.log(userEditInput);
+
   useEffect(() => {
+    console.log(userEditInput);
+    console.log(roleOptions);
+
     if (userEditInput) {
+      const companyId =
+        companyOptions.find(
+          (company) => company.nameEn === userEditInput.companyId
+        )?.id || "0";
+
+      const roleId =
+        roleOptions.find((role) => role.roleName === userEditInput.roleIdId)
+          ?.id || "";
+
       setFormData((prev) => ({
         ...prev,
         firstName: userEditInput.firstName || "",
@@ -573,13 +589,13 @@ function EditUserForm({ userEditInput, onUpdate }) {
         userName: userEditInput.userName || "",
         email: userEditInput.email || "",
         phoneNumber: userEditInput.phoneNumber || "",
-        companyId: userEditInput.companyId || "0",
-        roleId: userEditInput.roleId || "",
+        companyId: companyId,
+        roleId: roleId,
         isDisabled: userEditInput.isDisabled || false,
         isCNSEmployee: userEditInput.isCNSEmployee || false,
       }));
     }
-  }, [userEditInput]);
+  }, [userEditInput, companyOptions, roleOptions]);
 
   useEffect(() => {
     const updatedRoleOptions = formData.isCNSEmployee
@@ -606,35 +622,127 @@ function EditUserForm({ userEditInput, onUpdate }) {
   //    });
   // };
 
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     [name]: name === "isCNSEmployee" ? value === "Yes" : value,
+  //   }));
+  // };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: name === "isCNSEmployee" ? value === "Yes" : value,
-    }));
+    setFormData((prev) => {
+      if (name === "isCNSEmployee") {
+        return {
+          ...prev,
+          isCNSEmployee: value === "Yes",
+          companyId: value === "Yes" ? "0" : prev.companyId,
+          roleId:
+            value === "Yes" && prev.roleId !== "2" && prev.roleId !== "3"
+              ? ""
+              : prev.roleId,
+        };
+      }
+      return { ...prev, [name]: value };
+    });
   };
 
   const handleStatusChange = (status) => {
     setFormData((prev) => ({ ...prev, isDisabled: status === "Inactive" }));
   };
 
+  // const handleUpdateClick = async () => {
+  //   const updatedData = {
+  //     ...formData,
+  //     companyId: formData.companyId || "0",
+  //   };
+
+  //   try {
+  //     await UpdateUserAPI(Userdetails, updatedData);
+  //     onUpdate(updatedData);
+  //   } catch (error) {
+  //     console.error("Error updating user:", error);
+  //   }
+  // };
+
   const handleUpdateClick = async () => {
+    if (
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.email ||
+      !formData.userName ||
+      !formData.phoneNumber ||
+      (!formData.isCNSEmployee && !formData.companyId) ||
+      !formData.roleId
+    ) {
+      return;
+    }
     const updatedData = {
       ...formData,
       companyId: formData.companyId || "0",
     };
-
     try {
-      await UpdateUserAPI(Userdetails, updatedData);
+      await UpdateUserAPI(Userdetails, formData);
       onUpdate(updatedData);
+      setFormData({
+        userName: "",
+        firstName: "",
+        lastName: "",
+        email: "",
+        phoneNumber: "",
+        companyId: "0",
+        roleId: "",
+        isDisabled: true,
+        isCNSEmployee: false,
+      });
+      setShowModal(true);
     } catch (error) {
-      console.error("Error updating user:", error);
+      if (error.response.status !== 200) {
+        Logout();
+      }
     }
   };
 
   const filteredRoles = formData.isCNSEmployee
     ? roleOptions.filter((role) => [2, 3].includes(role.id))
     : roleOptions.filter((role) => [4, 5, 6].includes(role.id));
+
+  const modalStyles = {
+    display: showModal ? "flex" : "none",
+    position: "fixed",
+    zIndex: 1000,
+    left: 0,
+    top: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  };
+
+  const modalContentStyles = {
+    backgroundColor: "white",
+    padding: "20px",
+    borderRadius: "5px",
+    textAlign: "center",
+    position: "relative",
+  };
+
+  const closeButtonStyles = {
+    position: "absolute",
+    top: "10px",
+    right: "10px",
+    cursor: "pointer",
+    fontSize: "20px",
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    close();
+    GetUserListAPI(Userdetails);
+    window.location.reload();
+  };
 
   return (
     <div className="EditPopup">
@@ -734,12 +842,6 @@ function EditUserForm({ userEditInput, onUpdate }) {
             value={formData.roleId || ""}
             onChange={handleChange}
           >
-            {/* <option value="">Select Role</option>
-            {filteredRoleOptions.map((role) => (
-              <option key={role.id} value={role.id}>
-                {role.roleName}
-              </option>
-            ))} */}
             <option value="">Select Role</option>
             {filteredRoles.map((role) => (
               <option key={role.id} value={role.id}>
@@ -772,284 +874,24 @@ function EditUserForm({ userEditInput, onUpdate }) {
           onClick={handleUpdateClick}
         />
       </div>
+      {showModal && (
+        <div style={modalStyles}>
+          <div style={modalContentStyles}>
+            <h3>User successfully Updated</h3>
+            <input
+              type="button"
+              value="Ok"
+              className="FormControl_button"
+              onClick={handleCloseModal}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-// function CreateUserForm({ onCreate }) {
-//   const Userdetails = localStorage.getItem("LoggedInUser");
-//   const [newUser, setNewUser] = useState({
-//     userName: "",
-//     firstName: "",
-//     lastName: "",
-//     email: "",
-//     phoneNumber: "",
-//     companyId: "",
-//     roleId: "",
-//     isDisabled: true,
-//     isCNSEmployee: false,
-//   });
-//   const [companyOptions, setCompanyOptions] = useState([]);
-//   const [roleOptions, setRoleOptions] = useState([]);
-//   const [emailError, setEmailError] = useState("");
-//   const [formError, setFormError] = useState("");
-//   const [showModal, setShowModal] = useState(false);
-
-//   useEffect(() => {
-//     const fetchLookups = async () => {
-//       try {
-//         const roleData = await GetLookupsUserRoleAPI(Userdetails);
-//         setRoleOptions(roleData?.data || []);
-//         const companyData = await GetLookupsAPI(Userdetails);
-//         setCompanyOptions(companyData?.data || []);
-//       } catch (error) {
-//         console.error("Error fetching lookups:", error);
-//         if (error.response.status != 200) {
-//           Logout();
-//         }
-
-//       }
-//     };
-//     fetchLookups();
-//   }, [Userdetails]);
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setNewUser((prev) => {
-//       if (name === "isCNSEmployee") {
-//         return {
-//           ...prev,
-//           isCNSEmployee: value === "true",
-//           roleId: value === "true" ? prev.roleId : "",
-//         };
-//       }
-//       return { ...prev, [name]: value };
-//     });
-//   };
-
-//   const handleEmailBlur = async () => {
-//     const email = newUser.email;
-//     const exists = await CheckUserExistsAPI(Userdetails, email);
-//     setEmailError(exists?.data?.isUSerExists ? "User already exists" : "");
-//   };
-
-//   const handleCreate = async () => {
-//     if (emailError) return;
-//     if (
-//       !newUser.firstName ||
-//       !newUser.lastName ||
-//       !newUser.email ||
-//       !newUser.userName ||
-//       !newUser.phoneNumber ||
-//       !newUser.companyId ||
-//       !newUser.roleId
-//     ) {
-//       setFormError("Please fill in all required fields");
-//       return;
-//     }
-//     try {
-//       await RegisterUserAPI(Userdetails, newUser);
-//       onCreate(newUser);
-//       setNewUser({
-//         userName: "",
-//         firstName: "",
-//         lastName: "",
-//         email: "",
-//         phoneNumber: "",
-//         companyId: "",
-//         roleId: "",
-//         isDisabled: true,
-//         isCNSEmployee: false,
-//       });
-//       setFormError("");
-//       setShowModal(true);
-//     } catch (error) {
-//       setFormError("Registration failed. Please try again.");
-//        if (error.response.status != 200) {
-//          Logout();
-//        }
-//     }
-//   };
-
-//   const handleCloseModal = () => {
-//     setShowModal(false);
-//     GetUserListAPI(Userdetails);
-//   };
-
-//   const filteredRoles = newUser.isCNSEmployee
-//     ? roleOptions
-//     : roleOptions.filter((role) => [4, 5, 6].includes(role.id));
-
-//   const modalStyles = {
-//     display: showModal ? "flex" : "none",
-//     position: "fixed",
-//     zIndex: 1000,
-//     left: 0,
-//     top: 0,
-//     width: "100%",
-//     height: "100%",
-//     backgroundColor: "rgba(0, 0, 0, 0.5)",
-//     justifyContent: "center",
-//     alignItems: "center",
-//   };
-
-//   const modalContentStyles = {
-//     backgroundColor: "white",
-//     padding: "20px",
-//     borderRadius: "5px",
-//     textAlign: "center",
-//     position: "relative",
-//   };
-
-//   const closeButtonStyles = {
-//     position: "absolute",
-//     top: "10px",
-//     right: "10px",
-//     cursor: "pointer",
-//     fontSize: "20px",
-//   };
-
-//   return (
-//     <div className="EditPopup">
-//       {formError && (
-//         <span style={{ color: "#FF0000" }} className="error">
-//           {formError}
-//         </span>
-//       )}
-//       <div className="row">
-//         <div className="Column">
-//           <label className="AddPopupLabel">First Name *</label>
-//           <input
-//             className="FormControl_input"
-//             type="text"
-//             name="firstName"
-//             value={newUser.firstName}
-//             onChange={handleChange}
-//           />
-//         </div>
-//         <div className="Column">
-//           <label className="AddPopupLabel">Last Name *</label>
-//           <input
-//             className="FormControl_input"
-//             type="text"
-//             name="lastName"
-//             value={newUser.lastName}
-//             onChange={handleChange}
-//           />
-//         </div>
-//       </div>
-//       <div className="row">
-//         <div className="Column">
-//           <label className="AddPopupLabel">Username *</label>
-//           <input
-//             className="FormControl_input"
-//             type="text"
-//             name="userName"
-//             value={newUser.userName}
-//             onChange={handleChange}
-//           />
-//         </div>
-//         <div className="Column">
-//           <label className="AddPopupLabel">Email *</label>
-//           <input
-//             className="FormControl_input"
-//             type="email"
-//             name="email"
-//             value={newUser.email}
-//             onChange={handleChange}
-//             onBlur={handleEmailBlur}
-//           />
-//           {emailError && (
-//             <span style={{ color: "#FF0000" }} className="error">
-//               {emailError}
-//             </span>
-//           )}
-//         </div>
-//       </div>
-//       <div className="row">
-//         <div className="Column">
-//           <label className="AddPopupLabel">Phone Number *</label>
-//           <input
-//             className="FormControl_input"
-//             type="tel"
-//             name="phoneNumber"
-//             value={newUser.phoneNumber}
-//             onChange={handleChange}
-//           />
-//         </div>
-//         <div className="Column">
-//           <label className="AddPopupLabel">Company *</label>
-//           <select
-//             className="FormControl_input"
-//             name="companyId"
-//             value={newUser.companyId}
-//             onChange={handleChange}
-//           >
-//             <option value="">Select Company</option>
-//             {companyOptions.map((company) => (
-//               <option key={company.id} value={company.id}>
-//                 {company.nameEn}
-//               </option>
-//             ))}
-//           </select>
-//         </div>
-//       </div>
-//       <div className="row">
-//         <div className="Column">
-//           <label className="AddPopupLabel">CNS Employee *</label>
-//           <select
-//             className="FormControl_input"
-//             name="isCNSEmployee"
-//             value={newUser.isCNSEmployee}
-//             onChange={handleChange}
-//           >
-//             <option value="false">No</option>
-//             <option value="true">Yes</option>
-//           </select>
-//         </div>
-//         <div className="Column">
-//           <label className="AddPopupLabel">Role *</label>
-//           <select
-//             className="FormControl_input"
-//             name="roleId"
-//             value={newUser.roleId}
-//             onChange={handleChange}
-//           >
-//             <option value="">Select Role</option>
-//             {filteredRoles.map((role) => (
-//               <option key={role.id} value={role.id}>
-//                 {role.roleName}
-//               </option>
-//             ))}
-//           </select>
-//         </div>
-//       </div>
-//       <div className="row">
-//         <input
-//           size="small"
-//           type="button"
-//           name="Create"
-//           value="Create"
-//           className="FormControl_button_test"
-//           onClick={handleCreate}
-//         />
-//       </div>
-//       {showModal && (
-//         <div style={modalStyles}>
-//           <div style={modalContentStyles}>
-//             <span style={closeButtonStyles} onClick={handleCloseModal}>
-//               &times;
-//             </span>
-//             <p>User successfully registered</p>
-//             <button onClick={handleCloseModal}>OK</button>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
-function CreateUserForm({ onCreate }) {
+function CreateUserForm({ onCreate, close }) {
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [newUser, setNewUser] = useState({
     userName: "",
@@ -1149,7 +991,9 @@ function CreateUserForm({ onCreate }) {
 
   const handleCloseModal = () => {
     setShowModal(false);
+    close();
     GetUserListAPI(Userdetails);
+    window.location.reload();
   };
 
   const filteredRoles = newUser.isCNSEmployee
@@ -1175,14 +1019,6 @@ function CreateUserForm({ onCreate }) {
     borderRadius: "5px",
     textAlign: "center",
     position: "relative",
-  };
-
-  const closeButtonStyles = {
-    position: "absolute",
-    top: "10px",
-    right: "10px",
-    cursor: "pointer",
-    fontSize: "20px",
   };
 
   return (
@@ -1315,6 +1151,19 @@ function CreateUserForm({ onCreate }) {
       {showModal && (
         <div style={modalStyles}>
           <div style={modalContentStyles}>
+            <h3>User successfully registered</h3>
+            <input
+              type="button"
+              value="Ok"
+              className="FormControl_button"
+              onClick={handleCloseModal}
+            />
+          </div>
+        </div>
+      )}
+      {/* {showModal && (
+        <div style={modalStyles}>
+          <div style={modalContentStyles}>
             <span style={closeButtonStyles} onClick={handleCloseModal}>
               &times;
             </span>
@@ -1322,7 +1171,7 @@ function CreateUserForm({ onCreate }) {
             <button onClick={handleCloseModal}>OK</button>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

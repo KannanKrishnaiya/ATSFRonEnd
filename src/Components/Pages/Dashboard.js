@@ -44,8 +44,13 @@ import { GiReceiveMoney, GiMoneyStack } from "react-icons/gi";
 import { TbReportMoney } from "react-icons/tb";
 import { GrServices } from "react-icons/gr";
 import { NumericFormat } from "react-number-format";
+import { useSelector } from "react-redux";
 
 export default function Dashboard() {
+  const LoggedInUserRoleDetailsData = useSelector(
+    (state) => state.user.userDetails
+  );
+
   const [isLoading, setIsLoading] = useState(false);
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [DashboardDropDownValues, setDashboardDropDownValues] = useState([]);
@@ -57,6 +62,7 @@ export default function Dashboard() {
       // Atm_TerminalId: "",
       // TransactionStartDate: "",
       // TransactionEndDate: "",
+      // bankName: "AlMariyah",
       bankName: "",
       city: "",
       location: "",
@@ -132,6 +138,14 @@ export default function Dashboard() {
   }, []);
 
   function GetVVDashboardData() {
+    // if (reduxData?.RoleId > 3) {
+    //   setSelectDashboardDropDownValues({
+    //     ...SelectedDashboardDropDownValues,
+    //     bankName: reduxData?.BankName,
+    //   });
+
+    // }
+
     GetVVDashboardDataAPI(Userdetails, SelectedDashboardDropDownValues)
       .then((response) => {
         //console.log(response.data);
@@ -166,9 +180,9 @@ export default function Dashboard() {
       })
       .catch((err) => {
         console.log(err);
-         if (err.response.status != 200) {
-           Logout();
-         }
+        if (err.response.status != 200) {
+          Logout();
+        }
         setIsLoading(false);
       });
   }
@@ -183,9 +197,9 @@ export default function Dashboard() {
         //setIsLoading(false);
       })
       .catch((err) => {
-      if (err.response.status != 200) {
-        Logout();
-      }
+        if (err.response.status != 200) {
+          Logout();
+        }
 
         console.log(err);
         setIsLoading(false);
@@ -771,140 +785,150 @@ export default function Dashboard() {
         <div>
           {/* <div>Bank Name</div> */}
           <div className="row">
-            <div className="DashboardBank_DropDownDiv">
-              <div className="row">
-                <div className="DashboardColumn">
-                  <label className="LabelDashboardDropDown">Bank Name</label>
-                  <select
-                    onChange={handleInput_BankNameDropDown}
-                    name="Select_BankName"
-                    className="FormControl_Select"
-                    selected={
-                      (setSelectDashboardDropDownValues.bankName =
-                        SelectedDashboardDropDownValues.bankName)
-                    }
-                    value={SelectedDashboardDropDownValues.bankName}
-                  >
-                    <option value={""}>Select Bank</option>
-                    {DashboardBankNameDropDown.length > 0}?
-                    {DashboardBankNameDropDown.map((option, index) => (
-                      <option key={index} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                    :null)
-                  </select>
-                </div>
-                <div className="DashboardColumn">
-                  <label className="LabelDashboardDropDown">City</label>
-                  <select
-                    className="FormControl_Select"
-                    name="Select_City"
-                    onChange={handleInput_CityDropDown}
-                    selected={
-                      (setSelectDashboardDropDownValues.city =
-                        SelectedDashboardDropDownValues.city)
-                    }
-                    value={SelectedDashboardDropDownValues.city}
-                  >
-                    <option value={""}>Select City</option>
-                    {DashboardCityDropDown.length > 0}?
-                    {DashboardCityDropDown.map((option, index) => (
-                      <option key={index} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                    :null)
-                  </select>
-                </div>
-                <div className="DashboardColumn">
-                  <label className="LabelDashboardDropDown">Location</label>
-                  <select
-                    name="Location"
-                    className="FormControl_Select"
-                    onChange={handleInput_LocationDropDown}
-                    selected={
-                      (setSelectDashboardDropDownValues.location =
-                        SelectedDashboardDropDownValues.location)
-                    }
-                    value={SelectedDashboardDropDownValues.location}
-                  >
-                    <option value={""}>Select Location</option>
-                    {DashboardLocationDropDown.length > 0}?
-                    {DashboardLocationDropDown.map((option, index) => (
-                      <option key={index} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                    :null)
-                  </select>
-                </div>
-                <div className="DashboardColumn">
-                  <label className="LabelDashboardDropDown">Device Type</label>
-                  <select
-                    name="DeviceType"
-                    className="FormControl_Select"
-                    onChange={handleInput_DeviceTypeDropDown}
-                    selected={
-                      (setSelectDashboardDropDownValues.device_Type =
-                        SelectedDashboardDropDownValues.device_Type)
-                    }
-                    value={SelectedDashboardDropDownValues.device_Type}
-                  >
-                    <option value={""}>Select Device Type</option>
-                    {DashboardDeviceTypeDropDown.length > 0}?
-                    {DashboardDeviceTypeDropDown.map((option, index) => (
-                      <option key={index} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                    :null)
-                  </select>
-                </div>
-                <div className="DashboardColumn">
-                  <label className="LabelDashboardDropDown">Model</label>
-                  <select
-                    name="Model"
-                    className="FormControl_Select"
-                    onChange={handleInput_DeviceModelDropDown}
-                    selected={
-                      (setSelectDashboardDropDownValues.device_Model =
-                        SelectedDashboardDropDownValues.device_Model)
-                    }
-                    value={SelectedDashboardDropDownValues.device_Model}
-                  >
-                    <option value={""}>Select Device Model</option>
-                    {DashboardModelDropDown.length > 0}?
-                    {DashboardModelDropDown.map((option, index) => (
-                      <option key={index} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                    :null)
-                  </select>
-                </div>
-                <div className="">
-                  <div className="flex-buttons">
-                    <div>
-                      <input
-                        className="btn-grad"
-                        type="button"
-                        value="Apply"
-                        onClick={Init}
-                      />
-                    </div>
-                    <div>
-                      <input
-                        className="btn-grad"
-                        type="button"
-                        value="Clear"
-                        onClick={ResetDropDown}
-                      />
+            {LoggedInUserRoleDetailsData?.RoleId === 1 ||
+            LoggedInUserRoleDetailsData?.RoleId === 2 ||
+            LoggedInUserRoleDetailsData?.RoleId === 3 ? (
+              <div className="DashboardBank_DropDownDiv">
+                <div className="row">
+                  <div className="DashboardColumn">
+                    <label className="LabelDashboardDropDown">Bank Name</label>
+                    <select
+                      onChange={handleInput_BankNameDropDown}
+                      name="Select_BankName"
+                      className="FormControl_Select"
+                      selected={
+                        (setSelectDashboardDropDownValues.bankName =
+                          SelectedDashboardDropDownValues.bankName)
+                      }
+                      value={SelectedDashboardDropDownValues.bankName}
+                    >
+                      <option value={""}>Select Bank</option>
+                      {DashboardBankNameDropDown.length > 0}?
+                      {DashboardBankNameDropDown.map((option, index) => (
+                        <option key={index} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                      :null)
+                    </select>
+                  </div>
+                  <div className="DashboardColumn">
+                    <label className="LabelDashboardDropDown">City</label>
+                    <select
+                      className="FormControl_Select"
+                      name="Select_City"
+                      onChange={handleInput_CityDropDown}
+                      selected={
+                        (setSelectDashboardDropDownValues.city =
+                          SelectedDashboardDropDownValues.city)
+                      }
+                      value={SelectedDashboardDropDownValues.city}
+                    >
+                      <option value={""}>Select City</option>
+                      {DashboardCityDropDown.length > 0}?
+                      {DashboardCityDropDown.map((option, index) => (
+                        <option key={index} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                      :null)
+                    </select>
+                  </div>
+                  <div className="DashboardColumn">
+                    <label className="LabelDashboardDropDown">Location</label>
+                    <select
+                      name="Location"
+                      className="FormControl_Select"
+                      onChange={handleInput_LocationDropDown}
+                      selected={
+                        (setSelectDashboardDropDownValues.location =
+                          SelectedDashboardDropDownValues.location)
+                      }
+                      value={SelectedDashboardDropDownValues.location}
+                    >
+                      <option value={""}>Select Location</option>
+                      {DashboardLocationDropDown.length > 0}?
+                      {DashboardLocationDropDown.map((option, index) => (
+                        <option key={index} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                      :null)
+                    </select>
+                  </div>
+                  <div className="DashboardColumn">
+                    <label className="LabelDashboardDropDown">
+                      Device Type
+                    </label>
+                    <select
+                      name="DeviceType"
+                      className="FormControl_Select"
+                      onChange={handleInput_DeviceTypeDropDown}
+                      selected={
+                        (setSelectDashboardDropDownValues.device_Type =
+                          SelectedDashboardDropDownValues.device_Type)
+                      }
+                      value={SelectedDashboardDropDownValues.device_Type}
+                    >
+                      <option value={""}>Select Device Type</option>
+                      {DashboardDeviceTypeDropDown.length > 0}?
+                      {DashboardDeviceTypeDropDown.map((option, index) => (
+                        <option key={index} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                      :null)
+                    </select>
+                  </div>
+                  <div className="DashboardColumn">
+                    <label className="LabelDashboardDropDown">Model</label>
+                    <select
+                      name="Model"
+                      className="FormControl_Select"
+                      onChange={handleInput_DeviceModelDropDown}
+                      selected={
+                        (setSelectDashboardDropDownValues.device_Model =
+                          SelectedDashboardDropDownValues.device_Model)
+                      }
+                      value={SelectedDashboardDropDownValues.device_Model}
+                    >
+                      <option value={""}>Select Device Model</option>
+                      {DashboardModelDropDown.length > 0}?
+                      {DashboardModelDropDown.map((option, index) => (
+                        <option key={index} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                      :null)
+                    </select>
+                  </div>
+                  <div className="">
+                    <div className="flex-buttons">
+                      <div>
+                        <input
+                          className="btn-grad"
+                          type="button"
+                          value="Apply"
+                          onClick={Init}
+                        />
+                      </div>
+                      <div>
+                        <input
+                          className="btn-grad"
+                          type="button"
+                          value="Clear"
+                          onClick={ResetDropDown}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-              {/* <div className="row">
+            ) : (
+              ""
+            )}
+
+            {/* <div className="row">
                 <div className="column">
                   <div className="flex-buttons">
                     <div>
@@ -926,7 +950,6 @@ export default function Dashboard() {
                   </div>
                 </div>
               </div> */}
-            </div>
           </div>
           {/* Cards */}
           <div className="row">

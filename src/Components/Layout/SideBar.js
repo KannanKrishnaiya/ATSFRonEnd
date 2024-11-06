@@ -54,7 +54,7 @@ const SideBar = ({ children }) => {
     localStorage.getItem("LoggedInUserRoleDetails")
   );
 
-  console.log(LoggedInUserRoleDetailsData?.RoleId);
+  // console.log(LoggedInUserRoleDetailsData?.RoleId);
 
   const routes = [
     {

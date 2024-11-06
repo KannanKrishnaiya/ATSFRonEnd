@@ -125,7 +125,7 @@ export default function UserRegister() {
   ];
 
   const handleEdit = (rowData) => {
-    console.log(rowData);
+   
 
     setUserEditInput({
       firstName: rowData[0],
@@ -566,11 +566,10 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
     fetchLookups();
   }, [Userdetails]);
 
-  console.log(userEditInput);
+ 
 
   useEffect(() => {
-    console.log(userEditInput);
-    console.log(roleOptions);
+   
 
     if (userEditInput) {
       const companyId =

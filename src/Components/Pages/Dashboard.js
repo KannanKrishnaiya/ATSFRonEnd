@@ -47,6 +47,9 @@ import { NumericFormat } from "react-number-format";
 import { useSelector } from "react-redux";
 
 export default function Dashboard() {
+
+ 
+
   const LoggedInUserRoleDetailsData = useSelector(
     (state) => state.user.userDetails
   );
@@ -122,8 +125,10 @@ export default function Dashboard() {
   };
 
   function Init() {
+    console.log(LoggedInUserRoleDetailsData);
+    
     setIsLoading(true);
-    GetVVDashboardData();
+    GetVVDashboardData(LoggedInUserRoleDetailsData);
     GetAllFailedData();
     GetVV_AllMachinesUpTimePercentageData();
   }
@@ -137,14 +142,17 @@ export default function Dashboard() {
     return () => clearInterval(interval);
   }, []);
 
-  function GetVVDashboardData() {
-    // if (reduxData?.RoleId > 3) {
-    //   setSelectDashboardDropDownValues({
-    //     ...SelectedDashboardDropDownValues,
-    //     bankName: reduxData?.BankName,
-    //   });
+  function GetVVDashboardData(RoleDetailsData) {
 
-    // }
+    console.log(RoleDetailsData);
+    
+
+    if (RoleDetailsData?.RoleId > 3) {
+      setSelectDashboardDropDownValues({
+        ...SelectedDashboardDropDownValues,
+        bankName: RoleDetailsData?.BankName,
+      });
+    }
 
     GetVVDashboardDataAPI(Userdetails, SelectedDashboardDropDownValues)
       .then((response) => {
@@ -1880,7 +1888,7 @@ export default function Dashboard() {
                           className="flexCenter"
                           thousandSeparator
                           value={
-                            VVDashboardCards.count_VV_SuccessfulTransaction
+                            VVDashboardCards.count_VV_SuccessfullTransaction
                           }
                         />
                       </span>

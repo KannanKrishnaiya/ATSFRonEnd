@@ -272,7 +272,7 @@ export default function UserRegister() {
   );
 }
 
-function ResetUser({ email, onClose }) {
+function ResetUser({ email, close }) {
   const [formError, setFormError] = useState("");
   const Userdetails = localStorage.getItem("LoggedInUser");
 
@@ -286,9 +286,9 @@ function ResetUser({ email, onClose }) {
         theme: "light",
       });
       setFormError("");
-      onClose();
+      close();
     } catch (error) {
-      if (error.response.status != 200) {
+      if (error?.response?.status != 200) {
         Logout();
       }
       setFormError("Reset password failed. Please try again.");
@@ -296,16 +296,17 @@ function ResetUser({ email, onClose }) {
   };
 
   const handleResetPasswordClose = () => {
-    onClose();
+    close();
   };
 
   return (
     <div className="EditPopup">
-      {formError && (
+      <center>{formError && (
         <span style={{ color: "#FF0000" }} className="error">
           {formError}
         </span>
-      )}
+      )}</center>
+      
       <div className="row">
         <Typography>
           Do you want to reset the password for{" "}

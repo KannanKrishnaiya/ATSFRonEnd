@@ -44,6 +44,7 @@ export default function LoginPage() {
       LoginApi(inputs)
         .then((response) => {
           StoreUserData(response.data);
+          GetUserRoleDetailsByNameAPI(response.data);
         })
         .catch((err) => {
           console.log("err", err);
@@ -85,26 +86,6 @@ export default function LoginPage() {
         }
         SetLoggedInUserRoleDetails(response.data[0]);
 
-        // const data = response.data[0];
-        // const UserRoleDetails = {
-        //   Id: data.Id,
-        //   BankName: data.BankName,
-        //   Designation: data.Designation,
-        //   Email: data.Email,
-        //   FirstName: data.FirstName,
-        //   LastName: data.LastName,
-        //   MobileNumber: data.MobileNumber,
-        //   RoleId: data.RoleId,
-        //   RoleName: data.RoleName,
-        //   UserName: data.UserName,
-        // };
-
-        // dispatch(
-        //   setUser({
-        //     userDetails: UserRoleDetails,
-        //   })
-        // );
-
         setLoading(false);
         window.location = "Dashboard";
       })
@@ -128,7 +109,7 @@ export default function LoginPage() {
       <ToastContainer />
       <div className="Loginbody">
         <div className="LoginPagebox">
-          <div style={{ textAlign: "center" }}>
+          <div className="divCompanyLogo_Login">
             <img
               className="CompanyLogo_Login"
               src="https://cns-me.com/wp-content/uploads/2022/07/CNS_MIDDLE_EAST_Logo-1.png"
@@ -138,11 +119,11 @@ export default function LoginPage() {
           <h2>Login</h2>
           <form onSubmit={handleSubmit}>
             <div className="inputBox">
-              <span className="fa fa-user"></span>
+              <span className="fa fa-envelope"></span>
               <input
                 type="text"
                 name="name"
-                placeholder="User Name"
+                placeholder="E-mail Address"
                 onChange={handleInput}
               />
 
@@ -151,6 +132,7 @@ export default function LoginPage() {
               ) : null}
             </div>
             <div className="inputBox">
+              <span class="fa fa-lock"></span>
               <input
                 type="password"
                 name="password"
@@ -175,24 +157,6 @@ export default function LoginPage() {
             <div className="RegisterPageDivRow RegisterPageDivButton">
               <input type="submit" name="sign-in" value="Sign In" />
             </div>
-
-            {/* <div className="">
-              <h5>
-                {" "}
-                Create new account ? Please{" "}
-                <Link to="/Register" style={{ color: "yellow" }}>
-                  Register
-                </Link>{" "}
-              </h5>
-            </div> */}
-
-            {/* <div className="">
-              <h5>
-                <Link to="/ForgotPassword" style={{ color: "yellow" }}>
-                  Forgot Password
-                </Link>
-              </h5>
-            </div> */}
           </form>
         </div>
       </div>

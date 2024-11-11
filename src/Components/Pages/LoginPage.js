@@ -117,7 +117,7 @@ export default function LoginPage() {
             />
           </div>
           <h2>Login</h2>
-          <form onSubmit={handleSubmit}>
+          <form className="formLogin" onSubmit={handleSubmit}>
             <div className="inputBox">
               <span className="fa fa-envelope"></span>
               <input

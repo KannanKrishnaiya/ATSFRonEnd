@@ -23,8 +23,15 @@ import { FaFileAlt } from "react-icons/fa";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { jsPDF } from "jspdf";
 import CashWithdrawalCassetteDetails from "./CashWithdrawalCassetteDetails";
+import { useSelector } from "react-redux";
 
 export default function CashWithdrawTransactions() {
+  const LoggedInUserRoleDetailsData = useSelector(
+    (state) => state.user.userDetails
+  );
+
+  console.log(LoggedInUserRoleDetailsData);
+
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [CashWithdrawalTransactions, SetCashWithdrawalTransactions] = useState(
     []
@@ -34,9 +41,18 @@ export default function CashWithdrawTransactions() {
   // const [startDate, setStartDate] = useState(new Date("2014/02/08"));
   // const [endDate, setEndDate] = useState(new Date("2014/02/10"));
 
+  console.log(LoggedInUserRoleDetailsData?.BankId);
+
   const [CashWithDrawalTransactionsInput, setCashWithDrawalTransactionsInput] =
     useState({
-      bankName: "",
+      bankName: LoggedInUserRoleDetailsData?.BankName
+        ? LoggedInUserRoleDetailsData?.BankName
+        : "",
+      bankId: LoggedInUserRoleDetailsData?.BankId
+        ? LoggedInUserRoleDetailsData?.BankId
+        : LoggedInUserRoleDetailsData?.BankId === 0
+        ? 0
+        : "",
       branch: "",
       atm_TerminalId: "",
       transactionStartDate: "",

@@ -11,7 +11,7 @@ export const isAuthenticated = () => {
 };
 
 export const Logout = () => {
-  // store.dispatch(clearUser());
+  store.dispatch(clearUser());
   removeUserData();
 };
 

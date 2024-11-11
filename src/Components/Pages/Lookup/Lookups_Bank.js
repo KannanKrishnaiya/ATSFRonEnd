@@ -54,12 +54,32 @@ export default function Lookups_Bank() {
       selector: (row) => row.nameEn,
       sortable: true,
     },
+    {
+      label: "VynamicView Name",
+      name: "vV_NameEn",
+      selector: (row) => row?.vV_NameEn,
+      sortable: true,
+    },
+    {
+      label: "Journal Name",
+      name: "eJ_NameEn",
+      selector: (row) => row?.eJ_NameEn,
+      sortable: true,
+    },
 
     {
       label: "Code",
       name: "code",
       selector: (row) => row.code,
       sortable: true,
+    },
+    {
+      label: "Status",
+      name: "isActive",
+      options: {
+        filter: true,
+        customBodyRender: (value) => (value ? "Active" : "In Active"),
+      },
     },
   ];
 

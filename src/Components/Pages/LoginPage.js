@@ -88,9 +88,13 @@ export default function LoginPage() {
         SetLoggedInUserRoleDetails(response.data[0]);
 
         const data = response.data[0];
+
+        console.log(data);
+        
         const UserRoleDetails = {
           Id: data.Id,
           BankName: data.bankName,
+          BankId: data.bankId,
           Designation: data.designation,
           Email: data.email,
           FirstName: data.firstName,

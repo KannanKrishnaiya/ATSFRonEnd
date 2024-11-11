@@ -23,15 +23,26 @@ import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
 import { FaFileAlt } from "react-icons/fa";
 import { jsPDF } from "jspdf";
+import { useSelector } from "react-redux";
 
 export default function ViewAllFailedTransactions() {
+     const LoggedInUserRoleDetailsData = useSelector(
+       (state) => state.user.userDetails
+     );
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [AllFailedTransactions, SetAllFailedTransactions] = useState([]);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const [AllFailedTransactionsInput, setAllFailedTransactionsInput] = useState({
-    bankName: "",
+    bankName: LoggedInUserRoleDetailsData?.BankName
+      ? LoggedInUserRoleDetailsData?.BankName
+      : "",
+    bankId: LoggedInUserRoleDetailsData?.BankId
+      ? LoggedInUserRoleDetailsData?.BankId
+      : LoggedInUserRoleDetailsData?.BankId === 0
+      ? 0
+      : "",
     branch: "",
     atm_TerminalId: "",
     transactionStartDate: "",

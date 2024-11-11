@@ -24,15 +24,26 @@ import "react-calendar/dist/Calendar.css";
 import { FaFileAlt } from "react-icons/fa";
 import { jsPDF } from "jspdf";
 import { Visibility } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 
 export default function ViewOtherTransactions() {
+     const LoggedInUserRoleDetailsData = useSelector(
+       (state) => state.user.userDetails
+     );
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [AllOtherTransactions, SetAllOtherTransactions] = useState([]);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const [AllOtherTransactionsInput, setAllOtherTransactionsInput] = useState({
-    bankName: "",
+    bankName: LoggedInUserRoleDetailsData?.BankName
+      ? LoggedInUserRoleDetailsData?.BankName
+      : "",
+    bankId: LoggedInUserRoleDetailsData?.BankId
+      ? LoggedInUserRoleDetailsData?.BankId
+      : LoggedInUserRoleDetailsData?.BankId === 0
+      ? 0
+      : "",
     branch: "",
     atm_TerminalId: "",
     transactionStartDate: "",

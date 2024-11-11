@@ -27,8 +27,12 @@ import { jsPDF } from "jspdf";
 import { Visibility } from "@mui/icons-material";
 import CashDepositCassetteDetails from "./CashDepositCassetteDetails";
 import ChequeDepositDetails from "./ChequeDepositDetails";
+import { useSelector } from "react-redux";
 
 export default function CashDepositTransactions() {
+   const LoggedInUserRoleDetailsData = useSelector(
+     (state) => state.user.userDetails
+   );
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [CashDepositTransactions, SetCashDepositTransactions] = useState([]);
   const navigate = useNavigate();
@@ -36,7 +40,14 @@ export default function CashDepositTransactions() {
 
   const [CashDepositTransactionsInput, setCashDepositTransactionsInput] =
     useState({
-      BankName: "",
+      BankName: LoggedInUserRoleDetailsData?.BankName
+        ? LoggedInUserRoleDetailsData?.BankName
+        : "",
+      BankId: LoggedInUserRoleDetailsData?.BankId
+        ? LoggedInUserRoleDetailsData?.BankId
+        : LoggedInUserRoleDetailsData?.BankId === 0
+        ? 0
+        : "",
       Branch: "",
       Atm_TerminalId: "",
       TransactionStartDate: "",

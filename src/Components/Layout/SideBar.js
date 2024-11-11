@@ -78,7 +78,8 @@ const SideBar = ({ children }) => {
     //   icon: <FaChartBar />,
     // },
     LoggedInUserRoleDetailsData?.RoleId !== null &&
-    LoggedInUserRoleDetailsData?.RoleId === "1"
+    (LoggedInUserRoleDetailsData?.RoleId === 1 ||
+      LoggedInUserRoleDetailsData?.RoleId === 2)
       ? {
           path: "/",
           name: (
@@ -175,33 +176,38 @@ const SideBar = ({ children }) => {
     //   icon: <BiSearch />,
     // },
 
-    {
-      path: "Reports",
-      name: (
-        <div className="Sidebartooltip">
-          Reports
-          <span className="tooltiptext">Reports</span>
-        </div>
-      ),
-      icon: (
-        <div className="Sidebartooltip">
-          <PiNotePencilBold />
-          <span className="tooltiptext">Reports</span>
-        </div>
-      ),
-      subRoutes: [
-        {
-          path: "/GetVV_MachinesUpTime",
-          name: "Machines UpTime",
-          icon: <IoSpeedometerOutline />,
-        },
-        {
-          path: "/CashReplenish",
-          name: "Cash Replenish",
-          icon: <PiVanLight />,
-        },
-      ],
-    },
+    LoggedInUserRoleDetailsData?.RoleId !== null &&
+    (LoggedInUserRoleDetailsData?.RoleId == "1" ||
+      LoggedInUserRoleDetailsData?.RoleId == "2")
+      ? {
+          path: "Reports",
+          name: (
+            <div className="Sidebartooltip">
+              Reports
+              <span className="tooltiptext">Reports</span>
+            </div>
+          ),
+          icon: (
+            <div className="Sidebartooltip">
+              <PiNotePencilBold />
+              <span className="tooltiptext">Reports</span>
+            </div>
+          ),
+          subRoutes: [
+            {
+              path: "/GetVV_MachinesUpTime",
+              name: "Machines UpTime",
+              icon: <IoSpeedometerOutline />,
+            },
+            {
+              path: "/CashReplenish",
+              name: "Cash Replenish",
+              icon: <PiVanLight />,
+            },
+          ],
+        }
+      : { path: "/" },
+
     LoggedInUserRoleDetailsData?.RoleId !== null &&
     (LoggedInUserRoleDetailsData?.RoleId == "1" ||
       LoggedInUserRoleDetailsData?.RoleId == "2")

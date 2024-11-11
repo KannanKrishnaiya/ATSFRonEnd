@@ -24,15 +24,26 @@ import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
 import { jsPDF } from "jspdf";
+import { useSelector } from "react-redux";
 
 export default function ViewAllTransactions() {
+     const LoggedInUserRoleDetailsData = useSelector(
+       (state) => state.user.userDetails
+     );
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [AllTransactions, SetAllTransactions] = useState([]);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const [AllTransactionsInput, setAllTransactionsInput] = useState({
-    bankName: "",
+    bankName: LoggedInUserRoleDetailsData?.BankName
+      ? LoggedInUserRoleDetailsData?.BankName
+      : "",
+    bankId: LoggedInUserRoleDetailsData?.BankId
+      ? LoggedInUserRoleDetailsData?.BankId
+      : LoggedInUserRoleDetailsData?.BankId === 0
+      ? 0
+      : "",
     branch: "",
     atm_TerminalId: "",
     transactionStartDate: "",

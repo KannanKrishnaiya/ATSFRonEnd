@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import LoaderComp from "../../Components/Layout/Loader";
 import "../../assets/styles/CustomStyles/MUIDataTable.css";
 import "../../assets/styles/CustomStyles/FileUploader.css";
-import { ValidateTransactions } from "../../services/Api";
+import { LogoutAPI, ValidateTransactions } from "../../services/Api";
 import { Logout, isAuthenticated } from "../../services/Auth";
 import MUIDataTable from "mui-datatables";
 import {
@@ -34,6 +34,7 @@ export default function MsPage() {
         console.log(err);
         setIsLoading(false);
         if (err.response.status != 200) {
+          LogoutAPI(Userdetails);
           //console.log("LogoutUser", err.response.status );
           LogoutUser();
         }

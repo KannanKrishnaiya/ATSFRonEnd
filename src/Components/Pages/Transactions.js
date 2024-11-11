@@ -9,6 +9,7 @@ import {
   CustomCheckbox,
 } from "@mui/material/styles";
 import { Logout } from "../../services/Auth";
+import { LogoutAPI } from "../../services/Api";
 
 export default function Transactions() {
   const Userdetails = localStorage.getItem("LoggedInUser");
@@ -25,6 +26,7 @@ export default function Transactions() {
     GetCashWithdrawalTxnAPI(Userdetails)
       .then((response) => {
         if (response.status != "200") {
+          LogoutAPI(Userdetails);
           LogoutUser();
         }
         //console.log("MachineDetails", response.data);
@@ -34,6 +36,7 @@ export default function Transactions() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
+          LogoutAPI(Userdetails);
           LogoutUser();
         }
       })

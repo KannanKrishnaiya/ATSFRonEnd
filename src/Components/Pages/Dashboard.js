@@ -2,7 +2,7 @@ import "../../assets/styles/CustomStyles/LoggedInUserDetails.css";
 import "../../assets/styles/CustomStyles/LeftSideBar.css";
 import "../../assets/styles/CustomStyles/DashBoard.css";
 import LoaderComp from "../Layout/Loader";
-import { useEffect, useState, setState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   FaRegPauseCircle,
   FaCreditCard,
@@ -45,14 +45,14 @@ import { TbReportMoney } from "react-icons/tb";
 import { GrServices } from "react-icons/gr";
 import { NumericFormat } from "react-number-format";
 import { useSelector } from "react-redux";
+import { LogoutAPI } from "../../services/Api";
 
 export default function Dashboard() {
-
- 
-
   const LoggedInUserRoleDetailsData = useSelector(
     (state) => state.user.userDetails
   );
+
+  // console.log(LoggedInUserRoleDetailsData?.BankName);
 
   const [isLoading, setIsLoading] = useState(false);
   const Userdetails = localStorage.getItem("LoggedInUser");
@@ -125,10 +125,8 @@ export default function Dashboard() {
   };
 
   function Init() {
-    console.log(LoggedInUserRoleDetailsData);
-    
     setIsLoading(true);
-    GetVVDashboardData(LoggedInUserRoleDetailsData);
+    GetVVDashboardData();
     GetAllFailedData();
     GetVV_AllMachinesUpTimePercentageData();
   }
@@ -142,19 +140,20 @@ export default function Dashboard() {
     return () => clearInterval(interval);
   }, []);
 
-  function GetVVDashboardData(RoleDetailsData) {
 
-    console.log(RoleDetailsData);
-    
+  function GetVVDashboardData() {
+    let updatedDropDownValues = { ...SelectedDashboardDropDownValues };
 
-    if (RoleDetailsData?.RoleId > 3) {
-      setSelectDashboardDropDownValues({
+    if (LoggedInUserRoleDetailsData?.RoleId > 3) {
+      updatedDropDownValues = {
         ...SelectedDashboardDropDownValues,
-        bankName: RoleDetailsData?.BankName,
-      });
+        bankName: LoggedInUserRoleDetailsData?.BankName,
+      };
+
+      setSelectDashboardDropDownValues(updatedDropDownValues);
     }
 
-    GetVVDashboardDataAPI(Userdetails, SelectedDashboardDropDownValues)
+    GetVVDashboardDataAPI(Userdetails, updatedDropDownValues)
       .then((response) => {
         //console.log(response.data);
         setVVDashboardCards(response.data);
@@ -164,14 +163,16 @@ export default function Dashboard() {
         );
         setDashboardBankNameDropDown([...DistinctBankName]);
         setIsLoading(false);
+        // apiCallTriggered.current = false;
       })
       .catch((err) => {
         console.log(err);
         setIsLoading(false);
         if (err.response.status != 200) {
+          LogoutAPI(Userdetails);
           Logout();
         }
-
+       
         // LogoutUser();
       });
     //setIsLoading(false);
@@ -189,6 +190,7 @@ export default function Dashboard() {
       .catch((err) => {
         console.log(err);
         if (err.response.status != 200) {
+          LogoutAPI(Userdetails);
           Logout();
         }
         setIsLoading(false);
@@ -206,6 +208,7 @@ export default function Dashboard() {
       })
       .catch((err) => {
         if (err.response.status != 200) {
+          LogoutAPI(Userdetails);
           Logout();
         }
 

@@ -155,6 +155,7 @@ export default function LoggedInUserDetails(User) {
   const LoggedInUserRoleDetailsData = useSelector(
     (state) => state.user.userDetails
   );
+  
   const [LoggedUserAvatar, setLoggedUserAvatar] = useState({
     firstNameInitial: "",
     lastNameInitial: "",
@@ -165,41 +166,41 @@ export default function LoggedInUserDetails(User) {
 
   useEffect(() => {
     if (Userdetails != null) {
-      GetUserRoleDetailsByNameAPI(Userdetails)
-        .then((response) => {
-          if (response.status !== 200 || response === null) {
-            LogoutUser();
-          }
-          const data = response?.data[0];
-          const UserRoleDetails = {
-            Id: data?.id,
-            BankName: data?.bankName,
-            Designation: data?.designation,
-            Email: data?.email,
-            FirstName: data?.firstName,
-            LastName: data?.lastName,
-            MobileNumber: data?.mobileNumber,
-            RoleId: data?.roleId,
-            RoleName: data?.roleName,
-            UserName: data?.userName,
-          };
-          dispatch(setUser({ userDetails: UserRoleDetails }));
+      //  GetUserRoleDetailsByNameAPI(Userdetails)
+        //  .then((response) => {
+          //  if (response.status !== 200 || response === null) {
+          //    LogoutUser();
+          //  }
+          //  const data = response?.data[0];
+          //  const UserRoleDetails = {
+          //    Id: data?.id,
+          //    BankName: data?.bankName,
+          //    Designation: data?.designation,
+          //    Email: data?.email,
+          //    FirstName: data?.firstName,
+          //    LastName: data?.lastName,
+          //    MobileNumber: data?.mobileNumber,
+          //    RoleId: data?.roleId,
+          //    RoleName: data?.roleName,
+          //    UserName: data?.userName,
+          //  };
+          // dispatch(setUser({ userDetails: UserRoleDetails }));
           setLoggedUserAvatar({
-            firstNameInitial: UserRoleDetails.FirstName
-              ? UserRoleDetails.FirstName[0]
+            firstNameInitial: LoggedInUserRoleDetailsData.FirstName
+              ? LoggedInUserRoleDetailsData.FirstName[0]
               : "",
-            lastNameInitial: UserRoleDetails.LastName
-              ? UserRoleDetails.LastName[0]
+            lastNameInitial: LoggedInUserRoleDetailsData.LastName
+              ? LoggedInUserRoleDetailsData.LastName[0]
               : "",
           });
-        })
-        .catch((err) => {
-          if (err.response != null && err.response.status != 200) {
-            LogoutUser();
-          }
-        });
-    } else {
-      LogoutUser();
+        // })
+    //     .catch((err) => {
+    //       if (err.response != null && err.response.status != 200) {
+    //         LogoutUser();
+    //       }
+    //     });
+    // } else {
+    //   LogoutUser();
     }
   }, []);
 

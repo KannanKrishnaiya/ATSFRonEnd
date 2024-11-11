@@ -1,3 +1,5 @@
+import store from "../redux/store";
+import { clearUser } from "../redux/userSlice";
 import {
   getUserData,
   removeUserData,
@@ -9,7 +11,7 @@ export const isAuthenticated = () => {
 };
 
 export const Logout = () => {
-  
+  // store.dispatch(clearUser());
   removeUserData();
 };
 

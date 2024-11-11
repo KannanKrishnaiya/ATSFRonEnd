@@ -1,3 +1,6 @@
+
+
+
 export const StoreUserData = (data) => {
   const LoggedInUser = {
     UserName: data.userName,
@@ -20,7 +23,7 @@ export const getUserData = () => {
 export const removeUserData = () => {
   localStorage.removeItem("LoggedInUser");
   localStorage.removeItem("LoggedInUserRoleDetails");
-  // sessionStorage.setItem("isLoaded", 0);
+
   window.location = "login";
 };
 

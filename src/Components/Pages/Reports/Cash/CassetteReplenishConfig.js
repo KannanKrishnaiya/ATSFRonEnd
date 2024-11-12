@@ -39,7 +39,7 @@ export default function CassetteReplenishConfig() {
     GetCassetteRepConfigAPI(Userdetails)
       .then((response) => {
         if (response.status != "200") {
-          //LogoutUser();
+          LogoutUser();
         }
         // console.log("MachineDetails response", response.data);
         SetCassetteRepConfig(response.data);
@@ -48,7 +48,7 @@ export default function CassetteReplenishConfig() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
-          //LogoutUser();
+          LogoutUser();
         }
       })
       .finally(() => {

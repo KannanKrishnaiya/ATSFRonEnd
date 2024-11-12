@@ -65,13 +65,19 @@ export const GetAllTxnAPI = (inputs, data) => {
   let headerToken = {
     idToken: userData.token,
   };
-  // console.log("idToken", headerToken.idToken);
-  // console.log("User", User);
+
+  console.log(data);
+  
+ 
   const config = {
     headers: { Authorization: "Bearer " + headerToken.idToken },
   };
 
-  var GetAllTxnAPIResponse = axios.post(GetAllTransactionsURL, data, config);
+  var GetAllTxnAPIResponse = axios.post(
+    GetAllTransactionsURL,
+    data,
+    config
+  );
   return GetAllTxnAPIResponse;
 };
 

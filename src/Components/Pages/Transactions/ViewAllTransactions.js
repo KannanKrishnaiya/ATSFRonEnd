@@ -36,14 +36,14 @@ export default function ViewAllTransactions() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [AllTransactionsInput, setAllTransactionsInput] = useState({
-    bankName: LoggedInUserRoleDetailsData?.BankName
-      ? LoggedInUserRoleDetailsData?.BankName
-      : "",
-    bankId: LoggedInUserRoleDetailsData?.BankId
-      ? LoggedInUserRoleDetailsData?.BankId
-      : LoggedInUserRoleDetailsData?.BankId === 0
-      ? 0
-      : "",
+    bankName:
+      LoggedInUserRoleDetailsData?.RoleId > 3
+        ? LoggedInUserRoleDetailsData?.BankName
+        : "",
+    bankId:
+      LoggedInUserRoleDetailsData?.RoleId > 3
+        ? LoggedInUserRoleDetailsData?.BankId
+        : "",
     branch: "",
     atm_TerminalId: "",
     transactionStartDate: "",
@@ -144,15 +144,39 @@ export default function ViewAllTransactions() {
     // GetAllTransactions();
   }, []);
 
+  console.log(LoggedInUserRoleDetailsData?.RoleId < 3);
+  
+
   function GetAllTransactions() {
-    //console.log("AllTransactionsInput", AllTransactionsInput);
+
     setIsLoading(true);
+
     AllTransactionsInput.transactionStartDate =
       TransactionStartDate.toLocaleDateString();
     AllTransactionsInput.transactionEndDate =
       TransactionEndDate.toLocaleDateString();
+    
+    let inputForAPI = {};
+    if (LoggedInUserRoleDetailsData?.RoleId < 3) {
+      inputForAPI = {
+        transactionStartDate: AllTransactionsInput.transactionStartDate,
+        transactionEndDate: AllTransactionsInput.transactionEndDate,
+      };
+    } else {
+      inputForAPI = {
+        bankName: AllTransactionsInput.bankName,
+        bankId: AllTransactionsInput.bankId,
+        branch: "",
+        atm_TerminalId: "",
+        transactionStartDate: AllTransactionsInput.transactionStartDate,
+        transactionEndDate: AllTransactionsInput.transactionEndDate,
+      };
+    }
 
-    GetAllTxnAPI(Userdetails, AllTransactionsInput)
+    console.log(inputForAPI);
+    
+
+    GetAllTxnAPI(Userdetails, inputForAPI)
       .then((response) => {
         SetAllTransactions(response.data);
         // console.log("SetAllTransactions", response.data);
@@ -163,7 +187,6 @@ export default function ViewAllTransactions() {
         if (err.response.status != 200) {
           Logout();
         }
-
 
         // LogoutUser();
       });

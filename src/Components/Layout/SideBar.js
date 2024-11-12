@@ -20,7 +20,11 @@ import {
 } from "react-icons/fa";
 import { TbReportSearch } from "react-icons/tb";
 import { BiAnalyse, BiSearch } from "react-icons/bi";
-import { IoSpeedometerOutline, IoSpeedometerSharp } from "react-icons/io5";
+import {
+  IoSpeedometerOutline,
+  IoSpeedometerSharp,
+  IoFileTrayFullOutline,
+} from "react-icons/io5";
 import { GrUserAdmin, GrDocumentStore } from "react-icons/gr";
 import {
   AiOutlineBank,
@@ -34,6 +38,7 @@ import { Logout } from "../../services/Auth";
 import VynamicViewDashboard from "../Pages/VynamicView/VynamicViewAllTickets";
 import { VscGitPullRequestGoToChanges } from "react-icons/vsc";
 import { MdOutlinePendingActions } from "react-icons/md";
+import { CgPullClear } from "react-icons/cg";
 import { GiDiscussion } from "react-icons/gi";
 import { GoDiscussionClosed } from "react-icons/go";
 import { FaChalkboardTeacher } from "react-icons/fa";
@@ -203,6 +208,16 @@ const SideBar = ({ children }) => {
               path: "/CashReplenish",
               name: "Cash Replenish",
               icon: <PiVanLight />,
+            },
+            {
+              path: "/DepositClearanceRpt",
+              name: "Deposit Clearance",
+              icon: <CgPullClear />,
+            },
+            {
+              path: "/ChequeClearanceRpt",
+              name: "Cheque Clearance",
+              icon: <IoFileTrayFullOutline />,
             },
           ],
         }

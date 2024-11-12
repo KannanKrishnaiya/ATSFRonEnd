@@ -27,9 +27,9 @@ import { jsPDF } from "jspdf";
 import { useSelector } from "react-redux";
 
 export default function ViewAllTransactions() {
-     const LoggedInUserRoleDetailsData = useSelector(
-       (state) => state.user.userDetails
-     );
+  const LoggedInUserRoleDetailsData = useSelector(
+    (state) => state.user.userDetails
+  );
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [AllTransactions, SetAllTransactions] = useState([]);
   const navigate = useNavigate();
@@ -145,17 +145,15 @@ export default function ViewAllTransactions() {
   }, []);
 
   console.log(LoggedInUserRoleDetailsData?.RoleId < 3);
-  
 
   function GetAllTransactions() {
-
     setIsLoading(true);
 
     AllTransactionsInput.transactionStartDate =
       TransactionStartDate.toLocaleDateString();
     AllTransactionsInput.transactionEndDate =
       TransactionEndDate.toLocaleDateString();
-    
+
     let inputForAPI = {};
     if (LoggedInUserRoleDetailsData?.RoleId < 3) {
       inputForAPI = {
@@ -174,7 +172,6 @@ export default function ViewAllTransactions() {
     }
 
     console.log(inputForAPI);
-    
 
     GetAllTxnAPI(Userdetails, inputForAPI)
       .then((response) => {

@@ -336,200 +336,6 @@ function ResetUser({ email, close }) {
   );
 }
 
-// for update api UpdateUserAPI(Userdetails,data(update obj))
-
-// function EditUserForm({ userEditInput, onUpdate }) {
-//   const Userdetails = localStorage.getItem("LoggedInUser");
-//   const [formData, setFormData] = useState({
-//     firstName: "",
-//     lastName: "",
-//     userName: "",
-//     email: "",
-//     phoneNumber: "",
-//     companyId: "",
-//     roleId: "",
-//     isDisabled: false,
-//     isCNSEmployee: false,
-//     ...userEditInput,
-//   });
-
-//   const [companyOptions, setCompanyOptions] = useState([]);
-//   const [roleOptions, setRoleOptions] = useState([]);
-
-//   useEffect(() => {
-//     const fetchLookups = async () => {
-//       try {
-//         const roleData = await GetLookupsUserRoleAPI(Userdetails);
-//         setRoleOptions(roleData?.data || []);
-//         const companyData = await GetLookupsAPI(Userdetails);
-//         setCompanyOptions(companyData?.data || []);
-//       } catch (error) {
-//         console.error("Error fetching lookups:", error);
-//         if (error.response.status != 200) {
-//           Logout();
-//         }
-//       }
-//     };
-//     fetchLookups();
-//   }, [Userdetails]);
-
-//   useEffect(() => {
-//     if (userEditInput) {
-//       setFormData((prev) => ({
-//         ...prev,
-//         companyId: userEditInput.companyId,
-//         roleId: userEditInput.roleIdId,
-//         isCNSEmployee: userEditInput.isCNSEmployee,
-//       }));
-//     }
-//   }, [userEditInput]);
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData((prev) => ({
-//       ...prev,
-//       [name]: name === "isCNSEmployee" ? value === "Yes" : value,
-//     }));
-//   };
-
-//   const handleStatusChange = (status) => {
-//     setFormData((prev) => ({ ...prev, isDisabled: status === "Active" }));
-//   };
-
-//   const handleUpdateClick = () => {
-//     onUpdate(formData);
-//   };
-
-//   return (
-//     <div className="EditPopup">
-//       <div className="row">
-//         <div className="Column">
-//           <label className="EditPopupLabel">First Name</label>
-//           <input
-//             className="FormControl_input"
-//             type="text"
-//             name="firstName"
-//             value={formData.firstName || ""}
-//             onChange={handleChange}
-//           />
-//         </div>
-//         <div className="Column">
-//           <label className="EditPopupLabel">Last Name</label>
-//           <input
-//             className="FormControl_input"
-//             type="text"
-//             name="lastName"
-//             value={formData.lastName || ""}
-//             onChange={handleChange}
-//           />
-//         </div>
-//       </div>
-//       <div className="row">
-//         <div className="Column">
-//           <label className="EditPopupLabel">Username</label>
-//           <input
-//             className="FormControl_input"
-//             type="text"
-//             name="userName"
-//             value={formData.userName || ""}
-//             onChange={handleChange}
-//           />
-//         </div>
-//         <div className="Column">
-//           <label className="EditPopupLabel">Email</label>
-//           <input
-//             disabled
-//             className="FormControl_input"
-//             type="email"
-//             name="email"
-//             value={formData.email || ""}
-//           />
-//         </div>
-//       </div>
-//       <div className="row">
-//         <div className="Column">
-//           <label className="EditPopupLabel">Phone Number</label>
-//           <input
-//             className="FormControl_input"
-//             type="tel"
-//             name="phoneNumber"
-//             value={formData.phoneNumber || ""}
-//             onChange={handleChange}
-//           />
-//         </div>
-//         <div className="Column">
-//           <label className="EditPopupLabel">Company</label>
-//           <select
-//             className="FormControl_input"
-//             name="companyId"
-//             value={formData.companyId || ""}
-//             onChange={handleChange}
-//           >
-//             <option value="">Select Company</option>
-//             {companyOptions.map((company) => (
-//               <option key={company.id} value={company.id}>
-//                 {company.nameEn}
-//               </option>
-//             ))}
-//           </select>
-//         </div>
-//       </div>
-//       <div className="row">
-//         <div className="Column">
-//           <label className="EditPopupLabel">Active Status</label>
-//           <select
-//             className="FormControl_input"
-//             value={formData.isDisabled ? "Inactive" : "Active"}
-//             onChange={(e) => handleStatusChange(e.target.value)}
-//           >
-//             <option value="Active">Active</option>
-//             <option value="Inactive">Inactive</option>
-//           </select>
-//         </div>
-//         <div className="Column">
-//           <label className="EditPopupLabel">Role</label>
-//           <select
-//             className="FormControl_input"
-//             name="roleId"
-//             value={formData.roleId || ""}
-//             onChange={handleChange}
-//           >
-//             <option value="">Select Role</option>
-//             {roleOptions.map((role) => (
-//               <option key={role.id} value={role.id}>
-//                 {role.roleName}
-//               </option>
-//             ))}
-//           </select>
-//         </div>
-//       </div>
-//       <div className="row">
-//         <div className="Column">
-//           <label className="EditPopupLabel">Is CNS Employee</label>
-//           <select
-//             className="FormControl_input"
-//             name="isCNSEmployee"
-//             value={formData.isCNSEmployee ? "Yes" : "No"}
-//             onChange={handleChange}
-//           >
-//             <option value="Yes">Yes</option>
-//             <option value="No">No</option>
-//           </select>
-//         </div>
-//         <div className="Column">
-//           <input
-//             type="button"
-//             name="Update"
-//             value="Update"
-//             className="FormControl_button"
-//             onClick={handleUpdateClick}
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 function EditUserForm({ userEditInput, onUpdate, close }) {
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [formData, setFormData] = useState({
@@ -604,31 +410,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
     setFilteredRoleOptions(updatedRoleOptions);
   }, [formData.isCNSEmployee, roleOptions]);
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //    setFormData((prev) => {
-  //      if (name === "isCNSEmployee") {
-  //        return {
-  //          ...prev,
-  //          isCNSEmployee: value === "true",
-  //          companyId: value === "true" ? "0" : prev.companyId,
-  //          roleId:
-  //            value === "true" && prev.roleId !== "2" && prev.roleId !== "3"
-  //              ? ""
-  //              : prev.roleId,
-  //        };
-  //      }
-  //      return { ...prev, [name]: value };
-  //    });
-  // };
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prev) => ({
-  //     ...prev,
-  //     [name]: name === "isCNSEmployee" ? value === "Yes" : value,
-  //   }));
-  // };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -651,20 +433,6 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
   const handleStatusChange = (status) => {
     setFormData((prev) => ({ ...prev, isDisabled: status === "Inactive" }));
   };
-
-  // const handleUpdateClick = async () => {
-  //   const updatedData = {
-  //     ...formData,
-  //     companyId: formData.companyId || "0",
-  //   };
-
-  //   try {
-  //     await UpdateUserAPI(Userdetails, updatedData);
-  //     onUpdate(updatedData);
-  //   } catch (error) {
-  //     console.error("Error updating user:", error);
-  //   }
-  // };
 
   const handleUpdateClick = async () => {
     if (
@@ -1161,17 +929,6 @@ function CreateUserForm({ onCreate, close }) {
           </div>
         </div>
       )}
-      {/* {showModal && (
-        <div style={modalStyles}>
-          <div style={modalContentStyles}>
-            <span style={closeButtonStyles} onClick={handleCloseModal}>
-              &times;
-            </span>
-            <p>User successfully registered</p>
-            <button onClick={handleCloseModal}>OK</button>
-          </div>
-        </div>
-      )} */}
     </div>
   );
 }

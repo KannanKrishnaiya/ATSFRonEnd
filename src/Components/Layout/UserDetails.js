@@ -155,7 +155,7 @@ export default function LoggedInUserDetails(User) {
   const LoggedInUserRoleDetailsData = useSelector(
     (state) => state.user.userDetails
   );
-  
+
   const [LoggedUserAvatar, setLoggedUserAvatar] = useState({
     firstNameInitial: "",
     lastNameInitial: "",
@@ -167,40 +167,40 @@ export default function LoggedInUserDetails(User) {
   useEffect(() => {
     if (Userdetails != null) {
       //  GetUserRoleDetailsByNameAPI(Userdetails)
-        //  .then((response) => {
-          //  if (response.status !== 200 || response === null) {
-          //    LogoutUser();
-          //  }
-          //  const data = response?.data[0];
-          //  const UserRoleDetails = {
-          //    Id: data?.id,
-          //    BankName: data?.bankName,
-          //    Designation: data?.designation,
-          //    Email: data?.email,
-          //    FirstName: data?.firstName,
-          //    LastName: data?.lastName,
-          //    MobileNumber: data?.mobileNumber,
-          //    RoleId: data?.roleId,
-          //    RoleName: data?.roleName,
-          //    UserName: data?.userName,
-          //  };
-          // dispatch(setUser({ userDetails: UserRoleDetails }));
-          setLoggedUserAvatar({
-            firstNameInitial: LoggedInUserRoleDetailsData.FirstName
-              ? LoggedInUserRoleDetailsData.FirstName[0]
-              : "",
-            lastNameInitial: LoggedInUserRoleDetailsData.LastName
-              ? LoggedInUserRoleDetailsData.LastName[0]
-              : "",
-          });
-        // })
-    //     .catch((err) => {
-    //       if (err.response != null && err.response.status != 200) {
-    //         LogoutUser();
-    //       }
-    //     });
-    // } else {
-    //   LogoutUser();
+      //  .then((response) => {
+      //  if (response.status !== 200 || response === null) {
+      //    LogoutUser();
+      //  }
+      //  const data = response?.data[0];
+      //  const UserRoleDetails = {
+      //    Id: data?.id,
+      //    BankName: data?.bankName,
+      //    Designation: data?.designation,
+      //    Email: data?.email,
+      //    FirstName: data?.firstName,
+      //    LastName: data?.lastName,
+      //    MobileNumber: data?.mobileNumber,
+      //    RoleId: data?.roleId,
+      //    RoleName: data?.roleName,
+      //    UserName: data?.userName,
+      //  };
+      // dispatch(setUser({ userDetails: UserRoleDetails }));
+      setLoggedUserAvatar({
+        firstNameInitial: LoggedInUserRoleDetailsData.FirstName
+          ? LoggedInUserRoleDetailsData.FirstName[0]
+          : "",
+        lastNameInitial: LoggedInUserRoleDetailsData.LastName
+          ? LoggedInUserRoleDetailsData.LastName[0]
+          : "",
+      });
+      // })
+      //     .catch((err) => {
+      //       if (err.response != null && err.response.status != 200) {
+      //         LogoutUser();
+      //       }
+      //     });
+      // } else {
+      //   LogoutUser();
     }
   }, []);
 
@@ -302,16 +302,18 @@ export default function LoggedInUserDetails(User) {
               {LoggedInUserRoleDetailsData?.UserName}
             </span>
           </div>
-          <div className="avatarStyle">
+          <div
+            className={`avatarStyle ${showPopup ? "activeAvatarStyle" : ""} `}
+          >
             {LoggedInUserRoleDetailsData?.FirstName
-              ? LoggedInUserRoleDetailsData?.FirstName[0]
+              ? LoggedInUserRoleDetailsData?.FirstName[0].toUpperCase()
               : ""}
             {LoggedInUserRoleDetailsData?.LastName
-              ? LoggedInUserRoleDetailsData?.LastName[0]
+              ? LoggedInUserRoleDetailsData?.LastName[0].toUpperCase()
               : ""}
           </div>
           {showPopup && (
-            <div ref={popupRef} className="popupMenu popupMenuStyle">
+            <div ref={popupRef} className="popupMenuStyle">
               <button
                 className="buttonStyle"
                 onClick={() => handleOptionSelect("changePassword")}

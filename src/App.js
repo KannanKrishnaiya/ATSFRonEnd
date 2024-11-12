@@ -38,6 +38,8 @@ import ErrorPage_404 from "./Components/Pages/Error/ErrorPage_404";
 import ViewOtherTransactions from "./Components/Pages/Transactions/ViewOtherTransactions";
 import GetVV_MachinesUpTime from "./Components/Pages/MachineUptimeCalculation/GetVV_MachinesUpTime";
 import CashReplenish from "./Components/Pages/Reports/Cash/CashReplenish";
+import DepositClearanceRpt from "./Components/Pages/Reports/Cash/DepositClearanceRpt";
+import ChequeClearanceRpt from "./Components/Pages/Reports/Cash/ChequeClearanceRpt";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -52,7 +54,6 @@ function App() {
   useEffect(() => {
     setIsAuthenticated(isAuthenticated);
   });
-
 
   return (
     <div>
@@ -119,6 +120,14 @@ function App() {
                     element={<GetVV_MachinesUpTime />}
                   />
                   <Route path="/CashReplenish" element={<CashReplenish />} />
+                  <Route
+                    path="/DepositClearanceRpt"
+                    element={<DepositClearanceRpt />}
+                  />
+                  <Route
+                    path="/ChequeClearanceRpt"
+                    element={<ChequeClearanceRpt />}
+                  />
                 </Routes>
               </SideBar>
             ) : (

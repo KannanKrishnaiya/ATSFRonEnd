@@ -12,6 +12,10 @@ const GetVV_AllMachinesUpTimeURL = "/api/VynamicView/GetVV_AllMachinesUpTime";
 
 const GetVV_MachinesUpTimeURL = "/api/VynamicView/GetVV_MachinesUpTime";
 
+const CurrentCDMLevelURL = "/api/VynamicView/CurrentCDMLevel";
+
+const ChequeClearanceRptURL = "/api/VynamicView/ChequeClearanceRpt";
+
 export const GetVVDashboardDataAPI = (
   Userdetails,
   SelectedDashboardDropDownValues
@@ -101,6 +105,7 @@ export const GetVV_AllMachinesUpTimePercentageAPI = (inputs, data) => {
 //   return GetVV_AllMachinesUpTimeResponse;
 // };
 
+
 export const GetVV_MachinesUpTimeAPI = (inputs, data) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
@@ -119,3 +124,39 @@ export const GetVV_MachinesUpTimeAPI = (inputs, data) => {
   );
   return GetVV_MachinesUpTimeResponse;
 };
+
+export const GetCurrentCDMLevelAPI = (inputs) => {
+  const userData = JSON.parse(inputs);
+  let headerToken = {
+    idToken: userData.token,
+  };
+  let data = {
+    Atm_TerminalId: null,
+  };
+  const config = {
+    headers: { Authorization: "Bearer " + headerToken.idToken },
+  };
+
+  var GetCurrentCDMLevelResponse = axios.post(CurrentCDMLevelURL, data, config);
+  return GetCurrentCDMLevelResponse;
+};
+export const GetChequeClearanceRptAPI = (inputs) => {
+  const userData = JSON.parse(inputs);
+  let headerToken = {
+    idToken: userData.token,
+  };
+  let data = {
+    Atm_TerminalId: null,
+  };
+  const config = {
+    headers: { Authorization: "Bearer " + headerToken.idToken },
+  };
+
+  var GetChequeClearanceRptResponse = axios.post(
+    ChequeClearanceRptURL,
+    data,
+    config
+  );
+  return GetChequeClearanceRptResponse;
+};
+

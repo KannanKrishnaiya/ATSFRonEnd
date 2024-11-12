@@ -128,7 +128,7 @@ export default function CashWithdrawTransactions() {
     GetCashWithdrawalTxnAPI(Userdetails, CashWithDrawalTransactionsInput)
       .then((response) => {
         if (response.status != "200") {
-          //LogoutUser();
+          LogoutUser();
         }
         SetCashWithdrawalTransactions(response.data);
         // console.log(
@@ -140,7 +140,7 @@ export default function CashWithdrawTransactions() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
-          //LogoutUser();
+          LogoutUser();
         }
       })
       .finally(() => {

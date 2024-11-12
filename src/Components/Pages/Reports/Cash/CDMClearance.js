@@ -57,7 +57,7 @@ export default function CDMClearance() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
-          // Logout();
+          Logout();
         }
       })
       .finally(() => {

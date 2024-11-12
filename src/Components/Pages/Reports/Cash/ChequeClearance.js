@@ -56,9 +56,9 @@ export default function ChequeClearance() {
       })
       .catch((err) => {
         setIsLoading(false);
-        // if (err.response.status != 200) {
-        //   Logout();
-        // }
+        if (err.response.status != 200) {
+          Logout();
+        }
       })
       .finally(() => {
         setIsLoading(false);

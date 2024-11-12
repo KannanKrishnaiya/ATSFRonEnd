@@ -77,6 +77,7 @@ export default function UserRegister() {
     { label: "PhoneNumber", name: "phoneNumber", options: { filter: true } },
     { label: "CompanyName", name: "companyName", options: { filter: true } },
     { label: "RoleName", name: "roleName", options: { filter: true } },
+    { name: "roleId", options: { display: false } },
     {
       label: "Status",
       name: "isDisabled",
@@ -100,14 +101,43 @@ export default function UserRegister() {
         sort: false,
         empty: true,
         customBodyRender: (value, tableMeta) => (
+          // <div className="DT_Div_ViewDetails_flex-container">
+          //   {tableMeta.rowData[7] === 1 ? (
+          //     <TbUserEdit className="DataTableIcons" />
+          //   ) : (
+          //     <div className="tooltip">
+          //       <TbUserEdit
+          //         className="DataTableIcons"
+          //         onClick={() => handleEdit(tableMeta.rowData, value)}
+          //       />
+          //       <span className="tooltiptext">Edit User</span>
+          //     </div>
+          //   )}
+
+          //   {LoggedInUserRoleDetailsData?.RoleId === 1 && (
+          //     <div className="tooltip">
+          //       <RiLockPasswordLine
+          //         className="DataTableIcons"
+          //         onClick={() => handleResetPasswordModal(tableMeta.rowData[3])}
+          //       />
+          //       <span className="tooltiptext">Reset Password</span>
+          //     </div>
+          //   )}
+          // </div>
           <div className="DT_Div_ViewDetails_flex-container">
-            <div className="tooltip">
-              <TbUserEdit
-                className="DataTableIcons"
-                onClick={() => handleEdit(tableMeta.rowData, value)}
-              />
-              <span className="tooltiptext">Edit User</span>
-            </div>
+            {LoggedInUserRoleDetailsData?.RoleId > 1 &&
+              tableMeta.rowData[7] === 1 ? (
+            ""
+              // <TbUserEdit className="DataTableIcons" />""
+            ) : (
+              <div className="tooltip">
+                <TbUserEdit
+                  className="DataTableIcons"
+                  onClick={() => handleEdit(tableMeta.rowData, value)}
+                />
+                <span className="tooltiptext">Edit User</span>
+              </div>
+            )}
 
             {LoggedInUserRoleDetailsData?.RoleId === 1 && (
               <div className="tooltip">
@@ -125,8 +155,6 @@ export default function UserRegister() {
   ];
 
   const handleEdit = (rowData) => {
-   
-
     setUserEditInput({
       firstName: rowData[0],
       lastName: rowData[1],
@@ -301,12 +329,14 @@ function ResetUser({ email, close }) {
 
   return (
     <div className="EditPopup">
-      <center>{formError && (
-        <span style={{ color: "#FF0000" }} className="error">
-          {formError}
-        </span>
-      )}</center>
-      
+      <center>
+        {formError && (
+          <span style={{ color: "#FF0000" }} className="error">
+            {formError}
+          </span>
+        )}
+      </center>
+
       <div className="row">
         <Typography>
           Do you want to reset the password for{" "}
@@ -373,11 +403,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
     fetchLookups();
   }, [Userdetails]);
 
- 
-
   useEffect(() => {
-   
-
     if (userEditInput) {
       const companyId =
         companyOptions.find(
@@ -409,8 +435,6 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
       : roleOptions;
     setFilteredRoleOptions(updatedRoleOptions);
   }, [formData.isCNSEmployee, roleOptions]);
-
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -556,6 +580,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
             type="email"
             name="email"
             value={formData.email || ""}
+            onChange={handleChange}
           />
         </div>
       </div>

@@ -24,6 +24,8 @@ import {
   IoSpeedometerOutline,
   IoSpeedometerSharp,
   IoFileTrayFullOutline,
+  IoDocumentText,
+  IoDocumentTextOutline,
 } from "react-icons/io5";
 import { GrUserAdmin, GrDocumentStore } from "react-icons/gr";
 import {
@@ -196,7 +198,7 @@ const SideBar = ({ children }) => {
           ),
           icon: (
             <div className="Sidebartooltip">
-              <PiNotePencilBold />
+              <IoDocumentTextOutline />
               <span className="tooltiptext">Reports</span>
             </div>
           ),

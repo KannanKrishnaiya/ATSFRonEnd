@@ -77,14 +77,16 @@ const SideBar = ({ children }) => {
         </div>
       ),
     },
-    // {
-    //   path: "/Chartspage",
-    //   name: "Chartspage",
-    //   icon: <FaChartBar />,
-    // },
     LoggedInUserRoleDetailsData?.RoleId !== null &&
-    (LoggedInUserRoleDetailsData?.RoleId === 1 ||
-      LoggedInUserRoleDetailsData?.RoleId === 2)
+    LoggedInUserRoleDetailsData?.RoleId === 1
+      ? {
+          path: "/Chartspage",
+          name: "Chartspage",
+          icon: <FaChartBar />,
+        }
+      : null,
+    LoggedInUserRoleDetailsData?.RoleId !== null &&
+    LoggedInUserRoleDetailsData?.RoleId === 1
       ? {
           path: "/",
           name: (
@@ -341,26 +343,23 @@ const SideBar = ({ children }) => {
               name: "User Management",
               icon: <FaAngleDoubleRight />,
             },
-            // {
-            //   path: "/ChangePassword",
-            //   name: "Change Password",
-            //   icon: <FaAngleDoubleRight />,
-            // },
-            // {
-            //   path: "/ResetPassword",
-            //   name: "Reset Password",
-            //   icon: <FaAngleDoubleRight />,
-            // },
-            {
-              path: "/Lookups_Bank",
-              name: "SLA Configuration",
-              icon: <FaAngleDoubleRight />,
-            },
-            {
-              path: "/SendMail",
-              name: "Mail Config",
-              icon: <FaAngleDoubleRight />,
-            },
+            LoggedInUserRoleDetailsData?.RoleId !== null &&
+            LoggedInUserRoleDetailsData?.RoleId === 1
+              ? {
+                  path: "/Lookups_Bank",
+                  name: "SLA Configuration",
+                  icon: <FaAngleDoubleRight />,
+                }
+              : null,
+            LoggedInUserRoleDetailsData?.RoleId !== null &&
+            LoggedInUserRoleDetailsData?.RoleId === 1
+              ? {
+                  path: "/SendMail",
+                  name: "Mail Config",
+                  icon: <FaAngleDoubleRight />,
+                }
+              : null,
+
             // {
             //   path: "/settings/2fa",
             //   name: "2FA",
@@ -371,7 +370,7 @@ const SideBar = ({ children }) => {
             //   name: "Billing",
             //   icon: <FaMoneyBill />,
             // },
-          ],
+          ].filter((route) => route !== null),
         }
       : null,
   ];

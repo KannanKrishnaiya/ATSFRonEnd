@@ -77,7 +77,7 @@ export default function UserRegister() {
     { label: "PhoneNumber", name: "phoneNumber", options: { filter: true } },
     { label: "CompanyName", name: "companyName", options: { filter: true } },
     { label: "RoleName", name: "roleName", options: { filter: true } },
-    { name: "roleId", options: { display: false } },
+    // { name: "roleId", options: { display: false } },
     {
       label: "Status",
       name: "isDisabled",
@@ -155,6 +155,8 @@ export default function UserRegister() {
   ];
 
   const handleEdit = (rowData) => {
+    console.log(rowData[9]);
+    
     setUserEditInput({
       firstName: rowData[0],
       lastName: rowData[1],
@@ -162,7 +164,7 @@ export default function UserRegister() {
       email: rowData[3],
       phoneNumber: rowData[4],
       companyId: rowData[5],
-      roleIdId: rowData[6],
+      roleId: rowData[6],
       isDisabled: rowData[7],
       isCNSEmployee: rowData[8],
     });
@@ -381,6 +383,9 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
     ...userEditInput,
   });
 
+console.log(userEditInput);
+
+
   const [companyOptions, setCompanyOptions] = useState([]);
   const [roleOptions, setRoleOptions] = useState([]);
   const [filteredRoleOptions, setFilteredRoleOptions] = useState([]);
@@ -411,8 +416,11 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
         )?.id || "0";
 
       const roleId =
-        roleOptions.find((role) => role.roleName === userEditInput.roleIdId)
+        roleOptions.find((role) => role.roleName === userEditInput.roleId)
           ?.id || "";
+      
+      console.log(roleId);
+      
 
       setFormData((prev) => ({
         ...prev,
@@ -455,7 +463,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
   };
 
   const handleStatusChange = (status) => {
-    setFormData((prev) => ({ ...prev, isDisabled: status === "Inactive" }));
+    setFormData((prev) => ({ ...prev, isDisabled: status === "In Active" }));
   };
 
   const handleUpdateClick = async () => {
@@ -474,6 +482,8 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
       ...formData,
       companyId: formData.companyId || "0",
     };
+    console.log(updatedData);
+    console.log(formData);
     try {
       await UpdateUserAPI(Userdetails, formData);
       onUpdate(updatedData);
@@ -490,9 +500,9 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
       });
       setShowModal(true);
     } catch (error) {
-      if (error.response.status !== 200) {
-        Logout();
-      }
+      // if (error.response.status !== 200) {
+      //   Logout();
+      // }
     }
   };
 

@@ -126,10 +126,10 @@ export default function UserRegister() {
           // </div>
           <div className="DT_Div_ViewDetails_flex-container">
             {LoggedInUserRoleDetailsData?.RoleId > 1 &&
-              tableMeta.rowData[7] === 1 ? (
-            ""
-              // <TbUserEdit className="DataTableIcons" />""
+            tableMeta.rowData[7] === 1 ? (
+              ""
             ) : (
+              // <TbUserEdit className="DataTableIcons" />""
               <div className="tooltip">
                 <TbUserEdit
                   className="DataTableIcons"
@@ -219,7 +219,7 @@ export default function UserRegister() {
                 className="CreateUserButton"
                 onClick={() => setIsCreateModalOpen(true)}
               >
-                <BiPlusCircle />
+                <BiPlusCircle size={18} />
                 &nbsp;Add User
               </button>
             </div>
@@ -490,9 +490,9 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
       });
       setShowModal(true);
     } catch (error) {
-      if (error.response.status !== 200) {
-        Logout();
-      }
+      // if (error.response.status !== 200) {
+      //   Logout();
+      // }
     }
   };
 

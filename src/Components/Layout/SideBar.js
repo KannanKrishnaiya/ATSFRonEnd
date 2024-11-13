@@ -185,7 +185,8 @@ const SideBar = ({ children }) => {
 
     LoggedInUserRoleDetailsData?.RoleId !== null &&
     (LoggedInUserRoleDetailsData?.RoleId == "1" ||
-      LoggedInUserRoleDetailsData?.RoleId == "2")
+      LoggedInUserRoleDetailsData?.RoleId == "2" ||
+      LoggedInUserRoleDetailsData?.RoleId == "3")
       ? {
           path: "Reports",
           name: (

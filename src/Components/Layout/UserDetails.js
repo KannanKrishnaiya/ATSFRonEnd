@@ -279,8 +279,17 @@ export default function LoggedInUserDetails(User) {
   //   cursor: "pointer",
   // };
 
-  console.log(LoggedInUserRoleDetailsData);
-  
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    console.log(hour);
+    if (hour < 12) {
+      return "Good Morning,";
+    } else if (hour < 18) {
+      return "Good Afternoon,";
+    } else {
+      return "Good Evening,";
+    }
+  };
 
   return (
     <div className="LoggedInUserDetailsTab">
@@ -301,9 +310,8 @@ export default function LoggedInUserDetails(User) {
         </div>
         <div className="user-avatar-container" onClick={handleAvatarClick}>
           <div className="LoggedInUserDetailsTabName">
-            <span className="welcomeText">Welcome</span>
             <span className="welcomeText">
-              {LoggedInUserRoleDetailsData?.UserName}
+              {getGreeting()}&nbsp;&nbsp;{LoggedInUserRoleDetailsData?.UserName}
             </span>
           </div>
           <div

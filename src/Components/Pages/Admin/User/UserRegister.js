@@ -155,7 +155,7 @@ export default function UserRegister() {
   ];
 
   const handleEdit = (rowData) => {
-    console.log(rowData[9]);
+
     
     setUserEditInput({
       firstName: rowData[0],
@@ -383,7 +383,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
     ...userEditInput,
   });
 
-console.log(userEditInput);
+
 
 
   const [companyOptions, setCompanyOptions] = useState([]);
@@ -419,7 +419,7 @@ console.log(userEditInput);
         roleOptions.find((role) => role.roleName === userEditInput.roleId)
           ?.id || "";
       
-      console.log(roleId);
+  
       
 
       setFormData((prev) => ({
@@ -482,8 +482,7 @@ console.log(userEditInput);
       ...formData,
       companyId: formData.companyId || "0",
     };
-    console.log(updatedData);
-    console.log(formData);
+   
     try {
       await UpdateUserAPI(Userdetails, formData);
       onUpdate(updatedData);

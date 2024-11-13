@@ -548,6 +548,11 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
 
   return (
     <div className="EditPopup">
+      <div style={{ marginBottom: "18px" }}>
+        <center>
+          <h2>Edit User</h2>
+        </center>
+      </div>
       <div className="row">
         <div className="Column">
           <label className="EditPopupLabel">First Name</label>
@@ -826,6 +831,7 @@ function CreateUserForm({ onCreate, close }) {
 
   return (
     <div className="EditPopup">
+      <div style={{marginBottom:"30px"}}><center><h2>Add User</h2></center></div>
       {formError && (
         <span style={{ color: "#FF0000" }} className="error">
           {formError}
@@ -943,7 +949,6 @@ function CreateUserForm({ onCreate, close }) {
       </div>
       <div className="row">
         <input
-          size="small"
           type="button"
           name="Create"
           value="Create"

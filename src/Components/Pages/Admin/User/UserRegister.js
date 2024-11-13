@@ -77,7 +77,7 @@ export default function UserRegister() {
     { label: "PhoneNumber", name: "phoneNumber", options: { filter: true } },
     { label: "CompanyName", name: "companyName", options: { filter: true } },
     { label: "RoleName", name: "roleName", options: { filter: true } },
-    // { name: "roleId", options: { display: false } },
+
     {
       label: "Status",
       name: "isDisabled",
@@ -94,6 +94,7 @@ export default function UserRegister() {
         customBodyRender: (value) => (value ? "Yes" : "No"),
       },
     },
+    { name: "roleId", options: { display: false } },
     {
       name: "Actions",
       options: {
@@ -126,7 +127,7 @@ export default function UserRegister() {
           // </div>
           <div className="DT_Div_ViewDetails_flex-container">
             {LoggedInUserRoleDetailsData?.RoleId > 1 &&
-            tableMeta.rowData[7] === 1 ? (
+            tableMeta.rowData[9] === 1 ? (
               ""
             ) : (
               // <TbUserEdit className="DataTableIcons" />""

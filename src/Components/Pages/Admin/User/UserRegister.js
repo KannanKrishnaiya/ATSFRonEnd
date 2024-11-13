@@ -490,9 +490,9 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
       });
       setShowModal(true);
     } catch (error) {
-      // if (error.response.status !== 200) {
-      //   Logout();
-      // }
+      if (error.response.status !== 200) {
+        Logout();
+      }
     }
   };
 

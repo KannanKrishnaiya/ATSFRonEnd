@@ -144,7 +144,7 @@ export default function ViewAllTransactions() {
     // GetAllTransactions();
   }, []);
 
-  console.log(LoggedInUserRoleDetailsData?.RoleId < 3);
+
 
   function GetAllTransactions() {
     setIsLoading(true);
@@ -171,7 +171,7 @@ export default function ViewAllTransactions() {
       };
     }
 
-    console.log(inputForAPI);
+  
 
     GetAllTxnAPI(Userdetails, inputForAPI)
       .then((response) => {

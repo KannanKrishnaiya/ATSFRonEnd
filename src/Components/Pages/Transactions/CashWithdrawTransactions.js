@@ -45,14 +45,14 @@ export default function CashWithdrawTransactions() {
 
   const [CashWithDrawalTransactionsInput, setCashWithDrawalTransactionsInput] =
     useState({
-      bankName: LoggedInUserRoleDetailsData?.BankName
-        ? LoggedInUserRoleDetailsData?.BankName
-        : "",
-      bankId: LoggedInUserRoleDetailsData?.BankId
-        ? LoggedInUserRoleDetailsData?.BankId
-        : LoggedInUserRoleDetailsData?.BankId === 0
-        ? 0
-        : "",
+      bankName:
+        LoggedInUserRoleDetailsData?.RoleId > 3
+          ? LoggedInUserRoleDetailsData?.BankName
+          : "",
+      bankId:
+        LoggedInUserRoleDetailsData?.RoleId > 3
+          ? LoggedInUserRoleDetailsData?.BankId
+          : "",
       branch: "",
       atm_TerminalId: "",
       transactionStartDate: "",
@@ -124,8 +124,27 @@ export default function CashWithdrawTransactions() {
       TransactionStartDate.toLocaleDateString();
     CashWithDrawalTransactionsInput.transactionEndDate =
       TransactionEndDate.toLocaleDateString();
+    
+    
+        let inputForAPI = {};
+        if (LoggedInUserRoleDetailsData?.RoleId < 3) {
+          inputForAPI = {
+            transactionStartDate: CashWithDrawalTransactionsInput.transactionStartDate,
+            transactionEndDate: CashWithDrawalTransactionsInput.transactionEndDate,
+          };
+        } else {
+          inputForAPI = {
+            bankName: CashWithDrawalTransactionsInput.bankName,
+            bankId: CashWithDrawalTransactionsInput.bankId,
+            branch: "",
+            atm_TerminalId: "",
+            transactionStartDate: CashWithDrawalTransactionsInput.transactionStartDate,
+            transactionEndDate: CashWithDrawalTransactionsInput.transactionEndDate,
+          };
+        }
+    
 
-    GetCashWithdrawalTxnAPI(Userdetails, CashWithDrawalTransactionsInput)
+    GetCashWithdrawalTxnAPI(Userdetails, inputForAPI)
       .then((response) => {
         if (response.status != "200") {
           LogoutUser();

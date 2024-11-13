@@ -36,14 +36,14 @@ export default function ViewOtherTransactions() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [AllOtherTransactionsInput, setAllOtherTransactionsInput] = useState({
-    bankName: LoggedInUserRoleDetailsData?.BankName
-      ? LoggedInUserRoleDetailsData?.BankName
-      : "",
-    bankId: LoggedInUserRoleDetailsData?.BankId
-      ? LoggedInUserRoleDetailsData?.BankId
-      : LoggedInUserRoleDetailsData?.BankId === 0
-      ? 0
-      : "",
+    bankName:
+      LoggedInUserRoleDetailsData?.RoleId > 3
+        ? LoggedInUserRoleDetailsData?.BankName
+        : "",
+    bankId:
+      LoggedInUserRoleDetailsData?.RoleId > 3
+        ? LoggedInUserRoleDetailsData?.BankId
+        : "",
     branch: "",
     atm_TerminalId: "",
     transactionStartDate: "",
@@ -136,13 +136,30 @@ export default function ViewOtherTransactions() {
   }, []);
 
   function GetOtherTransactions() {
+    setIsLoading(true);
     AllOtherTransactionsInput.transactionStartDate =
       TransactionStartDate.toLocaleDateString();
     AllOtherTransactionsInput.transactionEndDate =
       TransactionEndDate.toLocaleDateString();
+    
+        let inputForAPI = {};
+        if (LoggedInUserRoleDetailsData?.RoleId < 3) {
+          inputForAPI = {
+            transactionStartDate: AllOtherTransactionsInput.transactionStartDate,
+            transactionEndDate: AllOtherTransactionsInput.transactionEndDate,
+          };
+        } else {
+          inputForAPI = {
+            bankName: AllOtherTransactionsInput.bankName,
+            bankId: AllOtherTransactionsInput.bankId,
+            branch: "",
+            atm_TerminalId: "",
+            transactionStartDate: AllOtherTransactionsInput.transactionStartDate,
+            transactionEndDate: AllOtherTransactionsInput.transactionEndDate,
+          };
+        }
 
-    setIsLoading(true);
-    GetOtherTxnAPI(Userdetails, AllOtherTransactionsInput)
+    GetOtherTxnAPI(Userdetails, inputForAPI)
       .then((response) => {
         // console.log("GetOtherTxnAPI", response.data);
         SetAllOtherTransactions(response.data);

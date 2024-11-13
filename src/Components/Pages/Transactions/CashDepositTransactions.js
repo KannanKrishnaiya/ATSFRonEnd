@@ -40,14 +40,14 @@ export default function CashDepositTransactions() {
 
   const [CashDepositTransactionsInput, setCashDepositTransactionsInput] =
     useState({
-      BankName: LoggedInUserRoleDetailsData?.BankName
-        ? LoggedInUserRoleDetailsData?.BankName
-        : "",
-      BankId: LoggedInUserRoleDetailsData?.BankId
-        ? LoggedInUserRoleDetailsData?.BankId
-        : LoggedInUserRoleDetailsData?.BankId === 0
-        ? 0
-        : "",
+      BankName:
+        LoggedInUserRoleDetailsData?.RoleId > 3
+          ? LoggedInUserRoleDetailsData?.BankName
+          : "",
+      BankId:
+        LoggedInUserRoleDetailsData?.RoleId > 3
+          ? LoggedInUserRoleDetailsData?.BankId
+          : "",
       Branch: "",
       Atm_TerminalId: "",
       TransactionStartDate: "",
@@ -118,8 +118,26 @@ export default function CashDepositTransactions() {
       TransactionStartDate.toLocaleDateString();
     CashDepositTransactionsInput.TransactionEndDate =
       TransactionEndDate.toLocaleDateString();
+    
+        let inputForAPI = {};
+        if (LoggedInUserRoleDetailsData?.RoleId < 3) {
+          inputForAPI = {
+            transactionStartDate: CashDepositTransactionsInput.TransactionStartDate,
+            transactionEndDate: CashDepositTransactionsInput.TransactionEndDate,
+          };
+        } else {
+          inputForAPI = {
+            BankName: CashDepositTransactionsInput.BankName,
+            BankId: CashDepositTransactionsInput.BankId,
+            Branch: "",
+            Atm_TerminalId: "",
+            TransactionStartDate: CashDepositTransactionsInput.TransactionStartDate,
+            TransactionEndDate: CashDepositTransactionsInput.TransactionEndDate,
+          };
+        }
+    
 
-    GetCashDepositTxnAPI(Userdetails, CashDepositTransactionsInput)
+    GetCashDepositTxnAPI(Userdetails, inputForAPI)
       .then((response) => {
         SetCashDepositTransactions(response.data);
         setIsLoading(false);

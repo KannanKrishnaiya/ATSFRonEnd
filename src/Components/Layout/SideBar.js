@@ -22,10 +22,8 @@ import { TbReportSearch } from "react-icons/tb";
 import { BiAnalyse, BiSearch } from "react-icons/bi";
 import {
   IoSpeedometerOutline,
-  IoSpeedometerSharp,
   IoFileTrayFullOutline,
-  IoDocumentText,
-  IoDocumentTextOutline,
+  IoDocumentsSharp,
 } from "react-icons/io5";
 import { GrUserAdmin, GrDocumentStore } from "react-icons/gr";
 import {
@@ -198,7 +196,7 @@ const SideBar = ({ children }) => {
           ),
           icon: (
             <div className="Sidebartooltip">
-              <IoDocumentTextOutline />
+              <IoDocumentsSharp />
               <span className="tooltiptext">Reports</span>
             </div>
           ),

@@ -148,6 +148,7 @@ import { Logout } from "../../services/Auth";
 import { setUser } from "../../redux/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { LogoutAPI } from "../../services/Api";
+import { Button, Stack } from "@mui/material";
 
 export default function LoggedInUserDetails(User) {
   const popupRef = useRef(null);
@@ -278,6 +279,9 @@ export default function LoggedInUserDetails(User) {
   //   cursor: "pointer",
   // };
 
+  console.log(LoggedInUserRoleDetailsData);
+  
+
   return (
     <div className="LoggedInUserDetailsTab">
       <div
@@ -297,7 +301,7 @@ export default function LoggedInUserDetails(User) {
         </div>
         <div className="user-avatar-container" onClick={handleAvatarClick}>
           <div className="LoggedInUserDetailsTabName">
-            Welcome{" "}
+            <span className="welcomeText">Welcome</span>
             <span className="welcomeText">
               {LoggedInUserRoleDetailsData?.UserName}
             </span>
@@ -313,22 +317,94 @@ export default function LoggedInUserDetails(User) {
               : ""}
           </div>
           {showPopup && (
-            <div ref={popupRef} className="popupMenuStyle">
-              <button
-                className="buttonStyle"
-                onClick={() => handleOptionSelect("changePassword")}
-              >
-                <MdOutlineLockReset className="iconStyle" />
-                Change Password
-              </button>
-              <hr />
-              <button
-                className="buttonStyle"
-                onClick={() => handleOptionSelect("logout")}
-              >
-                <MdLogout className="iconStyle marginLeft" />
-                Logout
-              </button>
+            // <div ref={popupRef} className="popupMenuStyle">
+            //   <button
+            //     className="buttonStyle"
+            //     onClick={() => handleOptionSelect("changePassword")}
+            //   >
+            //     <MdOutlineLockReset className="iconStyle" />
+            //     Change Password
+            //   </button>
+            //   <hr />
+            //   <button
+            //     className="buttonStyle"
+            //     onClick={() => handleOptionSelect("logout")}
+            //   >
+            //     <MdLogout className="iconStyle marginLeft" />
+            //     Logout
+            //   </button>
+            // </div>
+            // <div ref={popupRef} className="popupMenuStyle">
+            //   <div className="profile_Btns">
+            //     <div>
+            //       {" "}
+            //       <button
+            //         className="buttonStyle"
+            //         onClick={() => handleOptionSelect("changePassword")}
+            //       >
+            //         <MdOutlineLockReset className="iconStyle" />
+            //         Change Password
+            //       </button>
+            //     </div>
+            //     <div>
+            //       <button
+            //         className="buttonStyle"
+            //         onClick={() => handleOptionSelect("logout")}
+            //       >
+            //         <MdLogout className="iconStyle marginLeft" />
+            //         Logout
+            //       </button>
+            //     </div>
+            //   </div>
+            // </div>
+            <div ref={popupRef} className="card ">
+              <Stack spacing={2} direction="row" gap={2}>
+                {" "}
+                <Button
+                  variant="contained"
+                  size="small"
+                  startIcon={<MdOutlineLockReset />}
+                  className=" top-btn "
+                  onClick={() => handleOptionSelect("changePassword")}
+                >
+                  {/* <MdOutlineLockReset className="iconStyle" /> */}
+                  Change Password
+                </Button>
+                {/* <button class="">Btn 2</button> */}
+                <Button
+                  variant="contained"
+                  size="small"
+                  startIcon={<MdLogout />}
+                  className=" top-btn "
+                  onClick={() => handleOptionSelect("logout")}
+                >
+                  {/* <MdLogout className="iconStyle marginLeft" /> */}
+                  Logout
+                </Button>
+              </Stack>
+
+              <div class="card-content">
+                {/* <img
+                  src="https://via.placeholder.com/80"
+                  alt="Avatar"
+                  class="avatar"
+                /> */}
+                <div className="avatarStyleInCard">
+                  {LoggedInUserRoleDetailsData?.FirstName
+                    ? LoggedInUserRoleDetailsData?.FirstName[0].toUpperCase()
+                    : ""}
+                  {LoggedInUserRoleDetailsData?.LastName
+                    ? LoggedInUserRoleDetailsData?.LastName[0].toUpperCase()
+                    : ""}
+                </div>
+                <div class="info">
+                  <div class="username">
+                    {" "}
+                    {LoggedInUserRoleDetailsData?.UserName}
+                  </div>
+                  <div class="email"> {LoggedInUserRoleDetailsData?.Email}</div>
+                </div>
+              </div>
             </div>
           )}
         </div>

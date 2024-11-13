@@ -48,9 +48,9 @@
 
 
 .avatarStyle {
-  width: 26px;
-  height: 26px;
-  border-radius: 6px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
   background-color: #fff;
   color: black;
   display: flex;
@@ -58,9 +58,11 @@
   justify-content: center;
   font-size: 14.5px;
   font-weight: 400;
+  
   /* border: 1px solid #b0292e; */
 }
-.activeAvatarStyle{
+
+.activeAvatarStyle {
   border: 1px solid #b0292e;
 }
 
@@ -124,14 +126,81 @@
 }
 
 .welcomeText {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
   border-radius: 4px;
   padding: 4px;
-  font-size: 16px;
+  font-size: 14px;
   padding: 0 5px;
-  background: #b0292e;
-  color: white;
+  color: #e9d6a4;
+  /* background: #1976d2; */
+ 
   border-radius: 4px;
   padding: 3px 8px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.profile_Btns {
+  display: flex;
+}
+
+
+.card {
+  position: absolute;
+  top: 42px;
+  right: 0;
+  width: 300px;
+  z-index: 1000;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #00073d;
+  border: 1px solid #77759f;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Top buttons styling */
+.top-btn {
+  position: absolute;
+  font-size: 10px !important;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+
+.card-content {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 5px;
+}
+
+.email {
+  font-size: 11px;
+  color: #e6e6e6;
+}
+
+.avatarStyleInCard {
+  background-color: #fff;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35.5px;
+  font-weight: 400;
+width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-right: 20px;
+  /* border: 1px solid #b0292e; */
 }

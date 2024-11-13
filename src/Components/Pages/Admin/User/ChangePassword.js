@@ -124,8 +124,8 @@ export default function ChangePassword() {
         backgroundColor: "#00073d",
         color: "#f0f0f0",
         padding: "30px",
-        maxWidth: "100%",
-        height: "80vh",
+        maxWidth: "50%",
+        height: "100%",
         margin: "auto",
         borderRadius: "10px",
         boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
@@ -133,7 +133,12 @@ export default function ChangePassword() {
     >
       <Container>
         <h2
-          style={{ textAlign: "center", color: "#fff", marginBottom: "40px" }}
+          style={{
+            textAlign: "center",
+            color: "#fff",
+            marginBottom: "40px",
+            marginTop: "-40px",
+          }}
         >
           Change Password
         </h2>
@@ -152,13 +157,12 @@ export default function ChangePassword() {
           <div
             style={{
               display: "flex",
-              flexWrap: "wrap",
+              flexDirection: "column",
               gap: "15px",
-              justifyContent: "space-between",
             }}
           >
             {/* Email and Current Password */}
-            <div style={{ flex: "1 1 45%", lineHeight: "30px" }}>
+            <div style={{ lineHeight: "30px" }}>
               <label>Email</label>
               <input
                 style={{
@@ -176,7 +180,7 @@ export default function ChangePassword() {
                 placeholder="Email"
               />
             </div>
-            <div style={{ flex: "1 1 45%", lineHeight: "30px" }}>
+            <div style={{ lineHeight: "30px" }}>
               <label>Current Password</label>
               <input
                 style={{
@@ -200,7 +204,7 @@ export default function ChangePassword() {
             </div>
 
             {/* New Password and Confirm Password */}
-            <div style={{ flex: "1 1 45%", lineHeight: "30px" }}>
+            <div style={{ lineHeight: "30px" }}>
               <label>New Password</label>
               <input
                 style={{
@@ -223,7 +227,7 @@ export default function ChangePassword() {
               )}
             </div>
 
-            <div style={{ flex: "1 1 45%", lineHeight: "30px" }}>
+            <div style={{ lineHeight: "30px" }}>
               <label>Confirm Password</label>
               <input
                 style={{
@@ -259,7 +263,7 @@ export default function ChangePassword() {
                 padding: "10px 20px",
                 borderRadius: "5px",
                 border: "none",
-                backgroundColor: "#4CAF50",
+                backgroundColor: "#1976d2",
                 color: "#fff",
                 cursor: "pointer",
                 fontWeight: "bold",

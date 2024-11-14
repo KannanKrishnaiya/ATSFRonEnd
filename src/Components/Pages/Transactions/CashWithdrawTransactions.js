@@ -146,6 +146,7 @@ export default function CashWithdrawTransactions() {
 
     GetCashWithdrawalTxnAPI(Userdetails, inputForAPI)
       .then((response) => {
+           console.log("response.data", response.data);
         if (response.status != "200") {
           LogoutUser();
         }

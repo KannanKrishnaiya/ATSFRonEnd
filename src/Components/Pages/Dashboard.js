@@ -124,11 +124,22 @@ export default function Dashboard() {
     Logout();
   };
 
+  // function Init() {
+  //   GetVVDashboardData();
+  //   // GetAllFailedData();
+  //   GetVV_AllMachinesUpTimePercentageData();
+  // }
+
   function Init() {
     setIsLoading(true);
-    GetVVDashboardData();
-    GetAllFailedData();
-    GetVV_AllMachinesUpTimePercentageData();
+    Promise.all([GetVVDashboardData(), GetVV_AllMachinesUpTimePercentageData()])
+      .then(() => {
+        setIsLoading(false); 
+      })
+      .catch((err) => {
+        console.log("Error in fetching data:", err);
+        setIsLoading(false);
+      });
   }
 
   useEffect(() => {
@@ -140,81 +151,136 @@ export default function Dashboard() {
     return () => clearInterval(interval);
   }, []);
 
+  // function GetVVDashboardData() {
+  //   setIsLoading(true);
+  //   let updatedDropDownValues = { ...SelectedDashboardDropDownValues };
+
+  //   if (LoggedInUserRoleDetailsData?.RoleId > 3) {
+  //     updatedDropDownValues = {
+  //       ...SelectedDashboardDropDownValues,
+  //       bankName: LoggedInUserRoleDetailsData?.BankName,
+  //     };
+
+  //     setSelectDashboardDropDownValues(updatedDropDownValues);
+  //   }
+
+  //   GetVVDashboardDataAPI(Userdetails, updatedDropDownValues)
+  //     .then((response) => {
+  //       //console.log(response.data);
+  //       setVVDashboardCards(response.data);
+  //       setDashboardDropDownValues(response.data._VV_BankDeviceDetails);
+  //       const DistinctBankName = new Set(
+  //         response.data._VV_BankDeviceDetails.map((a) => a.bankName)
+  //       );
+  //       setDashboardBankNameDropDown([...DistinctBankName]);
+      
+  //       // apiCallTriggered.current = false;
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       // setIsLoading(false);
+  //       if (err.response.status != 200) {
+  //         LogoutAPI(Userdetails);
+  //         Logout();
+  //       }
+
+  //       // LogoutUser();
+  //     })
+  //     ;
+  //   //setIsLoading(false);
+  // }
+
+  // function GetAllFailedData() {
+  //   GetAllFailedTxnAPI(Userdetails, SelectedDashboardDropDownValues)
+  //     .then((response) => {
+  //       SetAllFailedTransactions(response.data);
+  //       if (AllFailedTransactions != null)
+  //         VVDashboardCards.Count_AllFailedTransactions =
+  //           AllFailedTransactions.length ?? "0";
+  //       // setIsLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       if (err.response.status != 200) {
+  //         LogoutAPI(Userdetails);
+  //         Logout();
+  //       }
+  //       setIsLoading(false);
+  //     });
+  // }
+  // function GetVV_AllMachinesUpTimePercentageData() {
+  //   setIsLoading(true)
+  //   GetVV_AllMachinesUpTimePercentageAPI(
+  //     Userdetails,
+  //     SelectedDashboardDropDownValues
+  //   )
+  //     .then((response) => {
+  //       Set_VV_AllMachinesUpTimePercentage(response.data);
+  //       // console.log("Set_VV_AllMachinesUpTimePercentage", VV_AllMachinesUpTimePercentage);
+      
+  //     })
+  //     .catch((err) => {
+  //       if (err.response.status != 200) {
+  //         LogoutAPI(Userdetails);
+  //         Logout();
+  //       }
+
+  //       console.log(err);
+  //     })
+  // }
 
   function GetVVDashboardData() {
-    let updatedDropDownValues = { ...SelectedDashboardDropDownValues };
+    return new Promise((resolve, reject) => {
+      let updatedDropDownValues = { ...SelectedDashboardDropDownValues };
 
-    if (LoggedInUserRoleDetailsData?.RoleId > 3) {
-      updatedDropDownValues = {
-        ...SelectedDashboardDropDownValues,
-        bankName: LoggedInUserRoleDetailsData?.BankName,
-      };
+      if (LoggedInUserRoleDetailsData?.RoleId > 3) {
+        updatedDropDownValues = {
+          ...SelectedDashboardDropDownValues,
+          bankName: LoggedInUserRoleDetailsData?.BankName,
+        };
+        setSelectDashboardDropDownValues(updatedDropDownValues);
+      }
 
-      setSelectDashboardDropDownValues(updatedDropDownValues);
-    }
-
-    GetVVDashboardDataAPI(Userdetails, updatedDropDownValues)
-      .then((response) => {
-        //console.log(response.data);
-        setVVDashboardCards(response.data);
-        setDashboardDropDownValues(response.data._VV_BankDeviceDetails);
-        const DistinctBankName = new Set(
-          response.data._VV_BankDeviceDetails.map((a) => a.bankName)
-        );
-        setDashboardBankNameDropDown([...DistinctBankName]);
-        setIsLoading(false);
-        // apiCallTriggered.current = false;
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsLoading(false);
-        if (err.response.status != 200) {
-          LogoutAPI(Userdetails);
-          Logout();
-        }
-       
-        // LogoutUser();
-      });
-    //setIsLoading(false);
+      GetVVDashboardDataAPI(Userdetails, updatedDropDownValues)
+        .then((response) => {
+          setVVDashboardCards(response.data);
+          setDashboardDropDownValues(response.data._VV_BankDeviceDetails);
+          const DistinctBankName = new Set(
+            response.data._VV_BankDeviceDetails.map((a) => a.bankName)
+          );
+          setDashboardBankNameDropDown([...DistinctBankName]);
+          resolve(); // Resolve the promise after the data is fetched successfully
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.response?.status !== 200) {
+            LogoutAPI(Userdetails);
+            Logout();
+          }
+          reject(err); // Reject the promise in case of an error
+        });
+    });
   }
 
-  function GetAllFailedData() {
-    GetAllFailedTxnAPI(Userdetails, SelectedDashboardDropDownValues)
-      .then((response) => {
-        SetAllFailedTransactions(response.data);
-        if (AllFailedTransactions != null)
-          VVDashboardCards.Count_AllFailedTransactions =
-            AllFailedTransactions.length ?? "0";
-        // setIsLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        if (err.response.status != 200) {
-          LogoutAPI(Userdetails);
-          Logout();
-        }
-        setIsLoading(false);
-      });
-  }
   function GetVV_AllMachinesUpTimePercentageData() {
-    GetVV_AllMachinesUpTimePercentageAPI(
-      Userdetails,
-      SelectedDashboardDropDownValues
-    )
-      .then((response) => {
-        Set_VV_AllMachinesUpTimePercentage(response.data);
-        // console.log("Set_VV_AllMachinesUpTimePercentage", VV_AllMachinesUpTimePercentage);
-        //setIsLoading(false);
-      })
-      .catch((err) => {
-        if (err.response.status != 200) {
-          LogoutAPI(Userdetails);
-          Logout();
-        }
-
-        console.log(err);
-        setIsLoading(false);
-      });
+    return new Promise((resolve, reject) => {
+      GetVV_AllMachinesUpTimePercentageAPI(
+        Userdetails,
+        SelectedDashboardDropDownValues
+      )
+        .then((response) => {
+          Set_VV_AllMachinesUpTimePercentage(response.data);
+          resolve(); // Resolve the promise after the data is fetched successfully
+        })
+        .catch((err) => {
+          console.log(err);
+          if (err.response?.status !== 200) {
+            LogoutAPI(Userdetails);
+            Logout();
+          }
+          reject(err); // Reject the promise in case of an error
+        });
+    });
   }
 
   const ResetDropDown = (e) => {
@@ -1923,11 +1989,7 @@ export default function Dashboard() {
                         <NumericFormat
                           className="flexCenter"
                           thousandSeparator
-                          value={
-                            AllFailedTransactions.length > 0
-                              ? AllFailedTransactions.length
-                              : 0
-                          }
+                          value={VVDashboardCards?.count_VV_FailedTransaction}
                         />
                       </span>
                     </div>

@@ -30,9 +30,9 @@ import ChequeDepositDetails from "./ChequeDepositDetails";
 import { useSelector } from "react-redux";
 
 export default function CashDepositTransactions() {
-   const LoggedInUserRoleDetailsData = useSelector(
-     (state) => state.user.userDetails
-   );
+  const LoggedInUserRoleDetailsData = useSelector(
+    (state) => state.user.userDetails
+  );
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [CashDepositTransactions, SetCashDepositTransactions] = useState([]);
   const navigate = useNavigate();
@@ -118,27 +118,28 @@ export default function CashDepositTransactions() {
       TransactionStartDate.toLocaleDateString();
     CashDepositTransactionsInput.TransactionEndDate =
       TransactionEndDate.toLocaleDateString();
-    
-        let inputForAPI = {};
-        if (LoggedInUserRoleDetailsData?.RoleId < 3) {
-          inputForAPI = {
-            transactionStartDate: CashDepositTransactionsInput.TransactionStartDate,
-            transactionEndDate: CashDepositTransactionsInput.TransactionEndDate,
-          };
-        } else {
-          inputForAPI = {
-            BankName: CashDepositTransactionsInput.BankName,
-            BankId: CashDepositTransactionsInput.BankId,
-            Branch: "",
-            Atm_TerminalId: "",
-            TransactionStartDate: CashDepositTransactionsInput.TransactionStartDate,
-            TransactionEndDate: CashDepositTransactionsInput.TransactionEndDate,
-          };
-        }
-    
+
+    let inputForAPI = {};
+    if (LoggedInUserRoleDetailsData?.RoleId < 3) {
+      inputForAPI = {
+        transactionStartDate: CashDepositTransactionsInput.TransactionStartDate,
+        transactionEndDate: CashDepositTransactionsInput.TransactionEndDate,
+      };
+    } else {
+      inputForAPI = {
+        BankName: CashDepositTransactionsInput.BankName,
+        BankId: CashDepositTransactionsInput.BankId,
+        Branch: "",
+        Atm_TerminalId: "",
+        TransactionStartDate: CashDepositTransactionsInput.TransactionStartDate,
+        TransactionEndDate: CashDepositTransactionsInput.TransactionEndDate,
+      };
+    }
 
     GetCashDepositTxnAPI(Userdetails, inputForAPI)
       .then((response) => {
+        console.log("GetCashDepositTxnAPI : ", response?.data);
+
         SetCashDepositTransactions(response.data);
         setIsLoading(false);
       })

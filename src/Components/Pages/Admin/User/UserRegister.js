@@ -555,7 +555,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
       </div>
       <div className="row">
         <div className="Column">
-          <label className="EditPopupLabel">First Name</label>
+          <label className="AddPopupLabel">First Name</label>
           <input
             className="FormControl_input"
             type="text"
@@ -565,7 +565,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
           />
         </div>
         <div className="Column">
-          <label className="EditPopupLabel">Last Name</label>
+          <label className="AddPopupLabel">Last Name</label>
           <input
             className="FormControl_input"
             type="text"
@@ -578,7 +578,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
 
       <div className="row">
         <div className="Column">
-          <label className="EditPopupLabel">Username</label>
+          <label className="AddPopupLabel">Username</label>
           <input
             className="FormControl_input"
             type="text"
@@ -588,7 +588,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
           />
         </div>
         <div className="Column">
-          <label className="EditPopupLabel">Email</label>
+          <label className="AddPopupLabel">Email</label>
           <input
             disabled
             className="FormControl_input"
@@ -602,7 +602,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
 
       <div className="row">
         <div className="Column">
-          <label className="EditPopupLabel">Phone Number</label>
+          <label className="AddPopupLabel">Phone Number</label>
           <input
             className="FormControl_input"
             type="tel"
@@ -612,7 +612,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
           />
         </div>
         <div className="Column">
-          <label className="EditPopupLabel">Company</label>
+          <label className="AddPopupLabel">Company</label>
           <select
             className="FormControl_input"
             name="companyId"
@@ -632,7 +632,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
 
       <div className="row">
         <div className="Column">
-          <label className="EditPopupLabel">Active Status</label>
+          <label className="AddPopupLabel">Active Status</label>
           <select
             className="FormControl_input"
             value={formData.isDisabled ? "Inactive" : "Active"}
@@ -643,7 +643,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
           </select>
         </div>
         <div className="Column">
-          <label className="EditPopupLabel">Role</label>
+          <label className="AddPopupLabel">Role</label>
           <select
             className="FormControl_input"
             name="roleId"
@@ -662,7 +662,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
 
       <div className="row">
         <div className="Column">
-          <label className="EditPopupLabel">Is CNS Employee</label>
+          <label className="AddPopupLabel">Is CNS Employee</label>
           <select
             className="FormControl_input"
             name="isCNSEmployee"
@@ -675,12 +675,19 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
         </div>
       </div>
       <div className="row">
-        <input
-          type="button"
-          value="Update"
-          className="FormControl_button"
-          onClick={handleUpdateClick}
-        />
+        <center>
+          {" "}
+          <button
+            // type="button"
+            // value="Update"
+            // className="FormControl_button"
+            className="ModelButton"
+            onClick={handleUpdateClick}
+       
+          >
+            Update
+          </button>
+        </center>
       </div>
       {showModal && (
         <div style={modalStyles}>
@@ -831,7 +838,11 @@ function CreateUserForm({ onCreate, close }) {
 
   return (
     <div className="EditPopup">
-      <div style={{marginBottom:"30px"}}><center><h2>Add User</h2></center></div>
+      <div style={{ marginBottom: "30px" }}>
+        <center>
+          <h2>Add User</h2>
+        </center>
+      </div>
       {formError && (
         <span style={{ color: "#FF0000" }} className="error">
           {formError}
@@ -948,13 +959,16 @@ function CreateUserForm({ onCreate, close }) {
         </div>
       </div>
       <div className="row">
-        <input
-          type="button"
-          name="Create"
-          value="Create"
-          className="FormControl_button_test"
+        <button
+          // type="button"
+          // name="Create"
+          // value="Create"
+          className="ModelButton"
           onClick={handleCreate}
-        />
+        >
+          Create
+        </button>
+        
       </div>
       {showModal && (
         <div style={modalStyles}>

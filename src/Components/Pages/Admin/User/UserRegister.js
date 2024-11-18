@@ -156,8 +156,6 @@ export default function UserRegister() {
   ];
 
   const handleEdit = (rowData) => {
-
-    
     setUserEditInput({
       firstName: rowData[0],
       lastName: rowData[1],
@@ -384,13 +382,11 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
     ...userEditInput,
   });
 
-
-
-
   const [companyOptions, setCompanyOptions] = useState([]);
   const [roleOptions, setRoleOptions] = useState([]);
   const [filteredRoleOptions, setFilteredRoleOptions] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [formError, setFormError] = useState("");
 
   useEffect(() => {
     const fetchLookups = async () => {
@@ -419,9 +415,6 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
       const roleId =
         roleOptions.find((role) => role.roleName === userEditInput.roleId)
           ?.id || "";
-      
-  
-      
 
       setFormData((prev) => ({
         ...prev,
@@ -477,13 +470,14 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
       (!formData.isCNSEmployee && !formData.companyId) ||
       !formData.roleId
     ) {
+      setFormError("Please fill in all required fields");
       return;
     }
     const updatedData = {
       ...formData,
       companyId: formData.companyId || "0",
     };
-   
+
     try {
       await UpdateUserAPI(Userdetails, formData);
       onUpdate(updatedData);
@@ -541,6 +535,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
 
   const handleCloseModal = () => {
     setShowModal(false);
+    setFormError("");
     close();
     GetUserListAPI(Userdetails);
     window.location.reload();
@@ -553,6 +548,15 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
           <h2>Edit User</h2>
         </center>
       </div>
+      <center>
+        {" "}
+        {formError && (
+          <span style={{ color: "#FF0000" }} className="error">
+            {formError}
+          </span>
+        )}
+      </center>
+
       <div className="row">
         <div className="Column">
           <label className="AddPopupLabel">First Name</label>
@@ -683,7 +687,6 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
             // className="FormControl_button"
             className="ModelButton"
             onClick={handleUpdateClick}
-       
           >
             Update
           </button>
@@ -968,7 +971,6 @@ function CreateUserForm({ onCreate, close }) {
         >
           Create
         </button>
-        
       </div>
       {showModal && (
         <div style={modalStyles}>

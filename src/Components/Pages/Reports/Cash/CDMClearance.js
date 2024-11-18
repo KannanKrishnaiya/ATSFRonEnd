@@ -21,6 +21,7 @@ export default function CDMClearance() {
   const Userdetails = localStorage.getItem("LoggedInUser");
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [cdmClearanceLvl, SetCdmClearanceLvl] = useState([]);
   const [CDMClearanceTrans, SetCDMClearanceTrans] = useState([]);
   const [CDMClearanceTransInput, setCDMClearanceTransInput] = useState({
     bankName: LoggedInUserRoleDetailsData?.BankName
@@ -52,6 +53,7 @@ export default function CDMClearance() {
         console.log("response?.data.allMachine", response);
 
         SetCDMClearanceTrans(response?.data.allMachinesCondition);
+        SetCdmClearanceLvl(response?.data.cdmClearanceLvl)
         setIsLoading(false);
       })
       .catch((err) => {
@@ -64,6 +66,9 @@ export default function CDMClearance() {
         setIsLoading(false);
       });
   }
+
+  console.log(CDMClearanceTrans);
+  
 
   const Transactioncolumns = [
     {
@@ -225,6 +230,9 @@ export default function CDMClearance() {
     },
   });
 
+  console.log(cdmClearanceLvl);
+  
+
   return (
     <div>
       <div>
@@ -236,7 +244,7 @@ export default function CDMClearance() {
           <div className="DivDataTable">
             <ThemeProvider theme={theme}>
               <MUIDataTable
-                title={"CDM clearance Level > 3200"}
+                title={`CDM clearance Level > ${cdmClearanceLvl}`}
                 data={CDMClearanceTrans}
                 columns={Transactioncolumns}
                 options={options}

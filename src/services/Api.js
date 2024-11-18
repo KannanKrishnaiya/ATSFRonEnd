@@ -50,7 +50,7 @@ export const LogoutAPI = (inputs) => {
     idToken: userData?.token,
   };
   let User = {
-    email: userData.UserName,
+    email: userData.email,
   };
 
   const config = {
@@ -68,7 +68,7 @@ export const GetUserDetailsAPI = (inputs) => {
     idToken: userData?.token,
   };
   let User = {
-    UserName: userData.UserName,
+    email: userData.email,
   };
 
   const config = {

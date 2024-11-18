@@ -28,7 +28,7 @@ export default function ChangePassword() {
   useEffect(() => {
     setInputs((prevInputs) => ({
       ...prevInputs,
-      Email: Userdetails?.UserName,
+      Email: Userdetails?.email,
     }));
   }, []);
 
@@ -74,7 +74,7 @@ export default function ChangePassword() {
     }
 
     if (!hasError) {
-      const email = Userdetails?.UserName;
+      const email = Userdetails?.email;
 
       const body = {
         email: email,

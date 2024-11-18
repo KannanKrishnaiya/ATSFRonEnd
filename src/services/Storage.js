@@ -3,7 +3,7 @@
 
 export const StoreUserData = (data) => {
   const LoggedInUser = {
-    UserName: data.userName,
+    email: data.email,
     // UserName: "Mohammed.Arash@cns-me.com",
     token: data.token,
     refreshToken: data.refreshToken,

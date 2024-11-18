@@ -291,6 +291,10 @@ export default function LoggedInUserDetails(User) {
     }
   };
 
+
+  console.log(LoggedInUserRoleDetailsData?.FirstName);
+  
+
   return (
     <div className="LoggedInUserDetailsTab">
       <div
@@ -365,7 +369,7 @@ export default function LoggedInUserDetails(User) {
             //     </div>
             //   </div>
             // </div>
-            <div ref={popupRef} className="card ">
+            <div ref={popupRef} className="card">
               <Stack spacing={2} direction="row" gap={2}>
                 {" "}
                 <Button
@@ -408,7 +412,7 @@ export default function LoggedInUserDetails(User) {
                 <div class="info">
                   <div class="username">
                     {" "}
-                    {LoggedInUserRoleDetailsData?.UserName}
+                    {LoggedInUserRoleDetailsData?.email}
                   </div>
                   <div class="email"> {LoggedInUserRoleDetailsData?.Email}</div>
                 </div>

@@ -12,7 +12,7 @@ export const GetUserRoleDetailsByNameAPI = (inputs) => {
     idToken: userData.token,
   };
   let User = {
-    email: userData.UserName,
+    email: userData.email,
   };
   const config = {
     headers: { Authorization: "Bearer " + headerToken.idToken },

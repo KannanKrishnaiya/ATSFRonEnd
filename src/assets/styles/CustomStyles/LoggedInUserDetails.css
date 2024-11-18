@@ -58,6 +58,7 @@
   justify-content: center;
   font-size: 14.5px;
   font-weight: 400;
+  cursor: pointer;
   
   /* border: 1px solid #b0292e; */
 }
@@ -110,7 +111,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  cursor: pointer;
+
 }
 
 .iconStyle {

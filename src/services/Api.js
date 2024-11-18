@@ -16,6 +16,8 @@ const RegisterUserAPIRURL = "/api/Auth/Register";
 
 const UpdateUserApiURL = "/api/Auth/UpdateUser";
 
+const fetchRefreshTokenApiURL = "/api/Auth/RefreshToken";
+
 export const LoggedInUser = {};
 
 export const RegisterApi = (inputs) => {
@@ -136,4 +138,20 @@ export const UpdateUserAPI = (inputs, data) => {
   var UpdateUserAPIResponse = axios.post(UpdateUserApiURL, data, config);
 
   return UpdateUserAPIResponse;
+};
+
+export const fetchRefreshTokenAPI = (inputs) => {
+  const userData = JSON.parse(inputs);
+
+  let DataToSend = {
+    email: userData?.email,
+    refreshToken: userData?.token,
+  };
+
+  var fetchRefreshTokenApiResponse = axios.post(
+    fetchRefreshTokenApiURL,
+    DataToSend
+  );
+
+  return fetchRefreshTokenApiResponse;
 };

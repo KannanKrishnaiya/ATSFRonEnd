@@ -23,15 +23,26 @@ import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
 import { FaFileAlt } from "react-icons/fa";
 import { jsPDF } from "jspdf";
+import { useSelector } from "react-redux";
 
 export default function ViewAllFailedTransactions() {
+     const LoggedInUserRoleDetailsData = useSelector(
+       (state) => state.user.userDetails
+     );
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [AllFailedTransactions, SetAllFailedTransactions] = useState([]);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const [AllFailedTransactionsInput, setAllFailedTransactionsInput] = useState({
-    bankName: "",
+    bankName:
+      LoggedInUserRoleDetailsData?.RoleId > 3
+        ? LoggedInUserRoleDetailsData?.BankName
+        : "",
+    bankId:
+      LoggedInUserRoleDetailsData?.RoleId > 3
+        ? LoggedInUserRoleDetailsData?.BankId
+        : "",
     branch: "",
     atm_TerminalId: "",
     transactionStartDate: "",
@@ -108,6 +119,7 @@ export default function ViewAllFailedTransactions() {
   }, []);
 
   function GetAllFailedTransactions() {
+    setIsLoading(true);
     // console.log("AllFailedTransactionsInput", AllFailedTransactionsInput);
     // console.log(
     //   "AllFailedTransactionsInput",
@@ -119,18 +131,35 @@ export default function ViewAllFailedTransactions() {
       TransactionStartDate.toLocaleDateString();
     AllFailedTransactionsInput.transactionEndDate =
       TransactionEndDate.toLocaleDateString();
+    
+        let inputForAPI = {};
+        if (LoggedInUserRoleDetailsData?.RoleId < 3) {
+          inputForAPI = {
+            transactionStartDate: AllFailedTransactionsInput.transactionStartDate,
+            transactionEndDate: AllFailedTransactionsInput.transactionEndDate,
+          };
+        } else {
+          inputForAPI = {
+            bankName: AllFailedTransactionsInput.bankName,
+            bankId: AllFailedTransactionsInput.bankId,
+            branch: "",
+            atm_TerminalId: "",
+            transactionStartDate: AllFailedTransactionsInput.transactionStartDate,
+            transactionEndDate: AllFailedTransactionsInput.transactionEndDate,
+          };
+        }
 
-    setIsLoading(true);
-    GetAllFailedTxnAPI(Userdetails, AllFailedTransactionsInput)
+    
+    GetAllFailedTxnAPI(Userdetails, inputForAPI)
       .then((response) => {
         SetAllFailedTransactions(response.data);
         // console.log("SetAllFailedTransactions", response.data);
         setIsLoading(false);
       })
       .catch((err) => {
-         if (err.response.status != 200) {
-           Logout();
-         }
+        if (err.response.status != 200) {
+          Logout();
+        }
         setIsLoading(false);
         LogoutUser();
       });

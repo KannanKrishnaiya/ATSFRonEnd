@@ -35,6 +35,13 @@ export default function CashWithdrawalCassetteDetails({
   };
 
   const renderCashWithdrawalCassetteDetails = (index) => {
+
+
+
+      if (Loc_CashWithdrawalCassetteDetails?.length <= 0) {
+        return "Please check all Transaction page for more details";
+      }
+    
     return Loc_CashWithdrawalCassetteDetails
       ? Loc_CashWithdrawalCassetteDetails.map(
           ({
@@ -70,6 +77,8 @@ export default function CashWithdrawalCassetteDetails({
         )
       : "No Records Available";
   };
+
+  
 
   function GetCashWithdrawalCassetteDetails() {
     setIsLoading(true);

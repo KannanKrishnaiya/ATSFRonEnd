@@ -24,15 +24,26 @@ import "react-calendar/dist/Calendar.css";
 import { FaFileAlt } from "react-icons/fa";
 import { jsPDF } from "jspdf";
 import { Visibility } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 
 export default function ViewOtherTransactions() {
+     const LoggedInUserRoleDetailsData = useSelector(
+       (state) => state.user.userDetails
+     );
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [AllOtherTransactions, SetAllOtherTransactions] = useState([]);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   const [AllOtherTransactionsInput, setAllOtherTransactionsInput] = useState({
-    bankName: "",
+    bankName:
+      LoggedInUserRoleDetailsData?.RoleId > 3
+        ? LoggedInUserRoleDetailsData?.BankName
+        : "",
+    bankId:
+      LoggedInUserRoleDetailsData?.RoleId > 3
+        ? LoggedInUserRoleDetailsData?.BankId
+        : "",
     branch: "",
     atm_TerminalId: "",
     transactionStartDate: "",
@@ -125,13 +136,30 @@ export default function ViewOtherTransactions() {
   }, []);
 
   function GetOtherTransactions() {
+    setIsLoading(true);
     AllOtherTransactionsInput.transactionStartDate =
       TransactionStartDate.toLocaleDateString();
     AllOtherTransactionsInput.transactionEndDate =
       TransactionEndDate.toLocaleDateString();
+    
+        let inputForAPI = {};
+        if (LoggedInUserRoleDetailsData?.RoleId < 3) {
+          inputForAPI = {
+            transactionStartDate: AllOtherTransactionsInput.transactionStartDate,
+            transactionEndDate: AllOtherTransactionsInput.transactionEndDate,
+          };
+        } else {
+          inputForAPI = {
+            bankName: AllOtherTransactionsInput.bankName,
+            bankId: AllOtherTransactionsInput.bankId,
+            branch: "",
+            atm_TerminalId: "",
+            transactionStartDate: AllOtherTransactionsInput.transactionStartDate,
+            transactionEndDate: AllOtherTransactionsInput.transactionEndDate,
+          };
+        }
 
-    setIsLoading(true);
-    GetOtherTxnAPI(Userdetails, AllOtherTransactionsInput)
+    GetOtherTxnAPI(Userdetails, inputForAPI)
       .then((response) => {
         // console.log("GetOtherTxnAPI", response.data);
         SetAllOtherTransactions(response.data);

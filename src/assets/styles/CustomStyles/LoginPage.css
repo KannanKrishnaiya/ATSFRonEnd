@@ -43,8 +43,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 25rem;
-  padding: 20px;
+  width: 20rem;
+  padding: 15px;
   box-sizing: border-box;
   background: rgba(0, 0, 0, 0.6);
   border-radius: 0.625rem;
@@ -85,7 +85,6 @@
 
 .LoginPagebox .inputBox input,
 .RegisterPagebox .inputBox input {
-  padding: 0.625rem 0;
   font-size: 12px;
   color: #fff;
   letter-spacing: 0.062rem;
@@ -100,7 +99,7 @@
   font-size: 12px;
   margin-left: 10px;
   margin: 10px;
-  padding: 0 40px;
+  padding: 0 5px 0 25px;
 }
 
 .LoginPagebox .inputBox label,
@@ -169,7 +168,7 @@
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   position: absolute;
-  left: 15px;
+  left: 10px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 18px;
@@ -193,5 +192,5 @@
 }
 
 .formLogin {
-  padding: 10px;
+  padding: 5px;
 }

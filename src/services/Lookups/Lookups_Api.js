@@ -49,7 +49,7 @@ export const GetLookupsUserRoleAPI = (inputs) => {
     idToken: userData.token,
   };
   var data = {
-    email: userData?.UserName,
+    email: userData?.email,
   };
 
   const config = {

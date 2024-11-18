@@ -27,8 +27,12 @@ import { jsPDF } from "jspdf";
 import { Visibility } from "@mui/icons-material";
 import CashDepositCassetteDetails from "./CashDepositCassetteDetails";
 import ChequeDepositDetails from "./ChequeDepositDetails";
+import { useSelector } from "react-redux";
 
 export default function CashDepositTransactions() {
+  const LoggedInUserRoleDetailsData = useSelector(
+    (state) => state.user.userDetails
+  );
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [CashDepositTransactions, SetCashDepositTransactions] = useState([]);
   const navigate = useNavigate();
@@ -36,7 +40,14 @@ export default function CashDepositTransactions() {
 
   const [CashDepositTransactionsInput, setCashDepositTransactionsInput] =
     useState({
-      BankName: "",
+      BankName:
+        LoggedInUserRoleDetailsData?.RoleId > 3
+          ? LoggedInUserRoleDetailsData?.BankName
+          : "",
+      BankId:
+        LoggedInUserRoleDetailsData?.RoleId > 3
+          ? LoggedInUserRoleDetailsData?.BankId
+          : "",
       Branch: "",
       Atm_TerminalId: "",
       TransactionStartDate: "",
@@ -108,8 +119,27 @@ export default function CashDepositTransactions() {
     CashDepositTransactionsInput.TransactionEndDate =
       TransactionEndDate.toLocaleDateString();
 
-    GetCashDepositTxnAPI(Userdetails, CashDepositTransactionsInput)
+    let inputForAPI = {};
+    if (LoggedInUserRoleDetailsData?.RoleId < 3) {
+      inputForAPI = {
+        transactionStartDate: CashDepositTransactionsInput.TransactionStartDate,
+        transactionEndDate: CashDepositTransactionsInput.TransactionEndDate,
+      };
+    } else {
+      inputForAPI = {
+        BankName: CashDepositTransactionsInput.BankName,
+        BankId: CashDepositTransactionsInput.BankId,
+        Branch: "",
+        Atm_TerminalId: "",
+        TransactionStartDate: CashDepositTransactionsInput.TransactionStartDate,
+        TransactionEndDate: CashDepositTransactionsInput.TransactionEndDate,
+      };
+    }
+
+    GetCashDepositTxnAPI(Userdetails, inputForAPI)
       .then((response) => {
+        console.log("GetCashDepositTxnAPI : ", response?.data);
+
         SetCashDepositTransactions(response.data);
         setIsLoading(false);
       })

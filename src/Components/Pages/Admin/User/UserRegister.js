@@ -77,6 +77,7 @@ export default function UserRegister() {
     { label: "PhoneNumber", name: "phoneNumber", options: { filter: true } },
     { label: "CompanyName", name: "companyName", options: { filter: true } },
     { label: "RoleName", name: "roleName", options: { filter: true } },
+
     {
       label: "Status",
       name: "isDisabled",
@@ -93,6 +94,7 @@ export default function UserRegister() {
         customBodyRender: (value) => (value ? "Yes" : "No"),
       },
     },
+    { name: "roleId", options: { display: false } },
     {
       name: "Actions",
       options: {
@@ -100,14 +102,43 @@ export default function UserRegister() {
         sort: false,
         empty: true,
         customBodyRender: (value, tableMeta) => (
+          // <div className="DT_Div_ViewDetails_flex-container">
+          //   {tableMeta.rowData[7] === 1 ? (
+          //     <TbUserEdit className="DataTableIcons" />
+          //   ) : (
+          //     <div className="tooltip">
+          //       <TbUserEdit
+          //         className="DataTableIcons"
+          //         onClick={() => handleEdit(tableMeta.rowData, value)}
+          //       />
+          //       <span className="tooltiptext">Edit User</span>
+          //     </div>
+          //   )}
+
+          //   {LoggedInUserRoleDetailsData?.RoleId === 1 && (
+          //     <div className="tooltip">
+          //       <RiLockPasswordLine
+          //         className="DataTableIcons"
+          //         onClick={() => handleResetPasswordModal(tableMeta.rowData[3])}
+          //       />
+          //       <span className="tooltiptext">Reset Password</span>
+          //     </div>
+          //   )}
+          // </div>
           <div className="DT_Div_ViewDetails_flex-container">
-            <div className="tooltip">
-              <TbUserEdit
-                className="DataTableIcons"
-                onClick={() => handleEdit(tableMeta.rowData, value)}
-              />
-              <span className="tooltiptext">Edit User</span>
-            </div>
+            {LoggedInUserRoleDetailsData?.RoleId > 1 &&
+            tableMeta.rowData[9] === 1 ? (
+              ""
+            ) : (
+              // <TbUserEdit className="DataTableIcons" />""
+              <div className="tooltip">
+                <TbUserEdit
+                  className="DataTableIcons"
+                  onClick={() => handleEdit(tableMeta.rowData, value)}
+                />
+                <span className="tooltiptext">Edit User</span>
+              </div>
+            )}
 
             {LoggedInUserRoleDetailsData?.RoleId === 1 && (
               <div className="tooltip">
@@ -125,8 +156,6 @@ export default function UserRegister() {
   ];
 
   const handleEdit = (rowData) => {
-   
-
     setUserEditInput({
       firstName: rowData[0],
       lastName: rowData[1],
@@ -134,7 +163,7 @@ export default function UserRegister() {
       email: rowData[3],
       phoneNumber: rowData[4],
       companyId: rowData[5],
-      roleIdId: rowData[6],
+      roleId: rowData[6],
       isDisabled: rowData[7],
       isCNSEmployee: rowData[8],
     });
@@ -191,7 +220,7 @@ export default function UserRegister() {
                 className="CreateUserButton"
                 onClick={() => setIsCreateModalOpen(true)}
               >
-                <BiPlusCircle />
+                <BiPlusCircle size={18} />
                 &nbsp;Add User
               </button>
             </div>
@@ -301,12 +330,14 @@ function ResetUser({ email, close }) {
 
   return (
     <div className="EditPopup">
-      <center>{formError && (
-        <span style={{ color: "#FF0000" }} className="error">
-          {formError}
-        </span>
-      )}</center>
-      
+      <center>
+        {formError && (
+          <span style={{ color: "#FF0000" }} className="error">
+            {formError}
+          </span>
+        )}
+      </center>
+
       <div className="row">
         <Typography>
           Do you want to reset the password for{" "}
@@ -336,200 +367,6 @@ function ResetUser({ email, close }) {
   );
 }
 
-// for update api UpdateUserAPI(Userdetails,data(update obj))
-
-// function EditUserForm({ userEditInput, onUpdate }) {
-//   const Userdetails = localStorage.getItem("LoggedInUser");
-//   const [formData, setFormData] = useState({
-//     firstName: "",
-//     lastName: "",
-//     userName: "",
-//     email: "",
-//     phoneNumber: "",
-//     companyId: "",
-//     roleId: "",
-//     isDisabled: false,
-//     isCNSEmployee: false,
-//     ...userEditInput,
-//   });
-
-//   const [companyOptions, setCompanyOptions] = useState([]);
-//   const [roleOptions, setRoleOptions] = useState([]);
-
-//   useEffect(() => {
-//     const fetchLookups = async () => {
-//       try {
-//         const roleData = await GetLookupsUserRoleAPI(Userdetails);
-//         setRoleOptions(roleData?.data || []);
-//         const companyData = await GetLookupsAPI(Userdetails);
-//         setCompanyOptions(companyData?.data || []);
-//       } catch (error) {
-//         console.error("Error fetching lookups:", error);
-//         if (error.response.status != 200) {
-//           Logout();
-//         }
-//       }
-//     };
-//     fetchLookups();
-//   }, [Userdetails]);
-
-//   useEffect(() => {
-//     if (userEditInput) {
-//       setFormData((prev) => ({
-//         ...prev,
-//         companyId: userEditInput.companyId,
-//         roleId: userEditInput.roleIdId,
-//         isCNSEmployee: userEditInput.isCNSEmployee,
-//       }));
-//     }
-//   }, [userEditInput]);
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData((prev) => ({
-//       ...prev,
-//       [name]: name === "isCNSEmployee" ? value === "Yes" : value,
-//     }));
-//   };
-
-//   const handleStatusChange = (status) => {
-//     setFormData((prev) => ({ ...prev, isDisabled: status === "Active" }));
-//   };
-
-//   const handleUpdateClick = () => {
-//     onUpdate(formData);
-//   };
-
-//   return (
-//     <div className="EditPopup">
-//       <div className="row">
-//         <div className="Column">
-//           <label className="EditPopupLabel">First Name</label>
-//           <input
-//             className="FormControl_input"
-//             type="text"
-//             name="firstName"
-//             value={formData.firstName || ""}
-//             onChange={handleChange}
-//           />
-//         </div>
-//         <div className="Column">
-//           <label className="EditPopupLabel">Last Name</label>
-//           <input
-//             className="FormControl_input"
-//             type="text"
-//             name="lastName"
-//             value={formData.lastName || ""}
-//             onChange={handleChange}
-//           />
-//         </div>
-//       </div>
-//       <div className="row">
-//         <div className="Column">
-//           <label className="EditPopupLabel">Username</label>
-//           <input
-//             className="FormControl_input"
-//             type="text"
-//             name="userName"
-//             value={formData.userName || ""}
-//             onChange={handleChange}
-//           />
-//         </div>
-//         <div className="Column">
-//           <label className="EditPopupLabel">Email</label>
-//           <input
-//             disabled
-//             className="FormControl_input"
-//             type="email"
-//             name="email"
-//             value={formData.email || ""}
-//           />
-//         </div>
-//       </div>
-//       <div className="row">
-//         <div className="Column">
-//           <label className="EditPopupLabel">Phone Number</label>
-//           <input
-//             className="FormControl_input"
-//             type="tel"
-//             name="phoneNumber"
-//             value={formData.phoneNumber || ""}
-//             onChange={handleChange}
-//           />
-//         </div>
-//         <div className="Column">
-//           <label className="EditPopupLabel">Company</label>
-//           <select
-//             className="FormControl_input"
-//             name="companyId"
-//             value={formData.companyId || ""}
-//             onChange={handleChange}
-//           >
-//             <option value="">Select Company</option>
-//             {companyOptions.map((company) => (
-//               <option key={company.id} value={company.id}>
-//                 {company.nameEn}
-//               </option>
-//             ))}
-//           </select>
-//         </div>
-//       </div>
-//       <div className="row">
-//         <div className="Column">
-//           <label className="EditPopupLabel">Active Status</label>
-//           <select
-//             className="FormControl_input"
-//             value={formData.isDisabled ? "Inactive" : "Active"}
-//             onChange={(e) => handleStatusChange(e.target.value)}
-//           >
-//             <option value="Active">Active</option>
-//             <option value="Inactive">Inactive</option>
-//           </select>
-//         </div>
-//         <div className="Column">
-//           <label className="EditPopupLabel">Role</label>
-//           <select
-//             className="FormControl_input"
-//             name="roleId"
-//             value={formData.roleId || ""}
-//             onChange={handleChange}
-//           >
-//             <option value="">Select Role</option>
-//             {roleOptions.map((role) => (
-//               <option key={role.id} value={role.id}>
-//                 {role.roleName}
-//               </option>
-//             ))}
-//           </select>
-//         </div>
-//       </div>
-//       <div className="row">
-//         <div className="Column">
-//           <label className="EditPopupLabel">Is CNS Employee</label>
-//           <select
-//             className="FormControl_input"
-//             name="isCNSEmployee"
-//             value={formData.isCNSEmployee ? "Yes" : "No"}
-//             onChange={handleChange}
-//           >
-//             <option value="Yes">Yes</option>
-//             <option value="No">No</option>
-//           </select>
-//         </div>
-//         <div className="Column">
-//           <input
-//             type="button"
-//             name="Update"
-//             value="Update"
-//             className="FormControl_button"
-//             onClick={handleUpdateClick}
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 function EditUserForm({ userEditInput, onUpdate, close }) {
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [formData, setFormData] = useState({
@@ -549,6 +386,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
   const [roleOptions, setRoleOptions] = useState([]);
   const [filteredRoleOptions, setFilteredRoleOptions] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [formError, setFormError] = useState("");
 
   useEffect(() => {
     const fetchLookups = async () => {
@@ -567,11 +405,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
     fetchLookups();
   }, [Userdetails]);
 
- 
-
   useEffect(() => {
-   
-
     if (userEditInput) {
       const companyId =
         companyOptions.find(
@@ -579,7 +413,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
         )?.id || "0";
 
       const roleId =
-        roleOptions.find((role) => role.roleName === userEditInput.roleIdId)
+        roleOptions.find((role) => role.roleName === userEditInput.roleId)
           ?.id || "";
 
       setFormData((prev) => ({
@@ -604,32 +438,6 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
     setFilteredRoleOptions(updatedRoleOptions);
   }, [formData.isCNSEmployee, roleOptions]);
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //    setFormData((prev) => {
-  //      if (name === "isCNSEmployee") {
-  //        return {
-  //          ...prev,
-  //          isCNSEmployee: value === "true",
-  //          companyId: value === "true" ? "0" : prev.companyId,
-  //          roleId:
-  //            value === "true" && prev.roleId !== "2" && prev.roleId !== "3"
-  //              ? ""
-  //              : prev.roleId,
-  //        };
-  //      }
-  //      return { ...prev, [name]: value };
-  //    });
-  // };
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prev) => ({
-  //     ...prev,
-  //     [name]: name === "isCNSEmployee" ? value === "Yes" : value,
-  //   }));
-  // };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => {
@@ -649,22 +457,8 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
   };
 
   const handleStatusChange = (status) => {
-    setFormData((prev) => ({ ...prev, isDisabled: status === "Inactive" }));
+    setFormData((prev) => ({ ...prev, isDisabled: status === "In Active" }));
   };
-
-  // const handleUpdateClick = async () => {
-  //   const updatedData = {
-  //     ...formData,
-  //     companyId: formData.companyId || "0",
-  //   };
-
-  //   try {
-  //     await UpdateUserAPI(Userdetails, updatedData);
-  //     onUpdate(updatedData);
-  //   } catch (error) {
-  //     console.error("Error updating user:", error);
-  //   }
-  // };
 
   const handleUpdateClick = async () => {
     if (
@@ -676,12 +470,14 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
       (!formData.isCNSEmployee && !formData.companyId) ||
       !formData.roleId
     ) {
+      setFormError("Please fill in all required fields");
       return;
     }
     const updatedData = {
       ...formData,
       companyId: formData.companyId || "0",
     };
+
     try {
       await UpdateUserAPI(Userdetails, formData);
       onUpdate(updatedData);
@@ -698,9 +494,9 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
       });
       setShowModal(true);
     } catch (error) {
-      if (error.response.status !== 200) {
-        Logout();
-      }
+      // if (error.response.status !== 200) {
+      //   Logout();
+      // }
     }
   };
 
@@ -739,6 +535,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
 
   const handleCloseModal = () => {
     setShowModal(false);
+    setFormError("");
     close();
     GetUserListAPI(Userdetails);
     window.location.reload();
@@ -746,9 +543,23 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
 
   return (
     <div className="EditPopup">
+      <div style={{ marginBottom: "18px" }}>
+        <center>
+          <h2>Edit User</h2>
+        </center>
+      </div>
+      <center>
+        {" "}
+        {formError && (
+          <span style={{ color: "#FF0000" }} className="error">
+            {formError}
+          </span>
+        )}
+      </center>
+
       <div className="row">
         <div className="Column">
-          <label className="EditPopupLabel">First Name</label>
+          <label className="AddPopupLabel">First Name</label>
           <input
             className="FormControl_input"
             type="text"
@@ -758,7 +569,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
           />
         </div>
         <div className="Column">
-          <label className="EditPopupLabel">Last Name</label>
+          <label className="AddPopupLabel">Last Name</label>
           <input
             className="FormControl_input"
             type="text"
@@ -771,7 +582,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
 
       <div className="row">
         <div className="Column">
-          <label className="EditPopupLabel">Username</label>
+          <label className="AddPopupLabel">Username</label>
           <input
             className="FormControl_input"
             type="text"
@@ -781,20 +592,21 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
           />
         </div>
         <div className="Column">
-          <label className="EditPopupLabel">Email</label>
+          <label className="AddPopupLabel">Email</label>
           <input
             disabled
             className="FormControl_input"
             type="email"
             name="email"
             value={formData.email || ""}
+            onChange={handleChange}
           />
         </div>
       </div>
 
       <div className="row">
         <div className="Column">
-          <label className="EditPopupLabel">Phone Number</label>
+          <label className="AddPopupLabel">Phone Number</label>
           <input
             className="FormControl_input"
             type="tel"
@@ -804,7 +616,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
           />
         </div>
         <div className="Column">
-          <label className="EditPopupLabel">Company</label>
+          <label className="AddPopupLabel">Company</label>
           <select
             className="FormControl_input"
             name="companyId"
@@ -824,7 +636,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
 
       <div className="row">
         <div className="Column">
-          <label className="EditPopupLabel">Active Status</label>
+          <label className="AddPopupLabel">Active Status</label>
           <select
             className="FormControl_input"
             value={formData.isDisabled ? "Inactive" : "Active"}
@@ -835,7 +647,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
           </select>
         </div>
         <div className="Column">
-          <label className="EditPopupLabel">Role</label>
+          <label className="AddPopupLabel">Role</label>
           <select
             className="FormControl_input"
             name="roleId"
@@ -854,7 +666,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
 
       <div className="row">
         <div className="Column">
-          <label className="EditPopupLabel">Is CNS Employee</label>
+          <label className="AddPopupLabel">Is CNS Employee</label>
           <select
             className="FormControl_input"
             name="isCNSEmployee"
@@ -867,12 +679,18 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
         </div>
       </div>
       <div className="row">
-        <input
-          type="button"
-          value="Update"
-          className="FormControl_button"
-          onClick={handleUpdateClick}
-        />
+        <center>
+          {" "}
+          <button
+            // type="button"
+            // value="Update"
+            // className="FormControl_button"
+            className="ModelButton"
+            onClick={handleUpdateClick}
+          >
+            Update
+          </button>
+        </center>
       </div>
       {showModal && (
         <div style={modalStyles}>
@@ -1023,6 +841,11 @@ function CreateUserForm({ onCreate, close }) {
 
   return (
     <div className="EditPopup">
+      <div style={{ marginBottom: "30px" }}>
+        <center>
+          <h2>Add User</h2>
+        </center>
+      </div>
       {formError && (
         <span style={{ color: "#FF0000" }} className="error">
           {formError}
@@ -1139,14 +962,15 @@ function CreateUserForm({ onCreate, close }) {
         </div>
       </div>
       <div className="row">
-        <input
-          size="small"
-          type="button"
-          name="Create"
-          value="Create"
-          className="FormControl_button_test"
+        <button
+          // type="button"
+          // name="Create"
+          // value="Create"
+          className="ModelButton"
           onClick={handleCreate}
-        />
+        >
+          Create
+        </button>
       </div>
       {showModal && (
         <div style={modalStyles}>
@@ -1161,17 +985,6 @@ function CreateUserForm({ onCreate, close }) {
           </div>
         </div>
       )}
-      {/* {showModal && (
-        <div style={modalStyles}>
-          <div style={modalContentStyles}>
-            <span style={closeButtonStyles} onClick={handleCloseModal}>
-              &times;
-            </span>
-            <p>User successfully registered</p>
-            <button onClick={handleCloseModal}>OK</button>
-          </div>
-        </div>
-      )} */}
     </div>
   );
 }

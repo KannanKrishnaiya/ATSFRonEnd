@@ -38,47 +38,54 @@ export default function CashDepositCassetteDetails({
   };
 
   const renderCashDepositCassetteDetails = (index) => {
-    return Loc_CashDepositCassetteDetails
-      ? Loc_CashDepositCassetteDetails.map(
-          ({
-            bankName,
-            atM_TerminalId,
-            sequenceNumber,
-            transaction_DateTime,
-            cashDepositTxnTimeStamp,
-            aeD_5,
-            aeD_10,
-            aeD_20,
-            aeD_50,
-            aeD_100,
-            aeD_200,
-            aeD_500,
-            aeD_1000,
-            totalNotes,
-            totalAmount,
-          }) => {
-            return (
-              <tr key={index}>
-                <td>{bankName}</td>
-                <td>{atM_TerminalId}</td>
-                <td>{sequenceNumber}</td>
-                <td>{transaction_DateTime}</td>
-                <td>{cashDepositTxnTimeStamp}</td>
-                <td>{aeD_5}</td>
-                <td>{aeD_10}</td>
-                <td>{aeD_20}</td>
-                <td>{aeD_50}</td>
-                <td>{aeD_100}</td>
-                <td>{aeD_200}</td>
-                <td>{aeD_500}</td>
-                <td>{aeD_1000}</td>
-                <td>{totalNotes}</td>
-                <td>{totalAmount}</td>
-              </tr>
-            );
-          }
-        )
-      : "No Records Available";
+  
+
+    if (Loc_CashDepositCassetteDetails?.length <= 0) {
+      return (
+       "Please check all Transaction page for more details"
+      );
+    }
+      return Loc_CashDepositCassetteDetails
+        ? Loc_CashDepositCassetteDetails.map(
+            ({
+              bankName,
+              atM_TerminalId,
+              sequenceNumber,
+              transaction_DateTime,
+              cashDepositTxnTimeStamp,
+              aeD_5,
+              aeD_10,
+              aeD_20,
+              aeD_50,
+              aeD_100,
+              aeD_200,
+              aeD_500,
+              aeD_1000,
+              totalNotes,
+              totalAmount,
+            }) => {
+              return (
+                <tr key={index}>
+                  <td>{bankName}</td>
+                  <td>{atM_TerminalId}</td>
+                  <td>{sequenceNumber}</td>
+                  <td>{transaction_DateTime}</td>
+                  <td>{cashDepositTxnTimeStamp}</td>
+                  <td>{aeD_5}</td>
+                  <td>{aeD_10}</td>
+                  <td>{aeD_20}</td>
+                  <td>{aeD_50}</td>
+                  <td>{aeD_100}</td>
+                  <td>{aeD_200}</td>
+                  <td>{aeD_500}</td>
+                  <td>{aeD_1000}</td>
+                  <td>{totalNotes}</td>
+                  <td>{totalAmount}</td>
+                </tr>
+              );
+            }
+          )
+        : "No Records Available";
   };
 
   function GetCashDepositCassetteDetails() {

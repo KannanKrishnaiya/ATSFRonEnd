@@ -148,6 +148,7 @@ import { Logout } from "../../services/Auth";
 import { setUser } from "../../redux/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { LogoutAPI } from "../../services/Api";
+import { Button, Stack } from "@mui/material";
 
 export default function LoggedInUserDetails(User) {
   const popupRef = useRef(null);
@@ -155,7 +156,7 @@ export default function LoggedInUserDetails(User) {
   const LoggedInUserRoleDetailsData = useSelector(
     (state) => state.user.userDetails
   );
-  
+
   const [LoggedUserAvatar, setLoggedUserAvatar] = useState({
     firstNameInitial: "",
     lastNameInitial: "",
@@ -167,40 +168,40 @@ export default function LoggedInUserDetails(User) {
   useEffect(() => {
     if (Userdetails != null) {
       //  GetUserRoleDetailsByNameAPI(Userdetails)
-        //  .then((response) => {
-          //  if (response.status !== 200 || response === null) {
-          //    LogoutUser();
-          //  }
-          //  const data = response?.data[0];
-          //  const UserRoleDetails = {
-          //    Id: data?.id,
-          //    BankName: data?.bankName,
-          //    Designation: data?.designation,
-          //    Email: data?.email,
-          //    FirstName: data?.firstName,
-          //    LastName: data?.lastName,
-          //    MobileNumber: data?.mobileNumber,
-          //    RoleId: data?.roleId,
-          //    RoleName: data?.roleName,
-          //    UserName: data?.userName,
-          //  };
-          // dispatch(setUser({ userDetails: UserRoleDetails }));
-          setLoggedUserAvatar({
-            firstNameInitial: LoggedInUserRoleDetailsData.FirstName
-              ? LoggedInUserRoleDetailsData.FirstName[0]
-              : "",
-            lastNameInitial: LoggedInUserRoleDetailsData.LastName
-              ? LoggedInUserRoleDetailsData.LastName[0]
-              : "",
-          });
-        // })
-    //     .catch((err) => {
-    //       if (err.response != null && err.response.status != 200) {
-    //         LogoutUser();
-    //       }
-    //     });
-    // } else {
-    //   LogoutUser();
+      //  .then((response) => {
+      //  if (response.status !== 200 || response === null) {
+      //    LogoutUser();
+      //  }
+      //  const data = response?.data[0];
+      //  const UserRoleDetails = {
+      //    Id: data?.id,
+      //    BankName: data?.bankName,
+      //    Designation: data?.designation,
+      //    Email: data?.email,
+      //    FirstName: data?.firstName,
+      //    LastName: data?.lastName,
+      //    MobileNumber: data?.mobileNumber,
+      //    RoleId: data?.roleId,
+      //    RoleName: data?.roleName,
+      //    UserName: data?.userName,
+      //  };
+      // dispatch(setUser({ userDetails: UserRoleDetails }));
+      setLoggedUserAvatar({
+        firstNameInitial: LoggedInUserRoleDetailsData.FirstName
+          ? LoggedInUserRoleDetailsData.FirstName[0]
+          : "",
+        lastNameInitial: LoggedInUserRoleDetailsData.LastName
+          ? LoggedInUserRoleDetailsData.LastName[0]
+          : "",
+      });
+      // })
+      //     .catch((err) => {
+      //       if (err.response != null && err.response.status != 200) {
+      //         LogoutUser();
+      //       }
+      //     });
+      // } else {
+      //   LogoutUser();
     }
   }, []);
 
@@ -278,6 +279,22 @@ export default function LoggedInUserDetails(User) {
   //   cursor: "pointer",
   // };
 
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    console.log(hour);
+    if (hour < 12) {
+      return "Good Morning,";
+    } else if (hour < 18) {
+      return "Good Afternoon,";
+    } else {
+      return "Good Evening,";
+    }
+  };
+
+
+  console.log(LoggedInUserRoleDetailsData?.FirstName);
+  
+
   return (
     <div className="LoggedInUserDetailsTab">
       <div
@@ -297,36 +314,109 @@ export default function LoggedInUserDetails(User) {
         </div>
         <div className="user-avatar-container" onClick={handleAvatarClick}>
           <div className="LoggedInUserDetailsTabName">
-            Welcome{" "}
             <span className="welcomeText">
-              {LoggedInUserRoleDetailsData?.UserName}
+              {getGreeting()}&nbsp;&nbsp;{LoggedInUserRoleDetailsData?.UserName}
             </span>
           </div>
-          <div className="avatarStyle">
+          <div
+            className={`avatarStyle ${showPopup ? "activeAvatarStyle" : ""} `}
+          >
             {LoggedInUserRoleDetailsData?.FirstName
-              ? LoggedInUserRoleDetailsData?.FirstName[0]
+              ? LoggedInUserRoleDetailsData?.FirstName[0].toUpperCase()
               : ""}
             {LoggedInUserRoleDetailsData?.LastName
-              ? LoggedInUserRoleDetailsData?.LastName[0]
+              ? LoggedInUserRoleDetailsData?.LastName[0].toUpperCase()
               : ""}
           </div>
           {showPopup && (
-            <div ref={popupRef} className="popupMenu popupMenuStyle">
-              <button
-                className="buttonStyle"
-                onClick={() => handleOptionSelect("changePassword")}
-              >
-                <MdOutlineLockReset className="iconStyle" />
-                Change Password
-              </button>
-              <hr />
-              <button
-                className="buttonStyle"
-                onClick={() => handleOptionSelect("logout")}
-              >
-                <MdLogout className="iconStyle marginLeft" />
-                Logout
-              </button>
+            // <div ref={popupRef} className="popupMenuStyle">
+            //   <button
+            //     className="buttonStyle"
+            //     onClick={() => handleOptionSelect("changePassword")}
+            //   >
+            //     <MdOutlineLockReset className="iconStyle" />
+            //     Change Password
+            //   </button>
+            //   <hr />
+            //   <button
+            //     className="buttonStyle"
+            //     onClick={() => handleOptionSelect("logout")}
+            //   >
+            //     <MdLogout className="iconStyle marginLeft" />
+            //     Logout
+            //   </button>
+            // </div>
+            // <div ref={popupRef} className="popupMenuStyle">
+            //   <div className="profile_Btns">
+            //     <div>
+            //       {" "}
+            //       <button
+            //         className="buttonStyle"
+            //         onClick={() => handleOptionSelect("changePassword")}
+            //       >
+            //         <MdOutlineLockReset className="iconStyle" />
+            //         Change Password
+            //       </button>
+            //     </div>
+            //     <div>
+            //       <button
+            //         className="buttonStyle"
+            //         onClick={() => handleOptionSelect("logout")}
+            //       >
+            //         <MdLogout className="iconStyle marginLeft" />
+            //         Logout
+            //       </button>
+            //     </div>
+            //   </div>
+            // </div>
+            <div ref={popupRef} className="card">
+              <Stack spacing={2} direction="row" gap={2}>
+                {" "}
+                <Button
+                  variant="contained"
+                  size="small"
+                  startIcon={<MdOutlineLockReset />}
+                  className=" top-btn "
+                  onClick={() => handleOptionSelect("changePassword")}
+                >
+                  {/* <MdOutlineLockReset className="iconStyle" /> */}
+                  Change Password
+                </Button>
+                {/* <button class="">Btn 2</button> */}
+                <Button
+                  variant="contained"
+                  size="small"
+                  startIcon={<MdLogout />}
+                  className=" top-btn "
+                  onClick={() => handleOptionSelect("logout")}
+                >
+                  {/* <MdLogout className="iconStyle marginLeft" /> */}
+                  Logout
+                </Button>
+              </Stack>
+
+              <div class="card-content">
+                {/* <img
+                  src="https://via.placeholder.com/80"
+                  alt="Avatar"
+                  class="avatar"
+                /> */}
+                <div className="avatarStyleInCard">
+                  {LoggedInUserRoleDetailsData?.FirstName
+                    ? LoggedInUserRoleDetailsData?.FirstName[0].toUpperCase()
+                    : ""}
+                  {LoggedInUserRoleDetailsData?.LastName
+                    ? LoggedInUserRoleDetailsData?.LastName[0].toUpperCase()
+                    : ""}
+                </div>
+                <div class="info">
+                  <div class="username">
+                    {" "}
+                    {LoggedInUserRoleDetailsData?.email}
+                  </div>
+                  <div class="email"> {LoggedInUserRoleDetailsData?.Email}</div>
+                </div>
+              </div>
             </div>
           )}
         </div>

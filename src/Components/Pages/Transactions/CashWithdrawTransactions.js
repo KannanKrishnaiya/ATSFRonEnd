@@ -23,8 +23,15 @@ import { FaFileAlt } from "react-icons/fa";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { jsPDF } from "jspdf";
 import CashWithdrawalCassetteDetails from "./CashWithdrawalCassetteDetails";
+import { useSelector } from "react-redux";
 
 export default function CashWithdrawTransactions() {
+  const LoggedInUserRoleDetailsData = useSelector(
+    (state) => state.user.userDetails
+  );
+
+  console.log(LoggedInUserRoleDetailsData);
+
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [CashWithdrawalTransactions, SetCashWithdrawalTransactions] = useState(
     []
@@ -34,9 +41,18 @@ export default function CashWithdrawTransactions() {
   // const [startDate, setStartDate] = useState(new Date("2014/02/08"));
   // const [endDate, setEndDate] = useState(new Date("2014/02/10"));
 
+  console.log(LoggedInUserRoleDetailsData?.BankId);
+
   const [CashWithDrawalTransactionsInput, setCashWithDrawalTransactionsInput] =
     useState({
-      bankName: "",
+      bankName:
+        LoggedInUserRoleDetailsData?.RoleId > 3
+          ? LoggedInUserRoleDetailsData?.BankName
+          : "",
+      bankId:
+        LoggedInUserRoleDetailsData?.RoleId > 3
+          ? LoggedInUserRoleDetailsData?.BankId
+          : "",
       branch: "",
       atm_TerminalId: "",
       transactionStartDate: "",
@@ -108,11 +124,31 @@ export default function CashWithdrawTransactions() {
       TransactionStartDate.toLocaleDateString();
     CashWithDrawalTransactionsInput.transactionEndDate =
       TransactionEndDate.toLocaleDateString();
+    
+    
+        let inputForAPI = {};
+        if (LoggedInUserRoleDetailsData?.RoleId < 3) {
+          inputForAPI = {
+            transactionStartDate: CashWithDrawalTransactionsInput.transactionStartDate,
+            transactionEndDate: CashWithDrawalTransactionsInput.transactionEndDate,
+          };
+        } else {
+          inputForAPI = {
+            bankName: CashWithDrawalTransactionsInput.bankName,
+            bankId: CashWithDrawalTransactionsInput.bankId,
+            branch: "",
+            atm_TerminalId: "",
+            transactionStartDate: CashWithDrawalTransactionsInput.transactionStartDate,
+            transactionEndDate: CashWithDrawalTransactionsInput.transactionEndDate,
+          };
+        }
+    
 
-    GetCashWithdrawalTxnAPI(Userdetails, CashWithDrawalTransactionsInput)
+    GetCashWithdrawalTxnAPI(Userdetails, inputForAPI)
       .then((response) => {
+           console.log("response.data", response.data);
         if (response.status != "200") {
-          //LogoutUser();
+          LogoutUser();
         }
         SetCashWithdrawalTransactions(response.data);
         // console.log(
@@ -124,7 +160,7 @@ export default function CashWithdrawTransactions() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
-          //LogoutUser();
+          LogoutUser();
         }
       })
       .finally(() => {

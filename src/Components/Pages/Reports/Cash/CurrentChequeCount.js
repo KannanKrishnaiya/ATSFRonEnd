@@ -1,85 +1,125 @@
 import { useEffect, useState } from "react";
-import LoaderComp from "../../Layout/Loader";
-import { GetLookupsAPI } from "../../../services/Lookups/Lookups_Api";
-import { BrowserRouter as Router, useNavigate } from "react-router-dom";
+import LoaderComp from "../../../Layout/Loader";
 import MUIDataTable from "mui-datatables";
 import {
   createTheme,
   ThemeProvider,
   CustomCheckbox,
 } from "@mui/material/styles";
-import { Logout } from "../../../services/Auth";
+import { GetChequeClearanceRptAPI } from "../../../../services/VynamicView/VynamicView";
+import { Logout } from "../../../../services/Auth";
 
-export default function Lookups_Bank() {
+import { BrowserRouter as Router, useNavigate } from "react-router-dom";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+import { TbUserEdit } from "react-icons/tb";
+import { useSelector } from "react-redux";
+
+export default function CurrentChequeCount() {
+  const LoggedInUserRoleDetailsData = useSelector(
+    (state) => state.user.userDetails
+  );
   const Userdetails = localStorage.getItem("LoggedInUser");
-  const [BankDetails, SetBankDetails] = useState([]);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    // console.log("BankDetails");
-    setIsLoading(true);
-    GetLookupsAPI(Userdetails, "banks")
-      .then((response) => {
-        // console.log("BankDetails", response.data);
-        setIsLoading(false);
-        SetBankDetails(response.data);
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        if (err.response.status != 200) {
-          LogoutUser();
-        }
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+  const [CurrentChequeCountTrans, SetCurrentChequeCountTrans] = useState([]);
+  const [CurrentChequeCountTransInput, setCurrentChequeCountTransInput] =
+    useState({
+      bankName: LoggedInUserRoleDetailsData?.BankName
+        ? LoggedInUserRoleDetailsData?.BankName
+        : "",
+      bankId: LoggedInUserRoleDetailsData?.BankId
+        ? LoggedInUserRoleDetailsData?.BankId
+        : LoggedInUserRoleDetailsData?.BankId === 0
+        ? 0
+        : "",
+      branch: "",
+      atm_TerminalId: "",
+      transactionStartDate: "",
+      transactionEndDate: "",
+    });
 
   const LogoutUser = () => {
     Logout();
   };
 
-  const columns = [
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  async function fetchData() {
+    setIsLoading(true);
+    GetChequeClearanceRptAPI(Userdetails)
+      .then((response) => {
+        SetCurrentChequeCountTrans(response?.data.allMachinesFree);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        if (err.response.status != 200) {
+          Logout();
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
+
+  const Transactioncolumns = [
     {
-      label: "Id",
-      name: "id",
-      selector: (row) => row.id,
-      sortable: true,
+      label: "Bank Name",
+      name: "bankName",
+      selector: (row) => row.bankName,
+      sort: true,
+      sortDirection: true,
     },
 
     {
-      label: "NameEn",
-      name: "nameEn",
-      selector: (row) => row.nameEn,
-      sortable: true,
+      label: "Device Model",
+      name: "deviceModel",
+      selector: (row) => row.deviceModel,
+      sort: true,
+      sortDirection: true,
     },
     {
-      label: "VynamicView Name",
-      name: "vV_NameEn",
-      selector: (row) => row?.vV_NameEn,
+      label: "Device Type",
+      name: "deviceType",
+      selector: (row) => row.deviceType,
       sortable: true,
+      sort: true,
+      sortDirection: true,
     },
     {
-      label: "Journal Name",
-      name: "eJ_NameEn",
-      selector: (row) => row?.eJ_NameEn,
+      label: "Terminal Id",
+      name: "deviceid",
+      selector: (row) => row.deviceid,
       sortable: true,
-    },
-
-    {
-      label: "Code",
-      name: "code",
-      selector: (row) => row.code,
-      sortable: true,
+      sort: true,
+      sortDirection: true,
     },
     {
-      label: "Status",
-      name: "isActive",
-      options: {
-        filter: true,
-        customBodyRender: (value) => (value ? "Active" : "In Active"),
-      },
+      label: "Timestamp",
+      name: "servertimestamp",
+      selector: (row) => row.servertimestamp,
+      sortable: true,
+      sort: true,
+      sortDirection: true,
+    },
+    {
+      label: "Eventno",
+      name: "eventno",
+      selector: (row) => row.eventno,
+      sortable: true,
+      sort: true,
+      sortDirection: true,
+    },
+    {
+      label: "Message",
+      name: "orgmessage",
+      selector: (row) => row.orgmessage,
+      sortable: true,
+      sort: true,
+      sortDirection: true,
     },
   ];
 
@@ -104,7 +144,8 @@ export default function Lookups_Bank() {
     rowsPerPageOptions: [5, 10, 25, 50, 100],
     textLabels: {
       body: {
-        noMatch: "Sorry, No Records Found",
+        noMatch: "",
+        // noMatch: "Sorry, No Records Found",
         toolTip: "Sort",
         columnHeaderTooltip: (column) => `Sort for ${column.label}`,
       },
@@ -202,22 +243,24 @@ export default function Lookups_Bank() {
 
   return (
     <div>
-      {isLoading ? (
-        <div>
-          <LoaderComp />
-        </div>
-      ) : (
-        <div>
-          <ThemeProvider theme={theme}>
-            <MUIDataTable
-              title={"Bank Details"}
-              data={BankDetails}
-              columns={columns}
-              options={options}
-            />
-          </ThemeProvider>
-        </div>
-      )}
+      <div>
+        {isLoading ? (
+          <div>
+            <LoaderComp />
+          </div>
+        ) : (
+          <div className="DivDataTable">
+            <ThemeProvider theme={theme}>
+              <MUIDataTable
+                title={"Current Cheque Count"}
+                data={CurrentChequeCountTrans}
+                columns={Transactioncolumns}
+                options={options}
+              />
+            </ThemeProvider>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

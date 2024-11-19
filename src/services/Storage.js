@@ -2,11 +2,14 @@
 
 
 export const StoreUserData = (data) => {
+  console.log(data);
+  
   const LoggedInUser = {
     email: data.email,
     // UserName: "Mohammed.Arash@cns-me.com",
     token: data.token,
     refreshToken: data.refreshToken,
+    
   };
   localStorage.setItem("LoggedInUser", JSON.stringify(LoggedInUser));
   // sessionStorage.setItem("isLoaded", 0);

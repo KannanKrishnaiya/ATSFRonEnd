@@ -9,7 +9,7 @@ import { color } from "framer-motion";
 
 import { Logout } from "../../services/Auth";
 import { SetLoggedInUserRoleDetails } from "../../services/Storage";
-import { GetUserRoleDetailsByNameAPI } from "../../services/User/UserService";
+import { GetUserRoleDetailsByEmailAPI } from "../../services/User/UserService";
 import { setUser } from "../../redux/userSlice";
 import { useDispatch } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
@@ -44,7 +44,7 @@ export default function LoginPage() {
       LoginApi(inputs)
         .then((response) => {
           StoreUserData(response.data);
-          GetUserRoleDetailsByNameAPI(response.data);
+          GetUserRoleDetailsByEmailAPI(response.data);
         })
         .catch((err) => {
           console.log("err", err);
@@ -79,20 +79,20 @@ export default function LoginPage() {
     IsLoaded++;
 
     // GetUserDetailsAPI(Userdetails)
-    GetUserRoleDetailsByNameAPI(Userdetails)
+    GetUserRoleDetailsByEmailAPI(Userdetails)
       .then((response) => {
-        if (response.status != 200 || response == null) {
-          LogoutAPI(Userdetails);
-          LogoutUser();
-        }
+        // if (response.status != 200 || response == null) {
+        //   LogoutAPI(Userdetails);
+        //   LogoutUser();
+        // }
         SetLoggedInUserRoleDetails(response.data[0]);
 
         const data = response.data[0];
 
-        console.log(data);
+        console.log(response);
         
         const UserRoleDetails = {
-          Id: data.Id,
+          Id: data.userId,
           BankName: data.bankName,
           BankId: data.bankId,
           Designation: data.designation,
@@ -119,10 +119,10 @@ export default function LoginPage() {
       })
       .catch((err) => {
         setLoading(false);
-        if (err.response.status != 200) {
-          LogoutAPI(Userdetails);
-          LogoutUser();
-        }
+        // if (err.response.status != 200) {
+        //   LogoutAPI(Userdetails);
+        //   LogoutUser();
+        // }
       })
       .finally(() => {
         setLoading(false);

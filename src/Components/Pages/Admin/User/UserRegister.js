@@ -19,7 +19,7 @@ import {
 } from "../../../../services/Lookups/Lookups_Api";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { RegisterUserAPI, UpdateUserAPI } from "../../../../services/Api";
+import { LogoutAPI, RegisterUserAPI, UpdateUserAPI } from "../../../../services/Api";
 import { Typography } from "@mui/material";
 import { Logout } from "../../../../services/Auth";
 
@@ -318,6 +318,7 @@ function ResetUser({ email, close }) {
       close();
     } catch (error) {
       if (error?.response?.status != 200) {
+        LogoutAPI(Userdetails);
         Logout();
       }
       setFormError("Reset password failed. Please try again.");
@@ -398,6 +399,7 @@ function EditUserForm({ userEditInput, onUpdate, close }) {
       } catch (error) {
         console.error("Error fetching lookups:", error);
         if (error.response?.status !== 200) {
+          LogoutAPI(Userdetails);
           Logout();
         }
       }

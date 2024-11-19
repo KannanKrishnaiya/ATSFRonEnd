@@ -1,12 +1,12 @@
 import axios from "axios";
 
-const GetUserRoleDetailsByNameURL = "/api/User/GetUserRoleDetailsByName";
+const GetUserRoleDetailsByEmailURL = "/api/User/GetUserRoleDetailsByEmail";
 const GetUserListURL = "/api/User/GetAllUsers";
 const ResetPasswordAPIURL = "/api/Auth/ResetPassword";
 const UpdatePasswordURL = "/api/Auth/UpdatePassword";
 const CheckUserExistsURL = "/api/Auth/CheckUserExists";
 
-export const GetUserRoleDetailsByNameAPI = (inputs) => {
+export const GetUserRoleDetailsByEmailAPI = (inputs) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
     idToken: userData.token,
@@ -18,12 +18,12 @@ export const GetUserRoleDetailsByNameAPI = (inputs) => {
     headers: { Authorization: "Bearer " + headerToken.idToken },
   };
 
-  var GetUserRoleDetailsByNameAPIResponse = axios.post(
-    GetUserRoleDetailsByNameURL,
+  var GetUserRoleDetailsByEmailAPIResponse = axios.post(
+    GetUserRoleDetailsByEmailURL,
     User,
     config
   );
-  return GetUserRoleDetailsByNameAPIResponse;
+  return GetUserRoleDetailsByEmailAPIResponse;
 };
 
 export const GetUserListAPI = (inputs) => {

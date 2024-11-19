@@ -7,7 +7,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { isAuthenticated } from "./services/Auth";
+import { isAuthenticated, Logout } from "./services/Auth";
 import "./assets/styles/CustomStyles/Custom.css";
 import LoaderComp from "./Components/Layout/Loader";
 import Dashboard from "./Components/Pages/Dashboard";
@@ -40,8 +40,11 @@ import GetVV_MachinesUpTime from "./Components/Pages/MachineUptimeCalculation/Ge
 import CashReplenish from "./Components/Pages/Reports/Cash/CashReplenish";
 import DepositClearanceRpt from "./Components/Pages/Reports/Cash/DepositClearanceRpt";
 import ChequeClearanceRpt from "./Components/Pages/Reports/Cash/ChequeClearanceRpt";
+import { Box, Button, Modal, Typography,Stack } from "@mui/material";
+import { fetchRefreshTokenAPI, LogoutAPI } from "./services/Api";
 
 function App() {
+    const [showModal, setShowModal] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [_isAuthenticated, setIsAuthenticated] = useState(true);
   //const navigate = useNavigate();
@@ -55,6 +58,52 @@ function App() {
     setIsAuthenticated(isAuthenticated);
   });
 
+  const modalStyles = {
+    display: showModal ? "flex" : "none",
+    position: "fixed",
+    zIndex: 1000,
+    left: 0,
+    top: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  };
+
+  const modalContentStyles = {
+    backgroundColor: "white",
+    padding: "20px",
+    borderRadius: "5px",
+    textAlign: "center",
+    position: "relative",
+  };
+
+   const Userdetails = localStorage.getItem("LoggedInUser");
+  
+    const handleLogout = async () => {
+      try {
+        await LogoutAPI(Userdetails);
+        Logout();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+  const handleContinue = async () => {
+    try {
+      const newTokenData = await fetchRefreshTokenAPI(Userdetails);
+    
+     
+    } catch (error) {
+      if (error.response?.status !== 200) {
+        LogoutAPI(Userdetails);
+        Logout();
+      }
+    }
+    setShowModal(false);
+  };
+
   return (
     <div>
       {isLoading ? (
@@ -65,71 +114,113 @@ function App() {
         <div>
           <Router>
             {_isAuthenticated ? (
-              <SideBar>
-                <Routes>
-                  <Route
-                    path="*"
-                    element={<Navigate to="/Dashboard" replace />}
-                  />
-                  {/* <Route path="*" element={<> not found </>} /> */}
-                  <Route path="/Dashboard" element={<Dashboard />} />
-                  <Route path="/Chartspage" element={<Chartspage />} />
-                  <Route path="/MsPage" element={<MsPage />} />
-                  <Route path="/DataTable" element={<DataTablePage />} />
-                  <Route path="/MachineDetails" element={<MachineDetails />} />
-                  <Route path="/Lookups_Bank" element={<Lookups_Bank />} />
-                  <Route path="/UserRegister" element={<UserRegister />} />
-                  <Route path="/ChangePassword" element={<ChangePassword />} />
-                  {/* <Route path="/ResetPassword" element={<ResetPassword />} /> */}
+              <>
+                {/* <div>
+                  {showModal && (
+                    <div className="modalStyles" style={modalStyles}>
+                      <div
+                        className="modalContentStyles"
+                        style={modalContentStyles}
+                      >
+                        <h3>
+                          Your Session has expired. Do you want to proceed?
+                        </h3>
+                        <br />
+                          <Button
+                            color="error"
+                          size="small"
+                          variant="contained"
+                          onClick={handleLogout}
+                        >
+                          Logout
+                        </Button>{" "}
+                        &nbsp; &nbsp; &nbsp;{" "}
+                        <Button
+                          size="small"
+                          variant="contained"
+                          onClick={handleContinue}
+                        >
+                        Continue
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </div> */}
+                <SideBar>
+                  <Routes>
+                    <Route
+                      path="*"
+                      element={<Navigate to="/Dashboard" replace />}
+                    />
+                    {/* <Route path="*" element={<> not found </>} /> */}
+                    <Route path="/Dashboard" element={<Dashboard />} />
+                    <Route path="/Chartspage" element={<Chartspage />} />
+                    <Route path="/MsPage" element={<MsPage />} />
+                    <Route path="/DataTable" element={<DataTablePage />} />
+                    <Route
+                      path="/MachineDetails"
+                      element={<MachineDetails />}
+                    />
+                    <Route path="/Lookups_Bank" element={<Lookups_Bank />} />
+                    <Route path="/UserRegister" element={<UserRegister />} />
+                    <Route
+                      path="/ChangePassword"
+                      element={<ChangePassword />}
+                    />
+                    {/* <Route path="/ResetPassword" element={<ResetPassword />} /> */}
 
-                  <Route path="/SendMail" element={<SendMail />} />
-                  <Route
-                    path="/ViewAllTransactions"
-                    element={<ViewAllTransactions />}
-                  />
-                  <Route
-                    path="/ViewAllFailedTransactions"
-                    element={<ViewAllFailedTransactions />}
-                  />
-                  <Route
-                    path="/CashWithdrawTransactions"
-                    element={<CashWithdrawTransactions />}
-                  />
-                  <Route
-                    path="/CashDepositTransactions"
-                    element={<CashDepositTransactions />}
-                  />
-                  <Route
-                    path="/ViewOtherTransactions"
-                    element={<ViewOtherTransactions />}
-                  />
-                  <Route
-                    path="/VynamicViewDashboard"
-                    element={<VynamicViewDashboard />}
-                  />
-                  <Route path="/Requests" element={<Requests />} />
-                  <Route
-                    path="/PendingRequests"
-                    element={<PendingRequests />}
-                  />
-                  <Route path="/DiscussionPage" element={<DiscussionPage />} />
-                  <Route path="/ErrorPage_404" element={<ErrorPage_404 />} />
+                    <Route path="/SendMail" element={<SendMail />} />
+                    <Route
+                      path="/ViewAllTransactions"
+                      element={<ViewAllTransactions />}
+                    />
+                    <Route
+                      path="/ViewAllFailedTransactions"
+                      element={<ViewAllFailedTransactions />}
+                    />
+                    <Route
+                      path="/CashWithdrawTransactions"
+                      element={<CashWithdrawTransactions />}
+                    />
+                    <Route
+                      path="/CashDepositTransactions"
+                      element={<CashDepositTransactions />}
+                    />
+                    <Route
+                      path="/ViewOtherTransactions"
+                      element={<ViewOtherTransactions />}
+                    />
+                    <Route
+                      path="/VynamicViewDashboard"
+                      element={<VynamicViewDashboard />}
+                    />
+                    <Route path="/Requests" element={<Requests />} />
+                    <Route
+                      path="/PendingRequests"
+                      element={<PendingRequests />}
+                    />
+                    <Route
+                      path="/DiscussionPage"
+                      element={<DiscussionPage />}
+                    />
+                    <Route path="/ErrorPage_404" element={<ErrorPage_404 />} />
 
-                  <Route
-                    path="/GetVV_MachinesUpTime"
-                    element={<GetVV_MachinesUpTime />}
-                  />
-                  <Route path="/CashReplenish" element={<CashReplenish />} />
-                  <Route
-                    path="/DepositClearanceRpt"
-                    element={<DepositClearanceRpt />}
-                  />
-                  <Route
-                    path="/ChequeClearanceRpt"
-                    element={<ChequeClearanceRpt />}
-                  />
-                </Routes>
-              </SideBar>
+                    <Route
+                      path="/GetVV_MachinesUpTime"
+                      element={<GetVV_MachinesUpTime />}
+                    />
+                    <Route path="/CashReplenish" element={<CashReplenish />} />
+                    <Route
+                      path="/DepositClearanceRpt"
+                      element={<DepositClearanceRpt />}
+                    />
+                    <Route
+                      path="/ChequeClearanceRpt"
+                      element={<ChequeClearanceRpt />}
+                    />
+                  </Routes>
+                </SideBar>
+              </>
             ) : (
               <Routes>
                 <Route path="/" element={<LoginPage />} exact />

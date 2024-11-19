@@ -1,7 +1,13 @@
 import "../../assets/styles/CustomStyles/LoginPage.css";
 import { FaBars, FaHome, FaLock, FaMoneyBill, FaUser } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import { LoginApi, LoggedInUser, GetUserDetailsAPI, LogoutAPI } from "../../services/Api";
+import {
+  LoginApi,
+  LoggedInUser,
+  GetUserDetailsAPI,
+  LogoutAPI,
+  fetchRefreshTokenAPI,
+} from "../../services/Api";
 import { StoreUserData } from "../../services/Storage";
 import { Link, Navigate } from "react-router-dom";
 import { isAuthenticated } from "../../services/Auth";
@@ -15,6 +21,8 @@ import { useDispatch } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 
 export default function LoginPage() {
+  const [isApiSuccess, setIsApiSuccess] = useState(false);
+
   const dispatch = useDispatch();
   const initialErrors = {
     password: { password: false },
@@ -43,8 +51,33 @@ export default function LoginPage() {
     if (!hasError) {
       LoginApi(inputs)
         .then((response) => {
+          setIsApiSuccess(true);
           StoreUserData(response.data);
           GetUserRoleDetailsByEmailAPI(response.data);
+
+          //  59.99999972333333 minutes
+          setIsApiSuccess(true);
+
+          // localStorage.setItem("EnableRefreshToken", JSON.stringify(true));
+          localStorage.setItem("myBoolean", JSON.stringify(isApiSuccess));
+          //  const interval = setInterval(() => {
+          //    localStorage.setItem("EnableRefreshToken", true);
+          //    const status = JSON.parse(
+          //      localStorage.getItem("EnableRefreshToken")
+          //    );
+          //    console.log("Refresh token enabled:", status);
+          //  }, 6000); // Call every 6 seconds
+          //  return () => clearInterval(interval);
+
+          // Refresh Token Code
+          // setTimeout(() => {
+          //   localStorage.setItem("EnableRefreshToken", true); // Enable after delay
+
+          //     const status = JSON.parse(
+          //       localStorage.getItem("EnableRefreshToken")
+          //     );
+          //   console.log("Refresh token enabled.", status);
+          // }, 6000); // 5000ms = 5 seconds
         })
         .catch((err) => {
           console.log("err", err);
@@ -65,6 +98,14 @@ export default function LoginPage() {
     setErrors({ ...errors });
   };
 
+  useEffect(() => {
+    console.log("IAm from useeffects");
+    console.log("isApiSuccess", isApiSuccess);
+
+    if (isApiSuccess) {
+    }
+  }, [isApiSuccess]);
+
   const [inputs, setInputs] = useState({
     password: "",
     name: "",
@@ -81,16 +122,16 @@ export default function LoginPage() {
     // GetUserDetailsAPI(Userdetails)
     GetUserRoleDetailsByEmailAPI(Userdetails)
       .then((response) => {
-        // if (response.status != 200 || response == null) {
-        //   LogoutAPI(Userdetails);
-        //   LogoutUser();
-        // }
+        if (response.status != 200 || response == null) {
+          LogoutAPI(Userdetails);
+          LogoutUser();
+        }
         SetLoggedInUserRoleDetails(response.data[0]);
 
         const data = response.data[0];
 
-        console.log(response);
-        
+        // console.log(response);
+
         const UserRoleDetails = {
           Id: data.userId,
           BankName: data.bankName,
@@ -106,7 +147,6 @@ export default function LoginPage() {
         };
 
         console.log(UserRoleDetails);
-        
 
         dispatch(
           setUser({
@@ -115,14 +155,15 @@ export default function LoginPage() {
         );
 
         setLoading(false);
+
         window.location = "Dashboard";
       })
       .catch((err) => {
         setLoading(false);
-        // if (err.response.status != 200) {
-        //   LogoutAPI(Userdetails);
-        //   LogoutUser();
-        // }
+        if (err.response.status != 200) {
+          LogoutAPI(Userdetails);
+          LogoutUser();
+        }
       })
       .finally(() => {
         setLoading(false);

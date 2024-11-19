@@ -412,7 +412,7 @@ export default function LoggedInUserDetails(User) {
                 <div class="info">
                   <div class="username">
                     {" "}
-                    {LoggedInUserRoleDetailsData?.email}
+                    {LoggedInUserRoleDetailsData?.UserName}
                   </div>
                   <div class="email"> {LoggedInUserRoleDetailsData?.Email}</div>
                 </div>

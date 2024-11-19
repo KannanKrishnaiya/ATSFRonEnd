@@ -40,11 +40,12 @@ import GetVV_MachinesUpTime from "./Components/Pages/MachineUptimeCalculation/Ge
 import CashReplenish from "./Components/Pages/Reports/Cash/CashReplenish";
 import DepositClearanceRpt from "./Components/Pages/Reports/Cash/DepositClearanceRpt";
 import ChequeClearanceRpt from "./Components/Pages/Reports/Cash/ChequeClearanceRpt";
-import { Box, Button, Modal, Typography,Stack } from "@mui/material";
+import { Box, Button, Modal, Typography, Stack } from "@mui/material";
 import { fetchRefreshTokenAPI, LogoutAPI } from "./services/Api";
+import { StoreUserData } from "./services/Storage";
 
 function App() {
-    const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [_isAuthenticated, setIsAuthenticated] = useState(true);
   //const navigate = useNavigate();
@@ -79,22 +80,59 @@ function App() {
     position: "relative",
   };
 
-   const Userdetails = localStorage.getItem("LoggedInUser");
-  
-    const handleLogout = async () => {
-      try {
-        await LogoutAPI(Userdetails);
-        Logout();
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  
+  const Userdetails = localStorage.getItem("LoggedInUser");
+
+  const [refreshModalStatus, setRefreshModalStatus] = useState(false);
+
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     const status = JSON.parse(localStorage.getItem("EnableRefreshToken"));
+
+  //     // console.log(status);
+
+  //     if (status !== null) {
+  //       setRefreshModalStatus(status);
+  //       clearInterval(interval); // Stop checking once the value is found
+  //     }
+  //   }, 1000); // Check every 1 second
+
+  //   return () => clearInterval(interval);
+  // }, []);
+
+  const storedValue = localStorage.getItem("myBoolean");
+
+  if (storedValue !== null) {
+    console.log(storedValue);
+
+    // Convert the stored value back to a boolean
+    const myBoolean = JSON.parse(storedValue);
+    console.log(myBoolean); // true or false
+  } else {
+     console.log(storedValue);
+
+    console.log("No value found in localStorage");
+  }
+
+  const handleLogout = async () => {
+    try {
+      await LogoutAPI(Userdetails);
+      Logout();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleContinue = async () => {
     try {
-      const newTokenData = await fetchRefreshTokenAPI(Userdetails);
-    
-     
+      // const newTokenData = await fetchRefreshTokenAPI(Userdetails);
+      fetchRefreshTokenAPI(Userdetails)
+        .then((response) => {
+          // console.log(response?.data);
+          StoreUserData(response?.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } catch (error) {
       if (error.response?.status !== 200) {
         LogoutAPI(Userdetails);
@@ -103,6 +141,18 @@ function App() {
     }
     setShowModal(false);
   };
+
+  // const Userdetails = localStorage.getItem("LoggedInUser");
+  // console.log(Userdetails);
+
+  // fetchRefreshTokenAPI(Userdetails)
+  //   .then((response) => {
+  //     // console.log(response?.data);
+  //     StoreUserData(response?.data);
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
 
   return (
     <div>
@@ -115,8 +165,8 @@ function App() {
           <Router>
             {_isAuthenticated ? (
               <>
-                {/* <div>
-                  {showModal && (
+                <div>
+                  {storedValue && (
                     <div className="modalStyles" style={modalStyles}>
                       <div
                         className="modalContentStyles"
@@ -126,8 +176,8 @@ function App() {
                           Your Session has expired. Do you want to proceed?
                         </h3>
                         <br />
-                          <Button
-                            color="error"
+                        <Button
+                          color="error"
                           size="small"
                           variant="contained"
                           onClick={handleLogout}
@@ -140,12 +190,12 @@ function App() {
                           variant="contained"
                           onClick={handleContinue}
                         >
-                        Continue
+                          Continue
                         </Button>
                       </div>
                     </div>
                   )}
-                </div> */}
+                </div>
                 <SideBar>
                   <Routes>
                     <Route

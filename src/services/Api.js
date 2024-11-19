@@ -142,15 +142,29 @@ export const UpdateUserAPI = (inputs, data) => {
 
 export const fetchRefreshTokenAPI = (inputs) => {
   const userData = JSON.parse(inputs);
+ console.log("input : ",inputs);
+  console.log(userData);
+
+    let headerToken = {
+      idToken: userData?.token,
+    };
 
   let DataToSend = {
     email: userData?.email,
-    refreshToken: userData?.token,
+    refreshToken: userData?.refreshToken,
   };
+
+
+  const config = {
+    headers: { Authorization: "Bearer " + headerToken.idToken },
+  };
+  
+  
 
   var fetchRefreshTokenApiResponse = axios.post(
     fetchRefreshTokenApiURL,
-    DataToSend
+    DataToSend,
+    config
   );
 
   return fetchRefreshTokenApiResponse;

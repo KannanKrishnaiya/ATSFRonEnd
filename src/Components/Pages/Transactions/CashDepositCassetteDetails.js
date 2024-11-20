@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { GetCashDepositCassetteDetailsAPI } from "../../../services/Transactions/Transactions";
 import { Logout } from "../../../services/Auth";
+import { LogoutAPI } from "../../../services/Api";
 
 export default function CashDepositCassetteDetails({
   CashDepositCassette_Input,
@@ -16,6 +17,9 @@ export default function CashDepositCassetteDetails({
     useState();
 
   const renderHeaderCashDepositCassetteDetails = (index) => {
+
+
+    
     return (
       <tr key={index}>
         <th>BankName</th>
@@ -39,6 +43,10 @@ export default function CashDepositCassetteDetails({
 
   const renderCashDepositCassetteDetails = (index) => {
   
+      if (isLoading) {
+        return "Loading...";
+      }
+
 
     if (Loc_CashDepositCassetteDetails?.length <= 0) {
       return (
@@ -107,6 +115,7 @@ export default function CashDepositCassetteDetails({
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
+           LogoutAPI(Userdetails);
           LogoutUser();
         }
       })

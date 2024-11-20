@@ -35,6 +35,7 @@ export default function ViewAllTransactions() {
   const [AllTransactions, SetAllTransactions] = useState([]);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [AllTransactionsInput, setAllTransactionsInput] = useState({
     bankName:
@@ -97,7 +98,14 @@ export default function ViewAllTransactions() {
     );
   };
   const renderTransactionDetails = () => {
-    return TransactionDetails ? (
+    if (loading) {
+      return "Loading...";
+    }
+
+    if (!TransactionDetails) {
+      return "No Records Available";
+    }
+    return (
       <tr key={0}>
         <td>
           {/* {TransactionDetails} */}
@@ -106,8 +114,6 @@ export default function ViewAllTransactions() {
           })}
         </td>
       </tr>
-    ) : (
-      "No Records Available"
     );
   };
 
@@ -146,8 +152,6 @@ export default function ViewAllTransactions() {
     // GetAllTransactions();
   }, []);
 
-
-
   function GetAllTransactions() {
     setIsLoading(true);
 
@@ -173,8 +177,6 @@ export default function ViewAllTransactions() {
       };
     }
 
-  
-
     GetAllTxnAPI(Userdetails, inputForAPI)
       .then((response) => {
         SetAllTransactions(response.data);
@@ -193,14 +195,14 @@ export default function ViewAllTransactions() {
   }
 
   function GetTransactionsDetails() {
-    // setIsLoading(true);
+    setLoading(true);
     // alert();
     GetTransactionDetailsAPI(Userdetails, TransactionDetailsInput)
       .then((response) => {
         // console.log("response.data", response.data);
         setTransactionDetails(response.data);
         // <TransactionPopup TransactionDetailsBody={InputTransactionId} />;
-        //setIsLoading(false);
+        setLoading(false);
       })
       .catch((err) => {
         if (err.response.status != 200) {
@@ -208,8 +210,11 @@ export default function ViewAllTransactions() {
           Logout();
         }
 
-        //setIsLoading(false);
+        setLoading(false);
         // LogoutUser();
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
 

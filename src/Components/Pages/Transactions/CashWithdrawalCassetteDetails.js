@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { GetCashWithdrawalCassetteDetailsAPI } from "../../../services/Transactions/Transactions";
 import { Logout } from "../../../services/Auth";
 import { setCanvasCreator } from "echarts";
+import { LogoutAPI } from "../../../services/Api";
 
 export default function CashWithdrawalCassetteDetails({
   CashWithdrawalCassetteDetails_Input,
@@ -36,6 +37,9 @@ export default function CashWithdrawalCassetteDetails({
 
   const renderCashWithdrawalCassetteDetails = (index) => {
 
+      if (isLoading) {
+        return "Loading...";
+      }
 
 
       if (Loc_CashWithdrawalCassetteDetails?.length <= 0) {
@@ -105,6 +109,7 @@ export default function CashWithdrawalCassetteDetails({
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
+           LogoutAPI(Userdetails);
           LogoutUser();
         }
       })

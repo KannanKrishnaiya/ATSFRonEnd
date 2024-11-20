@@ -27,13 +27,14 @@ import { useSelector } from "react-redux";
 import { LogoutAPI } from "../../../services/Api";
 
 export default function ViewAllFailedTransactions() {
-     const LoggedInUserRoleDetailsData = useSelector(
-       (state) => state.user.userDetails
-     );
+  const LoggedInUserRoleDetailsData = useSelector(
+    (state) => state.user.userDetails
+  );
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [AllFailedTransactions, SetAllFailedTransactions] = useState([]);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [AllFailedTransactionsInput, setAllFailedTransactionsInput] = useState({
     bankName:
@@ -133,25 +134,24 @@ export default function ViewAllFailedTransactions() {
       TransactionStartDate.toLocaleDateString();
     AllFailedTransactionsInput.transactionEndDate =
       TransactionEndDate.toLocaleDateString();
-    
-        let inputForAPI = {};
-        if (LoggedInUserRoleDetailsData?.RoleId < 3) {
-          inputForAPI = {
-            transactionStartDate: AllFailedTransactionsInput.transactionStartDate,
-            transactionEndDate: AllFailedTransactionsInput.transactionEndDate,
-          };
-        } else {
-          inputForAPI = {
-            bankName: AllFailedTransactionsInput.bankName,
-            bankId: AllFailedTransactionsInput.bankId,
-            branch: "",
-            atm_TerminalId: "",
-            transactionStartDate: AllFailedTransactionsInput.transactionStartDate,
-            transactionEndDate: AllFailedTransactionsInput.transactionEndDate,
-          };
-        }
 
-    
+    let inputForAPI = {};
+    if (LoggedInUserRoleDetailsData?.RoleId < 3) {
+      inputForAPI = {
+        transactionStartDate: AllFailedTransactionsInput.transactionStartDate,
+        transactionEndDate: AllFailedTransactionsInput.transactionEndDate,
+      };
+    } else {
+      inputForAPI = {
+        bankName: AllFailedTransactionsInput.bankName,
+        bankId: AllFailedTransactionsInput.bankId,
+        branch: "",
+        atm_TerminalId: "",
+        transactionStartDate: AllFailedTransactionsInput.transactionStartDate,
+        transactionEndDate: AllFailedTransactionsInput.transactionEndDate,
+      };
+    }
+
     GetAllFailedTxnAPI(Userdetails, inputForAPI)
       .then((response) => {
         SetAllFailedTransactions(response.data);
@@ -189,13 +189,15 @@ export default function ViewAllFailedTransactions() {
   });
   const [TransactionDetails, setTransactionDetails] = useState();
   const [TransactionId, SetTransactionId] = useState();
+
   function GetTransactionsDetails() {
-    // setIsLoading(true);
+    setLoading(true);
     // alert();
     GetTransactionDetailsAPI(Userdetails, TransactionDetailsInput)
       .then((response) => {
         // console.log("response.data", response.data);
         setTransactionDetails(response.data);
+        setLoading(false);
       })
       .catch((err) => {
         if (err.response.status != 200) {
@@ -203,8 +205,11 @@ export default function ViewAllFailedTransactions() {
           Logout();
         }
 
-        //setIsLoading(false);
+        setLoading(false);
         // LogoutUser();
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
   const renderHeader = (index) => {
@@ -215,7 +220,16 @@ export default function ViewAllFailedTransactions() {
     );
   };
   const renderTransactionDetails = () => {
-    return TransactionDetails ? (
+    
+    if (loading) {
+      return "Loading...";
+    }
+
+    if (!TransactionDetails) {
+      return "No Records Available";
+    }
+
+    return (
       <tr key={0}>
         <td>
           {/* {TransactionDetails} */}
@@ -224,9 +238,8 @@ export default function ViewAllFailedTransactions() {
           })}
         </td>
       </tr>
-    ) : (
-      "No Records Available"
     );
+
   };
   const downloadPdf = async (FileName) => {
     let TextString = JSON.stringify({ TransactionDetails });

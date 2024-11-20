@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { GetChequeDepositDetailsAPI } from "../../../services/Transactions/Transactions";
 import { Logout } from "../../../services/Auth";
+import { LogoutAPI } from "../../../services/Api";
 
 export default function ChequeDepositDetails({ ChequeDeposit_Input }) {
   const Userdetails = localStorage.getItem("LoggedInUser");
@@ -29,6 +30,10 @@ export default function ChequeDepositDetails({ ChequeDeposit_Input }) {
   };
 
   const renderChequeDepositDetails = (index) => {
+      if (isLoading) {
+        return "Loading...";
+      }
+
     return Loc_ChequeDepositDetails
       ? Loc_ChequeDepositDetails.map(
           ({
@@ -76,6 +81,7 @@ export default function ChequeDepositDetails({ ChequeDeposit_Input }) {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
+           LogoutAPI(Userdetails);
           LogoutUser();
         }
       })

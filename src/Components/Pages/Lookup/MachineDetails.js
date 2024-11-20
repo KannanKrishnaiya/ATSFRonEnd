@@ -12,6 +12,7 @@ import {
 import { Logout } from "../../../services/Auth";
 
 import Button from "@material-ui/core/Button";
+import { LogoutAPI } from "../../../services/Api";
 export default function MachineDetails() {
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [MachineDetails, SetMachineDetails] = useState([]);
@@ -33,6 +34,7 @@ export default function MachineDetails() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
+           LogoutAPI(Userdetails);
           LogoutUser();
         }
       })

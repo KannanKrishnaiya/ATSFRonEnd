@@ -7,6 +7,7 @@ import {
 } from "@mui/material/styles";
 import { CassetteRepForecastAPI } from "../../../../services/CashReplenish/CashReplenish";
 import { Logout } from "../../../../services/Auth";
+import { LogoutAPI } from "../../../../services/Api";
 
 export default function CassetteRepForecast() {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,6 +29,7 @@ export default function CassetteRepForecast() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
+           LogoutAPI(Userdetails);
           LogoutUser();
         }
       })

@@ -120,48 +120,55 @@ const SideBar = ({ children }) => {
           ],
         }
       : null,
-    {
-      path: "ViewTransactions",
-      name: (
-        <div className="Sidebartooltip">
-          ViewTransactions
-          <span className="tooltiptext">View Transactions</span>
-        </div>
-      ),
-      icon: (
-        <div className="Sidebartooltip">
-          <FaChartLine />
-          <span className="tooltiptext">View Transactions</span>
-        </div>
-      ),
-      subRoutes: [
-        {
-          path: "/CashWithdrawTransactions",
-          name: "Cash WithDrawal",
-          icon: <FaFileInvoiceDollar />,
-        },
-        {
-          path: "/CashDepositTransactions",
-          name: "Cash Deposit",
-          icon: <FaMoneyCheckAlt />,
-        },
-        {
-          path: "/ViewAllTransactions",
-          name: "View All Transactions",
-          icon: <FaMoneyCheck />,
-        },
-        {
-          path: "/ViewAllFailedTransactions",
-          name: "View All Failed Transactions",
-          icon: <FaFileContract />,
-        },
-        {
-          path: "/ViewOtherTransactions",
-          name: "Non Cash Transactions",
-          icon: <AiOutlineBank />,
-        },
-      ],
-    },
+
+    LoggedInUserRoleDetailsData?.RoleId !== null &&
+    (LoggedInUserRoleDetailsData?.RoleId == "1" ||
+      LoggedInUserRoleDetailsData?.RoleId == "2" ||
+      LoggedInUserRoleDetailsData?.RoleId == "3")
+      ? {
+          path: "ViewTransactions",
+          name: (
+            <div className="Sidebartooltip">
+              ViewTransactions
+              <span className="tooltiptext">View Transactions</span>
+            </div>
+          ),
+          icon: (
+            <div className="Sidebartooltip">
+              <FaChartLine />
+              <span className="tooltiptext">View Transactions</span>
+            </div>
+          ),
+          subRoutes: [
+            {
+              path: "/CashWithdrawTransactions",
+              name: "Cash WithDrawal",
+              icon: <FaFileInvoiceDollar />,
+            },
+            {
+              path: "/CashDepositTransactions",
+              name: "Cash Deposit",
+              icon: <FaMoneyCheckAlt />,
+            },
+            {
+              path: "/ViewAllTransactions",
+              name: "View All Transactions",
+              icon: <FaMoneyCheck />,
+            },
+            {
+              path: "/ViewAllFailedTransactions",
+              name: "View All Failed Transactions",
+              icon: <FaFileContract />,
+            },
+            {
+              path: "/ViewOtherTransactions",
+              name: "Non Cash Transactions",
+              icon: <AiOutlineBank />,
+            },
+          ],
+        }
+      : null,
+
     // {
     //   path: "/MsPage",
     //   name: "MsPage",
@@ -221,6 +228,38 @@ const SideBar = ({ children }) => {
               path: "/ChequeClearanceRpt",
               name: "Cheque Clearance",
               icon: <IoFileTrayFullOutline />,
+            },
+          ],
+        }
+      : null,
+
+    LoggedInUserRoleDetailsData?.RoleId !== null &&
+    (LoggedInUserRoleDetailsData?.RoleId == "1" ||
+      LoggedInUserRoleDetailsData?.RoleId == "4")
+      ? {
+          path: "Reports",
+          name: (
+            <div className="Sidebartooltip">
+              Customer Reports
+              <span className="tooltiptext"> Customer Reports</span>
+            </div>
+          ),
+          icon: (
+            <div className="Sidebartooltip">
+              <IoDocumentsSharp />
+              <span className="tooltiptext"> Customer Reports</span>
+            </div>
+          ),
+          subRoutes: [
+            {
+              path: "/GetVV_MachinesUpTime",
+              name: "Machines UpTime",
+              icon: <IoSpeedometerOutline />,
+            },
+            {
+              path: "/CashReplenish",
+              name: "Cash Replenish",
+              icon: <PiVanLight />,
             },
           ],
         }

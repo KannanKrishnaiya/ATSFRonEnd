@@ -197,6 +197,10 @@ export default function ViewOtherTransactions() {
       });
   }
   const renderTransactionDetails = () => {
+      if (isLoading) {
+        return "Loading...";
+      }
+
     return TransactionDetails ? (
       <tr key={0}>
         <td>

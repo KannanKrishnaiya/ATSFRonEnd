@@ -12,6 +12,7 @@ import {
   GetCassetteAverageConfigAPI,
 } from "../../../../services/CashReplenish/CashReplenish";
 import { Logout } from "../../../../services/Auth";
+import { LogoutAPI } from "../../../../services/Api";
 
 export default function CassetteCounterDenom() {
   const [isLoading, setIsLoading] = useState(false);
@@ -33,6 +34,7 @@ export default function CassetteCounterDenom() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
+           LogoutAPI(Userdetails);
           LogoutUser();
         }
       })

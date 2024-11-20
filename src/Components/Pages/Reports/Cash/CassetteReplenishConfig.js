@@ -15,6 +15,7 @@ import { Logout } from "../../../../services/Auth";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { TbUserEdit } from "react-icons/tb";
+import { LogoutAPI } from "../../../../services/Api";
 
 export default function CassetteReplenishConfig() {
   const [isLoading, setIsLoading] = useState(false);
@@ -48,6 +49,7 @@ export default function CassetteReplenishConfig() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
+           LogoutAPI(Userdetails);
           LogoutUser();
         }
       })

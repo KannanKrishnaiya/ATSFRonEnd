@@ -39,6 +39,7 @@ export default function CashWithdrawTransactions() {
   );
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   // const [startDate, setStartDate] = useState(new Date("2014/02/08"));
   // const [endDate, setEndDate] = useState(new Date("2014/02/10"));
 
@@ -121,7 +122,7 @@ export default function CashWithdrawTransactions() {
   }, []);
 
   function GetCashWithdrawalTrans() {
-    setIsLoading(true);
+    setLoading(true);
     CashWithDrawalTransactionsInput.transactionStartDate =
       TransactionStartDate.toLocaleDateString();
     CashWithDrawalTransactionsInput.transactionEndDate =
@@ -158,17 +159,17 @@ export default function CashWithdrawTransactions() {
         //   "SetCashWithdrawalTransactions",
         //   CashWithdrawalTransactions
         // );
-        setIsLoading(false);
+        setLoading(false);
       })
       .catch((err) => {
-        setIsLoading(false);
+        setLoading(false);
         if (err.response.status != 200) {
           LogoutAPI(Userdetails);
           LogoutUser();
         }
       })
       .finally(() => {
-        setIsLoading(false);
+        setLoading(false);
       });
   }
   const ResetInputs = (e) => {
@@ -208,20 +209,24 @@ export default function CashWithdrawTransactions() {
   const [TransactionId, SetTransactionId] = useState();
 
   function GetTransactionsDetails() {
+    setLoading(true);
     GetTransactionDetailsAPI(Userdetails, TransactionDetailsInput)
       .then((response) => {
         // console.log("response.data", response.data);
         setTransactionDetails(response.data);
       })
       .catch((err) => {
-        setIsLoading(false);
+        setLoading(false);
         if (err.response.status != 200) {
           LogoutAPI(Userdetails);
           Logout();
         }
 
         LogoutUser();
-      });
+      })
+      .finally(() => {
+        setLoading(false);
+      });;
   }
   const renderHeader = (index) => {
     return (
@@ -231,7 +236,15 @@ export default function CashWithdrawTransactions() {
     );
   };
   const renderTransactionDetails = () => {
-    return TransactionDetails ? (
+      if (loading) {
+        return "Loading...";
+      }
+    
+      if (!TransactionDetails) {
+        return "No Records Available";
+      }
+
+    return (
       <tr key={0}>
         <td>
           {/* {TransactionDetails} */}
@@ -240,9 +253,8 @@ export default function CashWithdrawTransactions() {
           })}
         </td>
       </tr>
-    ) : (
-      "No Records Available"
     );
+      
   };
   const downloadPdf = async (FileName) => {
     let TextString = JSON.stringify({ TransactionDetails });

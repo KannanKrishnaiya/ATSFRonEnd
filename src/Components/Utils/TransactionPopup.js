@@ -32,6 +32,10 @@ export default function TransactionPopup(props) {
     );
   };
   const renderTransactionDetails = () => {
+      if (isLoading) {
+        return "Loading...";
+      }
+
     // console.log("renderTransactionDetails");
     GetTransactionsDetails();
     return TransactionDetails ? (

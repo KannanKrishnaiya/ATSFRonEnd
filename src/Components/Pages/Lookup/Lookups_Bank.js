@@ -9,6 +9,7 @@ import {
   CustomCheckbox,
 } from "@mui/material/styles";
 import { Logout } from "../../../services/Auth";
+import { LogoutAPI } from "../../../services/Api";
 
 export default function Lookups_Bank() {
   const Userdetails = localStorage.getItem("LoggedInUser");
@@ -28,6 +29,7 @@ export default function Lookups_Bank() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
+           LogoutAPI(Userdetails);
           LogoutUser();
         }
       })

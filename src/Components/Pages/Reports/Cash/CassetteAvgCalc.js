@@ -12,6 +12,7 @@ import {
   CassetteAvgCalcAPI,
   GetCassetteAverageConfigAPI,
 } from "../../../../services/CashReplenish/CashReplenish";
+import { LogoutAPI } from "../../../../services/Api";
 
 export default function CassetteAvgCalc() {
   const [isLoading, setIsLoading] = useState(false);
@@ -33,6 +34,7 @@ export default function CassetteAvgCalc() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
+           LogoutAPI(Userdetails);
           LogoutUser();
         }
       })

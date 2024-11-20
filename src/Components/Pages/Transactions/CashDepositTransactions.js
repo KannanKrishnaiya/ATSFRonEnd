@@ -148,6 +148,7 @@ export default function CashDepositTransactions() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
+           LogoutAPI(Userdetails);
           LogoutUser();
         }
       })
@@ -178,16 +179,19 @@ export default function CashDepositTransactions() {
 
   const [TransactionDetails, setTransactionDetails] = useState();
   const [TransactionId, SetTransactionId] = useState();
+  const [loading, setLoading] = useState();
 
   function GetTransactionsDetails() {
     // console.log(TransactionDetailsInput);
 
-    // setIsLoading(true);
+    setLoading(true);
     // alert();
     GetTransactionDetailsAPI(Userdetails, TransactionDetailsInput)
       .then((response) => {
         // console.log("response.data", response.data);
         setTransactionDetails(response.data);
+      
+         setLoading(false);
       })
       .catch((err) => {
         if (err.response.status != 200) {
@@ -195,8 +199,11 @@ export default function CashDepositTransactions() {
           Logout();
         }
 
-        //setIsLoading(false);
+        setLoading(false);
         // LogoutUser();
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
   const renderHeader = (index) => {
@@ -206,19 +213,45 @@ export default function CashDepositTransactions() {
       </tr>
     );
   };
+  // const renderTransactionDetails = () => {
+     
+
+  //   return TransactionDetails ? (
+  //     <tr key={0}>
+  //       <td>
+  //         {TransactionDetails.split("||").map((i, key) => {
+  //           return <div key={key}>{i}</div>;
+  //         })}
+  //       </td>
+  //     </tr>
+  //   ) : (
+  //     "No Records Available"
+  //   );
+  // };
+
+
   const renderTransactionDetails = () => {
-    return TransactionDetails ? (
-      <tr key={0}>
-        <td>
-          {TransactionDetails.split("||").map((i, key) => {
-            return <div key={key}>{i}</div>;
-          })}
-        </td>
-      </tr>
-    ) : (
-      "No Records Available"
-    );
-  };
+  
+
+    
+  if (loading) {
+    return "Loading...";
+  }
+
+  if (!TransactionDetails) {
+    return "No Records Available";
+  }
+
+  return (
+    <tr key={0}>
+      <td>
+        {TransactionDetails.split("||").map((item, key) => (
+          <div key={key}>{item}</div>
+        ))}
+      </td>
+    </tr>
+  );
+};
 
   const downloadPdf = async (FileName) => {
     let TextString = JSON.stringify({ TransactionDetails });

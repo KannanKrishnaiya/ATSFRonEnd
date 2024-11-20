@@ -24,6 +24,7 @@ import "react-calendar/dist/Calendar.css";
 import { FaFileAlt } from "react-icons/fa";
 import { jsPDF } from "jspdf";
 import { useSelector } from "react-redux";
+import { LogoutAPI } from "../../../services/Api";
 
 export default function ViewAllFailedTransactions() {
      const LoggedInUserRoleDetailsData = useSelector(
@@ -104,6 +105,7 @@ export default function ViewAllFailedTransactions() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
+          LogoutAPI(Userdetails);
           Logout();
         }
         //console.log("GetLookupsAPI", err);
@@ -158,6 +160,7 @@ export default function ViewAllFailedTransactions() {
       })
       .catch((err) => {
         if (err.response.status != 200) {
+          LogoutAPI(Userdetails);
           Logout();
         }
         setIsLoading(false);
@@ -196,6 +199,7 @@ export default function ViewAllFailedTransactions() {
       })
       .catch((err) => {
         if (err.response.status != 200) {
+          LogoutAPI(Userdetails);
           Logout();
         }
 

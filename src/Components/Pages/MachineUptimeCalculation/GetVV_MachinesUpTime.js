@@ -26,6 +26,7 @@ import "react-calendar/dist/Calendar.css";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
+import { LogoutAPI } from "../../../services/Api";
 
 export default function GetVV_MachinesUpTime() {
   const [isLoading, setIsLoading] = useState(false);
@@ -112,6 +113,7 @@ export default function GetVV_MachinesUpTime() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
+                   LogoutAPI(Userdetails);
           Logout();
         }
       })
@@ -138,6 +140,7 @@ export default function GetVV_MachinesUpTime() {
       })
       .catch((err) => {
         if (err.response.status != 200) {
+          LogoutAPI(Userdetails);
           Logout();
         }
 

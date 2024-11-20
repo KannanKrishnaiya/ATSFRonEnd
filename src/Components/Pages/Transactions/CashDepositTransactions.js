@@ -28,6 +28,7 @@ import { Visibility } from "@mui/icons-material";
 import CashDepositCassetteDetails from "./CashDepositCassetteDetails";
 import ChequeDepositDetails from "./ChequeDepositDetails";
 import { useSelector } from "react-redux";
+import { LogoutAPI } from "../../../services/Api";
 
 export default function CashDepositTransactions() {
   const LoggedInUserRoleDetailsData = useSelector(
@@ -98,6 +99,7 @@ export default function CashDepositTransactions() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
+          LogoutAPI(Userdetails);
           Logout();
         }
         //console.log("GetLookupsAPI", err);
@@ -189,6 +191,7 @@ export default function CashDepositTransactions() {
       })
       .catch((err) => {
         if (err.response.status != 200) {
+          LogoutAPI(Userdetails);
           Logout();
         }
 

@@ -56,6 +56,10 @@ export default function UserRegister() {
       })
       .catch((err) => {
         setIsLoading(false);
+         if (err.response?.status !== 200) {
+           LogoutAPI(Userdetails);
+           Logout();
+         }
         console.error("Error fetching user data", err);
       });
   }, []);

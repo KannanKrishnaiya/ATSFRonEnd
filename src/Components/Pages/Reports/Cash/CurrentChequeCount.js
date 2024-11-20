@@ -14,6 +14,7 @@ import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { TbUserEdit } from "react-icons/tb";
 import { useSelector } from "react-redux";
+import { LogoutAPI } from "../../../../services/Api";
 
 export default function CurrentChequeCount() {
   const LoggedInUserRoleDetailsData = useSelector(
@@ -57,6 +58,7 @@ export default function CurrentChequeCount() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
+          LogoutAPI(Userdetails);
           Logout();
         }
       })

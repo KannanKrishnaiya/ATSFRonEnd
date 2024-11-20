@@ -25,6 +25,7 @@ import { FaFileAlt } from "react-icons/fa";
 import { jsPDF } from "jspdf";
 import { Visibility } from "@mui/icons-material";
 import { useSelector } from "react-redux";
+import { LogoutAPI } from "../../../services/Api";
 
 export default function ViewOtherTransactions() {
      const LoggedInUserRoleDetailsData = useSelector(
@@ -122,6 +123,7 @@ export default function ViewOtherTransactions() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
+          LogoutAPI(Userdetails);
           Logout();
         }
         //console.log("GetLookupsAPI", err);
@@ -168,6 +170,7 @@ export default function ViewOtherTransactions() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
+          LogoutAPI(Userdetails);
           Logout();
         }
 
@@ -185,6 +188,7 @@ export default function ViewOtherTransactions() {
       })
       .catch((err) => {
         if (err.response.status != 200) {
+          LogoutAPI(Userdetails);
           Logout();
         }
 

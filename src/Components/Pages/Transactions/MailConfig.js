@@ -7,6 +7,7 @@ import {
 } from "@mui/material/styles";
 import { Logout } from "../../../services/Auth";
 import { GetAllMailConfigAPI } from "../../../services/Transactions/Transactions";
+import { LogoutAPI } from "../../../services/Api";
 
 export default function MailConfig() {
 
@@ -24,7 +25,8 @@ export default function MailConfig() {
       })
       .catch((err) => {
         setIsLoading(false);
-        if (err.response.status != 200) {
+          if (err.response.status != 200) {
+        LogoutAPI(Userdetails);
           Logout();
         }
 

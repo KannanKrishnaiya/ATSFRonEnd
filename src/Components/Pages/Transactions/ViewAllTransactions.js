@@ -25,6 +25,7 @@ import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
 import { jsPDF } from "jspdf";
 import { useSelector } from "react-redux";
+import { LogoutAPI } from "../../../services/Api";
 
 export default function ViewAllTransactions() {
   const LoggedInUserRoleDetailsData = useSelector(
@@ -127,6 +128,7 @@ export default function ViewAllTransactions() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
+          LogoutAPI(Userdetails);
           Logout();
         }
 
@@ -182,6 +184,7 @@ export default function ViewAllTransactions() {
       .catch((err) => {
         setIsLoading(false);
         if (err.response.status != 200) {
+          LogoutAPI(Userdetails);
           Logout();
         }
 
@@ -201,6 +204,7 @@ export default function ViewAllTransactions() {
       })
       .catch((err) => {
         if (err.response.status != 200) {
+          LogoutAPI(Userdetails);
           Logout();
         }
 

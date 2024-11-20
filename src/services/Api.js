@@ -154,13 +154,10 @@ export const fetchRefreshTokenAPI = (inputs) => {
     refreshToken: userData?.refreshToken,
   };
 
-
   const config = {
     headers: { Authorization: "Bearer " + headerToken.idToken },
   };
   
-  
-
   var fetchRefreshTokenApiResponse = axios.post(
     fetchRefreshTokenApiURL,
     DataToSend,
@@ -170,5 +167,3 @@ export const fetchRefreshTokenAPI = (inputs) => {
   return fetchRefreshTokenApiResponse;
 };
 
-
-// test comt 

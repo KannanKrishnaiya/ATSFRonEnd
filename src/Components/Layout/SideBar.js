@@ -356,6 +356,15 @@ const SideBar = ({ children }) => {
             LoggedInUserRoleDetailsData?.RoleId === 1
               ? {
                   path: "/SendMail",
+                  name: "Compose",
+                  icon: <FaAngleDoubleRight />,
+                }
+              : null,
+            LoggedInUserRoleDetailsData?.RoleId !== null &&
+            (LoggedInUserRoleDetailsData?.RoleId == "1" ||
+              LoggedInUserRoleDetailsData?.RoleId == "2")
+              ? {
+                  path: "/MailConfig",
                   name: "Mail Config",
                   icon: <FaAngleDoubleRight />,
                 }

@@ -195,7 +195,7 @@ export const GetCashWithdrawalCassetteDetailsAPI = (inputs, data) => {
 
 
 
-export const GetAllMailConfigAPI = (inputs, data) => {
+export const GetAllMailConfigAPI = (inputs) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
     idToken: userData.token,

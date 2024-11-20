@@ -20,6 +20,8 @@ const GetChequeDepositDetailsURL = "/api/Transactions/GetChequeDepositDetails";
 const GetCashWithdrawalCassetteDetailsURL =
   "/api/Transactions/GetCashWithdrawalCassetteDetails";
 
+const GetAllMailConfigURL = "/api/Transactions/GetAllMailConfig";
+
 export const GetCashWithdrawalTxnAPI = (inputs, data) => {
   const userData = JSON.parse(inputs);
   let headerToken = {
@@ -188,4 +190,20 @@ export const GetCashWithdrawalCassetteDetailsAPI = (inputs, data) => {
     config
   );
   return GetCashWithdrawalCassetteDetailsPIResponse;
+};
+
+
+
+
+export const GetAllMailConfigAPI = (inputs, data) => {
+  const userData = JSON.parse(inputs);
+  let headerToken = {
+    idToken: userData.token,
+  };
+  const config = {
+    headers: { Authorization: "Bearer " + headerToken.idToken },
+  };
+
+  var GetAllMailConfigAPIResponse = axios.get(GetAllMailConfigURL, config);
+  return GetAllMailConfigAPIResponse;
 };

@@ -21,7 +21,6 @@ import { useDispatch } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 
 export default function LoginPage() {
-  const [isApiSuccess, setIsApiSuccess] = useState(false);
 
   const dispatch = useDispatch();
   const initialErrors = {
@@ -51,15 +50,14 @@ export default function LoginPage() {
     if (!hasError) {
       LoginApi(inputs)
         .then((response) => {
-          setIsApiSuccess(true);
-          StoreUserData(response.data);
+          StoreUserData(response.data , true);
           GetUserRoleDetailsByEmailAPI(response.data);
 
           //  59.99999972333333 minutes
-          setIsApiSuccess(true);
+          // setIsApiSuccess(true);
 
           // localStorage.setItem("EnableRefreshToken", JSON.stringify(true));
-          localStorage.setItem("myBoolean", JSON.stringify(isApiSuccess));
+          // localStorage.setItem("myBoolean", JSON.stringify(isApiSuccess));
           //  const interval = setInterval(() => {
           //    localStorage.setItem("EnableRefreshToken", true);
           //    const status = JSON.parse(
@@ -97,14 +95,6 @@ export default function LoginPage() {
     }
     setErrors({ ...errors });
   };
-
-  useEffect(() => {
-    console.log("IAm from useeffects");
-    console.log("isApiSuccess", isApiSuccess);
-
-    if (isApiSuccess) {
-    }
-  }, [isApiSuccess]);
 
   const [inputs, setInputs] = useState({
     password: "",

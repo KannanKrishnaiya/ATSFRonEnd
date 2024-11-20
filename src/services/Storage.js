@@ -1,5 +1,5 @@
-export const StoreUserData = (data) => {
-  console.log(data);
+export const StoreUserData = (data, status) => {
+  console.log(status);
 
   const LoggedInUser = {
     email: data.email,
@@ -7,6 +7,7 @@ export const StoreUserData = (data) => {
     token: data.token,
     refreshToken: data.refreshToken,
     tokenExpMinutes: data.tokenExpMinutes,
+    status : status
   };
   localStorage.setItem("LoggedInUser", JSON.stringify(LoggedInUser));
   // sessionStorage.setItem("isLoaded", 0);

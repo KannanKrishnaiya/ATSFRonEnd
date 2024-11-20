@@ -46,6 +46,7 @@ import { StoreUserData } from "./services/Storage";
 
 function App() {
   const [showModal, setShowModal] = useState(true);
+  const [refreshModalStatus, setRefreshModalStatus] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [_isAuthenticated, setIsAuthenticated] = useState(true);
   //const navigate = useNavigate();
@@ -60,7 +61,7 @@ function App() {
   });
 
   const modalStyles = {
-    display: showModal ? "flex" : "none",
+    display: refreshModalStatus ? "flex" : "none",
     position: "fixed",
     zIndex: 1000,
     left: 0,
@@ -82,36 +83,17 @@ function App() {
 
   const Userdetails = localStorage.getItem("LoggedInUser");
 
-  const [refreshModalStatus, setRefreshModalStatus] = useState(false);
+  useEffect(() => {
+    const status = JSON.parse(Userdetails);
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     const status = JSON.parse(localStorage.getItem("EnableRefreshToken"));
+    if (status?.status) {
+      const interval = setInterval(() => {
+        setRefreshModalStatus(true);
+      }, 59.999999638333335 * 60 * 1000);
 
-  //     // console.log(status);
-
-  //     if (status !== null) {
-  //       setRefreshModalStatus(status);
-  //       clearInterval(interval); // Stop checking once the value is found
-  //     }
-  //   }, 1000); // Check every 1 second
-
-  //   return () => clearInterval(interval);
-  // }, []);
-
-  const storedValue = localStorage.getItem("myBoolean");
-
-  if (storedValue !== null) {
-    console.log(storedValue);
-
-    // Convert the stored value back to a boolean
-    const myBoolean = JSON.parse(storedValue);
-    console.log(myBoolean); // true or false
-  } else {
-     console.log(storedValue);
-
-    console.log("No value found in localStorage");
-  }
+      return () => clearInterval(interval);
+    }
+  });
 
   const handleLogout = async () => {
     try {
@@ -124,10 +106,8 @@ function App() {
 
   const handleContinue = async () => {
     try {
-      // const newTokenData = await fetchRefreshTokenAPI(Userdetails);
       fetchRefreshTokenAPI(Userdetails)
         .then((response) => {
-          // console.log(response?.data);
           StoreUserData(response?.data);
         })
         .catch((error) => {
@@ -139,7 +119,7 @@ function App() {
         Logout();
       }
     }
-    setShowModal(false);
+    setRefreshModalStatus(false);
   };
 
   // const Userdetails = localStorage.getItem("LoggedInUser");
@@ -166,7 +146,7 @@ function App() {
             {_isAuthenticated ? (
               <>
                 <div>
-                  {storedValue && (
+                  {refreshModalStatus && (
                     <div className="modalStyles" style={modalStyles}>
                       <div
                         className="modalContentStyles"

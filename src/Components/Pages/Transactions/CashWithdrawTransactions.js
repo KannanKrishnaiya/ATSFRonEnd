@@ -122,7 +122,7 @@ export default function CashWithdrawTransactions() {
   }, []);
 
   function GetCashWithdrawalTrans() {
-    setLoading(true);
+    setIsLoading(true);
     CashWithDrawalTransactionsInput.transactionStartDate =
       TransactionStartDate.toLocaleDateString();
     CashWithDrawalTransactionsInput.transactionEndDate =
@@ -159,17 +159,17 @@ export default function CashWithdrawTransactions() {
         //   "SetCashWithdrawalTransactions",
         //   CashWithdrawalTransactions
         // );
-        setLoading(false);
+        setIsLoading(false);
       })
       .catch((err) => {
-        setLoading(false);
+        setIsLoading(false);
         if (err.response.status != 200) {
           LogoutAPI(Userdetails);
           LogoutUser();
         }
       })
       .finally(() => {
-        setLoading(false);
+        setIsLoading(false);
       });
   }
   const ResetInputs = (e) => {

@@ -21,11 +21,7 @@ const fetchRefreshTokenApiURL = "/api/Auth/RefreshToken";
 export const LoggedInUser = {};
 
 export const RegisterApi = (inputs) => {
-  // let data = {
-  //   UserName: inputs.name,
-  //   Password: inputs.password,
-  //   grant_type: "password",
-  // };
+ 
 
   var tt = axios.post(
     getTokenURL,

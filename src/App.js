@@ -44,6 +44,7 @@ import { Box, Button, Modal, Typography, Stack } from "@mui/material";
 import { fetchRefreshTokenAPI, LogoutAPI } from "./services/Api";
 import { StoreUserData } from "./services/Storage";
 import MailConfig from "./Components/Pages/Transactions/MailConfig";
+import MailConfigMain from "./Components/Pages/Transactions/MailConfigMain";
 
 function App() {
   const [showModal, setShowModal] = useState(true);
@@ -201,7 +202,7 @@ function App() {
                     {/* <Route path="/ResetPassword" element={<ResetPassword />} /> */}
 
                     <Route path="/SendMail" element={<SendMail />} />
-                    <Route path="/MailConfig" element={<MailConfig />} />
+                    <Route path="/MailConfig" element={<MailConfigMain />} />
                     <Route
                       path="/ViewAllTransactions"
                       element={<ViewAllTransactions />}

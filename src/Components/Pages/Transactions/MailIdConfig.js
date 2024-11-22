@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import LoaderComp from "../../Layout/Loader";
 import MUIDataTable from "mui-datatables";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {
+  createTheme,
+  ThemeProvider,
+} from "@mui/material/styles";
 import { Logout } from "../../../services/Auth";
 import { GetAllMailConfigAPI } from "../../../services/Transactions/Transactions";
 import { LogoutAPI } from "../../../services/Api";
 
-export default function MailConfig() {
+export default function MailIdConfig() {
   const Userdetails = localStorage.getItem("LoggedInUser");
   const [allMailConfigData, SetallMailConfigData] = useState([]);
 
@@ -16,7 +19,7 @@ export default function MailConfig() {
     setIsLoading(true);
     GetAllMailConfigAPI(Userdetails)
       .then((response) => {
-        SetallMailConfigData(response?.data?.lookup_MailConfig);
+        SetallMailConfigData(response?.data?.lookup_MailId_Config);
         setIsLoading(false);
       })
       .catch((err) => {
@@ -35,39 +38,30 @@ export default function MailConfig() {
 
   const allMailConfigDataColumns = [
     {
-      label: "From",
-      name: "fromMail",
-      selector: (row) => row.fromMail,
-      sortable: true,
-    },
-    {
-      label: "Mail Body",
-      name: "mailBody",
-      selector: (row) => row.mailBody,
-      sortable: true,
-    },
-    {
       label: "Mail Config Name",
       name: "mailConfigName",
       selector: (row) => row.mailConfigName,
       sortable: true,
     },
     {
-      label: "Type",
-      name: "mailType",
-      selector: (row) => row.mailType,
+      label: "Mail ID",
+      name: "mailId",
+      selector: (row) => row.mailId,
       sortable: true,
     },
     {
-      label: "subject",
-      name: "mailsubject",
-      selector: (row) => row.mailsubject,
+      label: "To",
+      name: "mailTo",
+      // selector: (row) => (row.mailTo ? "Yes" : "No"),
+      options: {
+        filter: true,
+        customBodyRender: (value) => (value ? "True" : "False"),
+      },
       sortable: true,
     },
-
     {
-      label: "Status",
-      name: "isActive",
+      label: "CC",
+      name: "maillCC",
       // selector: (row) => (row.mailCC ? "✓" : "✗"),
       options: {
         filter: true,
@@ -204,7 +198,7 @@ export default function MailConfig() {
           <div className="MUI_DataTable">
             <ThemeProvider theme={theme}>
               <MUIDataTable
-                title={"Mail Configuration"}
+                title={"Mail Id Configuration"}
                 data={allMailConfigData}
                 columns={allMailConfigDataColumns}
                 options={options}

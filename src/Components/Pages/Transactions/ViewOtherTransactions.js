@@ -35,6 +35,7 @@ export default function ViewOtherTransactions() {
   const [AllOtherTransactions, SetAllOtherTransactions] = useState([]);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [AllOtherTransactionsInput, setAllOtherTransactionsInput] = useState({
     bankName:
@@ -179,12 +180,13 @@ export default function ViewOtherTransactions() {
   }
 
   function GetTransactionsDetails() {
-    // setIsLoading(true);
+    setLoading(true);
     // alert();
     GetTransactionDetailsAPI(Userdetails, TransactionDetailsInput)
       .then((response) => {
         // console.log("response.data", response.data);
         setTransactionDetails(response.data);
+        setLoading(false);
       })
       .catch((err) => {
         if (err.response.status != 200) {
@@ -192,16 +194,23 @@ export default function ViewOtherTransactions() {
           Logout();
         }
 
-        //setIsLoading(false);
+        setLoading(false);
         // LogoutUser();
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
   const renderTransactionDetails = () => {
-      if (isLoading) {
+      if (loading) {
         return "Loading...";
       }
+    
+      if (!TransactionDetails) {
+        return "No Records Available";
+      }
 
-    return TransactionDetails ? (
+    return  (
       <tr key={0}>
         <td>
           {/* {TransactionDetails} */}
@@ -210,9 +219,7 @@ export default function ViewOtherTransactions() {
           })}
         </td>
       </tr>
-    ) : (
-      "No Records Available"
-    );
+    ) ;
   };
 
   const ResetInputs = (e) => {

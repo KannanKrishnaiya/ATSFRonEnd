@@ -136,7 +136,7 @@ export default function ViewAllFailedTransactions() {
       TransactionEndDate.toLocaleDateString();
 
     let inputForAPI = {};
-    if (LoggedInUserRoleDetailsData?.RoleId < 3) {
+    if (LoggedInUserRoleDetailsData?.RoleId <= 3) {
       inputForAPI = {
         transactionStartDate: AllFailedTransactionsInput.transactionStartDate,
         transactionEndDate: AllFailedTransactionsInput.transactionEndDate,

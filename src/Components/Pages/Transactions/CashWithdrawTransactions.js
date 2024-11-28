@@ -129,7 +129,7 @@ export default function CashWithdrawTransactions() {
       TransactionEndDate.toLocaleDateString();
 
     let inputForAPI = {};
-    if (LoggedInUserRoleDetailsData?.RoleId < 3) {
+    if (LoggedInUserRoleDetailsData?.RoleId <= 3) {
       inputForAPI = {
         transactionStartDate:
           CashWithDrawalTransactionsInput.transactionStartDate,

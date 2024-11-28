@@ -122,7 +122,7 @@ export default function CashDepositTransactions() {
       TransactionEndDate.toLocaleDateString();
 
     let inputForAPI = {};
-    if (LoggedInUserRoleDetailsData?.RoleId < 3) {
+    if (LoggedInUserRoleDetailsData?.RoleId <= 3) {
       inputForAPI = {
         transactionStartDate: CashDepositTransactionsInput.TransactionStartDate,
         transactionEndDate: CashDepositTransactionsInput.TransactionEndDate,
